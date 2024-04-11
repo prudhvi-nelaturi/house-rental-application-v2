@@ -1,0 +1,14 @@
+{
+  "name": "cs-546-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Prudhvi Nelaturi 20018695, Sakshi Sherkar 20022991, Varun Nihal Lakavath 20016235, Shreya Daniel Jacob 20018496, Pavan Kalyan Lingineni 20007180",
+  "license": "ISC"
+
+}
