@@ -9,7 +9,9 @@ const create = async (
   images,
   details,
   comments
-) => {};
+) => {
+  
+};
 
 const getAll = async () => {};
 
