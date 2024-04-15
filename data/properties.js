@@ -31,7 +31,12 @@ export const create = async (
   return theProperty;
 };
 
-const getAll = async () => {};
+export const getAll = async () => {
+  let propertyCollection = await properties();
+  let propertyList = await propertyCollection.find({}, {projection: {address: 1},}).toArray();
+  if (!propertyList) throw "Could not get all properties";
+  return propertyList;
+};
 
 export const get = async (propertyId) => {
   // const id = validation.checkId(propertyId);
@@ -45,16 +50,47 @@ export const get = async (propertyId) => {
   return theProperty;
 };
 
-const remove = async (propertyId) => {};
+export const remove = async (propertyId) => {
+  let propertyCollection = await properties();
+  const deletionInfo = await propertyCollection.findOneAndDelete({
+    _id: new ObjectId(propertyId),
+  });
 
-const update = async (
+  if (!deletionInfo) {
+    throw `Could not delete property with id of ${propertyId}`;
+  }
+
+  return { _id: deletionInfo._id, deleted: true };
+};
+
+export const update = async (
   propertyId,
   address,
-  ownerId,
   price,
+  ownerId,
   location,
   favouriteCount,
   images,
   details,
   comments
-) => {};
+) => {
+  let getCollectionFn = await properties();
+
+  await getCollectionFn.updateOne(
+    { _id: new ObjectId(propertyId) },
+    {
+      $set: {
+        address: address,
+        price: price,
+        ownerId: ownerId,
+        location: location,
+        favouriteCount: favouriteCount,
+        images: images,
+        details: details,
+        comments: comments
+      },
+    }
+  );
+
+  return await get(propertyId);
+};

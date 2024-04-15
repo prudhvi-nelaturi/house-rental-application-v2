@@ -11,6 +11,7 @@
   "author": "Prudhvi Nelaturi 20018695, Sakshi Sherkar 20022991, Varun Nihal Lakavath 20016235, Shreya Daniel Jacob 20018496, Pavan Kalyan Lingineni 20007180",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "mongodb": "^6.5.0"
   }
 }
