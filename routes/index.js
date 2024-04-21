@@ -5,3 +5,15 @@
     - When the route is /reviews use the routes defined in reviews.js routing file
     - All other enpoints should respond with a 404 as shown in the lecture code
 */
+
+import userRoutes from './user.js';
+
+const configRoutesFunction = (app) => {
+    app.use('/users', userRoutes);
+
+    app.use('*', (req, res) => {
+        res.status(404).json({error: 'Route Not Found'});
+    })
+}
+
+export default configRoutesFunction;
