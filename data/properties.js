@@ -33,8 +33,10 @@ export const create = async (
 
 export const getAll = async () => {
   let propertyCollection = await properties();
-  let propertyList = await propertyCollection.find({}, {projection: {address: 1},}).toArray();
-  if (!propertyList) throw "Could not get all properties";
+  let propertyList = await propertyCollection
+    .find({}, { projection: { address: 1 } })
+    .toArray();
+  if (!propertyList) throw 'Could not get all properties';
   return propertyList;
 };
 
@@ -75,6 +77,7 @@ export const update = async (
   comments
 ) => {
   let getCollectionFn = await properties();
+  let theProperty = get(propertyId);
 
   await getCollectionFn.updateOne(
     { _id: new ObjectId(propertyId) },
@@ -87,7 +90,7 @@ export const update = async (
         favouriteCount: favouriteCount,
         images: images,
         details: details,
-        comments: comments
+        comments: comments,
       },
     }
   );
