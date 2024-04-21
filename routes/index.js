@@ -7,8 +7,11 @@
 */
 
 import userRoutes from './user.js';
+import mainRoutes from './mainRoute.js';
 
 const configRoutesFunction = (app) => {
+    app.use('/', mainRoutes);
+
     app.use('/users', userRoutes);
 
     app.use('*', (req, res) => {
