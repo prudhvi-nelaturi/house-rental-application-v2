@@ -72,7 +72,7 @@ if(!property) throw 'property not found';
 
 const reqCommentIndex = product.comments.findIndex(comment =>comment.commentId.toString() === commentId);
 
-if(reqCommentIndex < 0) thorw 'comment not found';
+if(reqCommentIndex < 0) throw 'comment not found';
 
 property.comments[reqCommentIndex].CommentText = CommentText;
 
