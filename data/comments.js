@@ -1,6 +1,6 @@
 import {properties} from '../config/mongoCollections.js';
 import {ObjectId} from 'mongodb';
-//import {validateString} from "helpers.js";
+import {validateString} from "helpers.js";
 
 export const createReview = async(
 propertyId,
@@ -12,9 +12,9 @@ if(!propertyId
 || !CommentText){
 throw "All fields need to have valid values";
 }
-//propertyId = validateString(propertyId, 'propertyId');
-//userId = validateString(userId, 'userId');
-//CommentText = validateString(CommentText, 'CommentText');
+propertyId = validateString(propertyId, 'propertyId');
+userId = validateString(userId, 'userId');
+CommentText = validateString(CommentText, 'CommentText');
 
 if(!Object.isValid(propertyId)) throw 'Invalid PropertyId';
 if(!Object.isValid(userId)) throw 'Invalid userId';
@@ -64,7 +64,7 @@ if(!commentId) throw 'commentId is required';
 if(typeof commentId !== 'string') throw 'commentId must be a string';
 if(!ObjectId.isvalid(commentId)) throw 'Invalid commentId';
 const {CommentText} = updateObj;
-//updateObj.CommentText = validateString(updateObj.CommentText, 'CommentText');
+updateObj.CommentText = validateString(updateObj.CommentText, 'CommentText');
 
 const propertyCollection = await properties();
 const property = await propertyCollection.findOne({"comments.commentId": new ObjectId(commentId)});
