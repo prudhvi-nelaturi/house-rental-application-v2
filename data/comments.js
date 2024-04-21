@@ -1,6 +1,6 @@
 import { properties } from '../config/mongoCollections.js';
 import { ObjectId } from 'mongodb';
-import { validateString } from 'helpers.js';
+import { validateString } from '../helpers.js';
 
 export const createReview = async (propertyId, userId, CommentText) => {
   if (!propertyId || !userId || !CommentText) {
