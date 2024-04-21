@@ -1,6 +1,14 @@
 // This data file should export all functions using the ES6 standard as shown in the lecture code
 import { properties } from '../config/mongoCollections.js';
 import { ObjectId } from 'mongodb';
+import {
+  validateZip,
+  checkDecimalValue,
+  validateNumber,
+  validateObject,
+  validateString,
+  validateId,
+} from '../helpers.js';
 
 export const create = async (
   address,
@@ -10,6 +18,28 @@ export const create = async (
   images,
   details
 ) => {
+  if (!address || !price || !ownerId || !location || !images || !details) {
+    throw 'All fields must be defined';
+  }
+
+  validateObject(address, 'address');
+  if (!address.street) throw 'street must be present';
+  else address.street = validateString(address.street, 'street');
+  if (address.apartmentNum)
+    address.apartmentNum = validateString(address.apartmentNum, 'apartmentNum');
+  if (!address.city) throw 'city must be present';
+  else address.city = validateString(address.city, 'city');
+  if (!address.zip) throw 'zip must be present';
+  else address.zip = validateZip(address.zip, 'zip');
+  validateNumber(price, 'price');
+  // if (!ObjectId.isvalid(ownerId)) throw 'ownerId is not valid';
+  ownerId = validateId(ownerId, 'ownerId');
+  validateObject(location, 'location');
+  validateObject(details, 'details');
+  if (!details.description) throw 'description must be present';
+  else details.description = validateString(details.description, 'description');
+  if (!details.area) throw 'area must be present';
+  else validateNumber(details.area, 'area', true);
   let newProperty = {
     address: address,
     price: price,
@@ -33,9 +63,7 @@ export const create = async (
 
 export const getAll = async () => {
   let propertyCollection = await properties();
-  let propertyList = await propertyCollection
-    .find({}, { projection: { address: 1 } })
-    .toArray();
+  let propertyList = await propertyCollection.find({}).toArray();
   if (!propertyList) throw 'Could not get all properties';
   return propertyList;
 };

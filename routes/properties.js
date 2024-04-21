@@ -1,6 +1,6 @@
 // Import the express router as shown in the lecture code
 // Note: please do not forget to export the router!
-import { propertiesData } from '../data/index.js';
+import { properties } from '../data/index.js';
 
 router
   .route('/')
@@ -11,19 +11,15 @@ router
     //code here for POST
     let propertyInfo = req.body;
     try {
-      const newProduct = await propertiesData.create(
-        propertyInfo.productName,
-        propertyInfo.productDescription,
-        propertyInfo.modelNumber,
+      const newProduct = await properties.create(
+        propertyInfo.address,
         propertyInfo.price,
-        propertyInfo.manufacturer,
-        propertyInfo.manufacturerWebsite,
-        propertyInfo.keywords,
-        propertyInfo.categories,
-        propertyInfo.dateReleased,
-        propertyInfo.discontinued
+        propertyInfo.ownerId,
+        propertyInfo.location,
+        propertyInfo.images,
+        propertyInfo.details
       );
-      return res.json(newProduct);
+      res.render('home');
       // return res.json(newUser);
     } catch (e) {
       return res.sendStatus(500).json({ error: e.message });
