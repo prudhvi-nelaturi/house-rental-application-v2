@@ -1,5 +1,5 @@
 import express from 'express';
-import {getUser, createUser, updateUser} from '../data/user.js';
+import {users} from '../data/index.js';
 
 const router = express.Router();
   
@@ -82,7 +82,7 @@ const router = express.Router();
   
       try{
         const {firstName, middleName, lastName, email, password, gender, age, userType, city, state, profilePicture} = data;        
-        let newuser = await createUser(firstName, middleName, lastName, email, gender, age, userType, password, city, state, profilePicture);
+        let newuser = await users.createUser(firstName, middleName, lastName, email, gender, age, userType, password, city, state, profilePicture);
         return res.status(200).json(newuser);
       } catch(e) {
         return res.status(500).json({error: e});
@@ -100,7 +100,7 @@ const router = express.Router();
     //   }
   
       try{
-        const user = await getUser(req.params.userId);
+        const user = await users.getUser(req.params.userId);
         return res.status(200).json(user);
       } catch(e) {
         return res.status(404).json({error: e});
@@ -122,7 +122,7 @@ const router = express.Router();
         //   }
       
           try{
-            let user = await updateUser(id, userObj);
+            let user = await users.updateUser(id, userObj);
             return res.json(user);
           } catch(e) {
             return res.status(404).json({error: e});
