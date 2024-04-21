@@ -1,3 +1,8 @@
+import moment from 'moment';
+import PasswordValidator from 'password-validator';
+import validator from 'validator';
+import { ObjectId } from 'mongodb';
+
 // arr: the variable for array
 // arrName: the name of the field or variable name
 const validateArray = (arr, arrName) => {
@@ -7,6 +12,7 @@ const validateArray = (arr, arrName) => {
     throw `Error: ${arrName || 'Provided parameter'} is not an array`;
   if (arr.length == 0)
     throw `Error: ${arrName || 'Provided parameter'} is an empty array`;
+  return arr;
 };
 
 // num: the variable for number
@@ -25,6 +31,7 @@ const validateNumber = (num, numName, intFlag) => {
         numName || 'Provided parameter'
       } is a decimal number, Only whole numbers/integers are allowed`;
   }
+  return num;
 };
 
 // str: the variable for string
@@ -53,6 +60,7 @@ const validateObject = (obj, objName) => {
     throw `Error: ${
       objName || 'Provided parameter'
     } has no values corresponding to its keys`;
+  return obj;
 };
 
 const validateRatings = (ratings, numName) => {
@@ -74,6 +82,78 @@ const validateRatings = (ratings, numName) => {
     throw `Error: ${
       numName || 'Provided parameter'
     } must be upto 1 decimal place`;
+  return ratings;
+};
+
+const validatePassword = (pass, pName) => {
+  if (pass.includes(' ')) throw `Password must not consist of spaces`;
+  pass = validateString(pass, pName);
+  const schema = new PasswordValidator();
+  const minLen = 8;
+  const maxLen = 16;
+  schema
+    .is()
+    .min(minLen)
+    .is()
+    .max(maxLen)
+    .has()
+    .uppercase()
+    .has()
+    .lowercase()
+    .has()
+    .digits()
+    .has()
+    .symbols();
+
+  // Validate a password
+  if (!schema.validate(pass)) {
+    let valList = schema.validate(pass, { list: true });
+    let errStr = `${pName || 'Provided parameter'} must consist of `;
+    for (let i = 0; i < valList.length; i++) {
+      if (i != 0 && i != valList.length - 1) errStr = errStr + `, `;
+      if (i == valList.length - 1 && i != 0) errStr = errStr + ` and `;
+      if (valList[i] == 'min') errStr = errStr + `minimum ${minLen} characters`;
+      if (valList[i] == 'max') errStr = errStr + `maximum ${maxLen} characters`;
+      if (valList[i] == 'uppercase') errStr = errStr + `an uppercase letter`;
+      if (valList[i] == 'lowercase') errStr = errStr + `a lowercase letter`;
+      if (valList[i] == 'digits') errStr = errStr + `a number`;
+      if (valList[i] == 'symbols') errStr = errStr + `a special character`;
+    }
+    throw errStr;
+  }
+  return pass;
+};
+
+//this function requires date input in mm-dd-yyyy format
+const validateAge = (inputDate, varName) => {
+  inputDate = validateString(inputDate, varName);
+  let birthDate = moment(inputDate, 'MM/DD/YYYY');
+  let age = moment().diff(birthDate, 'years');
+  if (age < 18 || age >= 100)
+    throw `${varName || 'Provided parameter'} should be between 18-100`;
+  return inputDate;
+};
+
+const validateEmail = (email, varName) => {
+  email = validateString(email, varName);
+  if (!validator.isEmail(email))
+    throw `${varName || 'Provided parameter'} is invalid`;
+  return email;
+};
+
+const validateId = (objId, varName) => {
+  objId = validateString(objId, varName);
+  if (!ObjectId.isValid(objId))
+    throw `${varName || 'Provided parameter'} is invalid`;
+  return objId;
+};
+
+const validatePrice = (price, varName) => {
+  price = validateNumber(price, varName, false);
+  if (price <= 0.0)
+    throw `${varName || 'Provided parameter'} must be greater than 0`;
+  checkDecimalValue(price, varName, 2);
+  return price;
 };
 
 const checkDecimalValue = (num, numName, dec) => {
@@ -85,20 +165,25 @@ const checkDecimalValue = (num, numName, dec) => {
         numName || 'Provided parameter'
       } must be upto ${dec} decimal place`;
   }
+  return num;
 };
 
 const checkStringMinLength = (str, varName, min) => {
+  str = validateString(str, varName);
   if (min !== undefined && min !== null && str.length < min)
     throw `Error: ${
       varName || 'Provided parameter'
     } should consist of at least ${min} characters`;
+  return str;
 };
 
 const checkStringMaxLength = (str, varName, max) => {
+  str = validateString(str, varName);
   if (max !== undefined && max !== null && str.length > max)
     throw `Error: ${
       varName || 'Provided parameter'
     } should consist of at most ${max} characters`;
+  return str;
 };
 
 const checkArrLength = (arr, arrName, min) => {
@@ -108,6 +193,7 @@ const checkArrLength = (arr, arrName, min) => {
         arrName || 'Provided parameter'
       } should consist of at least ${min} elements`;
   }
+  return arr;
 };
 
 const checkMinValue = (num, numName, min) => {
@@ -115,6 +201,7 @@ const checkMinValue = (num, numName, min) => {
     throw `Error: Minimum value of ${
       numName || 'Provided parameter'
     } should be ${min}`;
+  return num;
 };
 
 const checkMaxValue = (num, numName, max) => {
@@ -122,6 +209,7 @@ const checkMaxValue = (num, numName, max) => {
     throw `Error: Maximum value of ${
       numName || 'Provided parameter'
     } should be ${max}`;
+  return num;
 };
 
 export {
@@ -130,6 +218,11 @@ export {
   validateString,
   validateObject,
   validateRatings,
+  validatePassword,
+  validateAge,
+  validateEmail,
+  validateId,
+  validatePrice,
   checkDecimalValue,
   checkArrLength,
   checkMaxValue,
