@@ -1,30 +1,49 @@
+import express from 'express';
+import configRoutesFunction from './routes/index.js';
+import exphbs from 'express-handlebars';
+
+const app = express();
+
+app.use(express.json());
+app.use('/public', express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+
+app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+configRoutesFunction(app);
+
+app.listen(3000, (req, res) => {
+  console.log('Our server is running at port 3000!');
+});
+
 // This file should set up the express server as shown in the lecture code
 
-import { create, get, getAll, remove, update } from './data/properties.js';
-import { dbConnection, closeConnection } from './config/mongoConnection.js';
-import { ObjectId } from 'mongodb';
-import { createUser } from './data/user.js';
-import { updateUser } from './data/user.js';
-import {
-  createComment,
-  getComment,
-  getAllComments,
-  updateComment,
-  removeComment,
-} from './data/comments.js';
+// import { create, get, getAll, remove, update } from './data/properties.js';
+// import { dbConnection, closeConnection } from './config/mongoConnection.js';
+// import { ObjectId } from 'mongodb';
+// import { createUser } from './data/user.js';
+// import { updateUser } from './data/user.js';
+// import {
+//   createComment,
+//   getComment,
+//   getAllComments,
+//   updateComment,
+//   removeComment,
+// } from './data/comments.js';
 
 //Seeding
-const db = await dbConnection();
-const userId = new ObjectId();
-try {
-  const result = await createComment(
-    '66258634bd80a46bc8795047',
-    userId.toString(),
-    'This is a comment'
-  );
-} catch (error) {
-  console.log(error);
-}
+// const db = await dbConnection();
+// const userId = new ObjectId();
+// try {
+//   const result = await createComment(
+//     '66258634bd80a46bc8795047',
+//     userId.toString(),
+//     'This is a comment'
+//   );
+// } catch (error) {
+//   console.log(error);
+// }
 
 // try {
 //   let address = {
@@ -243,23 +262,4 @@ try {
 //   console.log(e);
 // }
 
-await closeConnection();
-
-import express from 'express';
-import configRoutesFunction from './routes/index.js';
-import exphbs from 'express-handlebars';
-
-// const app = express();
-
-app.use(express.json());
-app.use('/public', express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-
-// configRoutesFunction(app);
-
-// app.listen(3000, (req, res) => {
-//     console.log("Our server is running at port 3000!");
-// });
+// await closeConnection();

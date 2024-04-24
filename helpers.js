@@ -2,6 +2,7 @@ import moment from 'moment';
 import PasswordValidator from 'password-validator';
 import validator from 'validator';
 import { ObjectId } from 'mongodb';
+import { postcodeValidator } from 'postcode-validator';
 
 // arr: the variable for array
 // arrName: the name of the field or variable name
@@ -238,6 +239,13 @@ const validateUserObj = (userObj) => {
   return userObj;
 };
 
+const validateZip = (zip, varname) => {
+  if (postcodeValidator(zip.trim(), 'US')) {
+    return zip.trim();
+  }
+  throw 'Enter valid zip';
+};
+
 export {
   validateArray,
   validateNumber,
@@ -256,4 +264,5 @@ export {
   checkStringMaxLength,
   checkStringMinLength,
   validateUserObj,
+  validateZip,
 };
