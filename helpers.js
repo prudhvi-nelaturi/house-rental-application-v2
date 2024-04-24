@@ -212,6 +212,32 @@ const checkMaxValue = (num, numName, max) => {
   return num;
 };
 
+const validateUserObj = (userObj) => {
+  if (userObj.hasOwnProperty('firstName')) {
+    userObj['firstName'] = validateString(userObj['firstName'], 'firstName');
+  }
+  if (userObj.hasOwnProperty('middleName')) {
+    userObj['middleName'] = validateString(userObj['middleName'], 'middleName');
+  }
+  if (userObj.hasOwnProperty('lastName')) {
+    userObj['lastName'] = validateString(userObj['lastName'], 'lastName');
+  }
+  if (userObj.hasOwnProperty('email')) {
+    userObj['email'] = validateEmail(userObj['email'], 'email');
+  }
+  if (userObj.hasOwnProperty('city')) {
+    userObj['city'] = validateString(userObj['city'], 'city');
+  }
+  if (userObj.hasOwnProperty('state')) {
+    userObj['state'] = validateString(userObj['state'], 'state');
+  }
+  if (userObj.hasOwnProperty('password')) {
+    userObj['password'] = validateString(userObj['password'], 'password');
+  }
+
+  return userObj;
+};
+
 export {
   validateArray,
   validateNumber,
@@ -229,4 +255,5 @@ export {
   checkMinValue,
   checkStringMaxLength,
   checkStringMinLength,
+  validateUserObj,
 };
