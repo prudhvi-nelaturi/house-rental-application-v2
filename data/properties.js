@@ -70,6 +70,7 @@ export const getAll = async () => {
 
 export const get = async (propertyId) => {
   // const id = validation.checkId(propertyId);
+  propertyId = validateId(propertyId, 'propertyId');
   let propertyCollection = await properties();
   const theProperty = await propertyCollection.findOne({
     _id: new ObjectId(propertyId),
@@ -81,6 +82,7 @@ export const get = async (propertyId) => {
 };
 
 export const remove = async (propertyId) => {
+  propertyId = validateId(propertyId, 'propertyId');
   let propertyCollection = await properties();
   const deletionInfo = await propertyCollection.findOneAndDelete({
     _id: new ObjectId(propertyId),
@@ -104,6 +106,36 @@ export const update = async (
   details,
   comments
 ) => {
+  if (
+    !propertyId ||
+    !address ||
+    !price ||
+    !ownerId ||
+    !location ||
+    !images ||
+    !details
+  ) {
+    throw 'All fields must be defined';
+  }
+
+  address = validateObject(address, 'address');
+  if (!address.street) throw 'street must be present';
+  else address.street = validateString(address.street, 'street');
+  if (address.apartmentNum)
+    address.apartmentNum = address.apartmentNum = validateString(address.apartmentNum, 'apartmentNum');
+  if (!address.city) throw 'city must be present';
+  else address.city = validateString(address.city, 'city');
+  if (!address.zip) throw 'zip must be present';
+  else address.zip = validateZip(address.zip, 'zip');
+  price = validateNumber(price, 'price');
+  // if (!ObjectId.isvalid(ownerId)) throw 'ownerId is not valid';
+  ownerId = validateId(ownerId, 'ownerId');
+  location = validateObject(location, 'location');
+  details = validateObject(details, 'details');
+  if (!details.description) throw 'description must be present';
+  else details.description = validateString(details.description, 'description');
+  if (!details.area) throw 'area must be present';
+  else details.area = validateNumber(details.area, 'area');
   let getCollectionFn = await properties();
   let theProperty = get(propertyId);
 
