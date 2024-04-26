@@ -1,1 +1,26 @@
-<h1>{{title}}</h1>
+<main id="login-page">
+    <h1>{{title}}</h1>
+
+    <form id="login-form" method="post" action="/login">
+    <label for="email">Email: </label>
+    <input name="email" id="email" type="email" placeholder="abcd@gmail.com" value="{{postData.firstName}}">
+    <label for="password">Password: </label>
+    <input name="password" id="password" type="password" value="{{postData.firstName}}">
+    <button name="submit-button" id="submit-button" type="submit">Login</button>
+</form>
+
+<a href="/register">Don`t have an account? Click here to register!</a>
+
+<div id="errors" hidden></div>
+
+{{#if isError}}
+<ul id="errors">
+    {{#each errors}}
+    <li>
+        {{this}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}}
+
+</main>
