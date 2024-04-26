@@ -36,7 +36,7 @@ export const createComment = async (propertyId, userId, CommentText) => {
   });
   if (!property) throw 'property not found';
   await propertyCollection.updateOne(
-    { _ids: new ObjectId(propertyId) },
+    { _id: new ObjectId(propertyId) },
     { $push: { comments: commentObj } }
   );
   return commentObj;
@@ -49,7 +49,7 @@ export const getAllComments = async (propertyId) => {
 
   const propertyCollection = await properties();
   const property = await propertyCollection.findOne({
-    propertyId: new ObjectId(propertyId),
+    _id: new ObjectId(propertyId),
   });
   if (!property) throw 'property not found';
   return property.comments;
