@@ -1,6 +1,7 @@
 import express from 'express';
 import configRoutesFunction from './routes/index.js';
 import exphbs from 'express-handlebars';
+import session from "express-session";
 
 const app = express();
 
@@ -10,6 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+app.use(session({
+  name: 'AuthenticationState',
+  secret: 'This is our secret message!!!',
+  resave: false,
+  saveUninitialized: false
+}));
 
 configRoutesFunction(app);
 
