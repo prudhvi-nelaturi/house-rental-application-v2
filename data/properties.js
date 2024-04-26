@@ -92,7 +92,7 @@ export const remove = async (propertyId) => {
     throw `Could not delete property with id of ${propertyId}`;
   }
 
-  return { _id: deletionInfo._id, deleted: true };
+  return { _id: deletionInfo, deleted: true };
 };
 
 export const update = async (
