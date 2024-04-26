@@ -1,46 +1,30 @@
-import express from 'express';
-import configRoutesFunction from './routes/index.js';
-import exphbs from 'express-handlebars';
 
-const app = express();
-
-app.use(express.json());
-app.use('/public', express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-
-configRoutesFunction(app);
-
-app.listen(3000, (req, res) => {
-  console.log('Our server is running at port 3000!');
-});
 
 // This file should set up the express server as shown in the lecture code
 
-// import { create, get, getAll, remove, update } from './data/properties.js';
-// import { dbConnection, closeConnection } from './config/mongoConnection.js';
-// import { ObjectId } from 'mongodb';
-// import { createUser } from './data/user.js';
-// import { updateUser } from './data/user.js';
-// import {
-//   createComment,
-//   getComment,
-//   getAllComments,
-//   updateComment,
-//   removeComment,
-// } from './data/comments.js';
+import { create, get, getAll, remove, update } from './data/properties.js';
+import { dbConnection, closeConnection } from './config/mongoConnection.js';
+import { ObjectId } from 'mongodb';
+import { createUser } from './data/user.js';
+import { updateUser } from './data/user.js';
+import {
+  createComment,
+  getComment,
+  getAllComments,
+  updateComment,
+  removeComment,
+} from './data/comments.js';
 
-//Seeding
-// const db = await dbConnection();
+// Seeding
+const db = await dbConnection();
 // const userId = new ObjectId();
 // try {
 //   const result = await createComment(
-//     '66258634bd80a46bc8795047',
+//     '66299da1e42c6dc02c1f6e3e',
 //     userId.toString(),
-//     'This is a comment'
+//     'This is a comment of a comment'
 //   );
+//   console.log(result);
 // } catch (error) {
 //   console.log(error);
 // }
@@ -76,7 +60,7 @@ app.listen(3000, (req, res) => {
 //   const result = await create(
 //     address,
 //     price,
-//     ownerId,
+//     ownerId.toString(),
 //     location,
 //     images,
 //     details
@@ -96,6 +80,7 @@ app.listen(3000, (req, res) => {
 //   };
 //   let price = 3100;
 //   let ownerId = new ObjectId();
+//   ownerId = ownerId.toString();
 //   let location = {
 //     latitute: '40.719074',
 //     longitute: '-74.050552',
@@ -180,7 +165,7 @@ app.listen(3000, (req, res) => {
 
 // try {
 //   async function main() {
-//     const removeProp = await remove('661c8d63ded84c1fa5b355be');
+//     const removeProp = await remove('66299d5ac85167e35591b94a');
 //     console.log(removeProp);
 //   }
 //   await main();
@@ -198,6 +183,7 @@ app.listen(3000, (req, res) => {
 //   };
 //   let price = 11;
 //   let ownerId = new ObjectId();
+//   ownerId = ownerId.toString();
 //   let location = {
 //     latitute: '40.75396',
 //     longitute: '-74.04547',
@@ -213,13 +199,13 @@ app.listen(3000, (req, res) => {
 //     propertyType: 'Private',
 //     apartmentType: '3BHK',
 //     accommodationType: 'Permanent',
-//     area: '1012 ft',
+//     area: 1012,
 //     bedroomCount: 3,
 //     bathroomCount: 2,
 //   };
 //   async function main() {
 //     const updateProp = await update(
-//       '661ca190df012c073aac5f13',
+//       '66299da1e42c6dc02c1f6e3e',
 //       address,
 //       price,
 //       ownerId,
@@ -262,4 +248,10 @@ app.listen(3000, (req, res) => {
 //   console.log(e);
 // }
 
+// try {
+//   let allComment = await getAllComments("66299da1e42c6dc02c1f6e3a");
+//   console.log(allComment);
+// } catch (error) {
+//   console.log(error);
+// }
 // await closeConnection();
