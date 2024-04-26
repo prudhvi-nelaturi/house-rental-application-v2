@@ -5,14 +5,13 @@ import {validateId, validateString, validateEmail, validatePassword, validateAge
 const router = express.Router();
   
   router
-    .route('/user')
+    .route('/register')
     .post(async (req, res) => {
-      //code here for POST
       let errors = [];
   
-      if(!req.body || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password || !req.body.gender || !req.body.age || !req.body.city || !req.body.state ) {
+      if(!req.body || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password || !req.body.confirmPassword || !req.body.gender || !req.body.age || !req.body.city || !req.body.state ) {
         errors.push("All required fields must be filled!");
-        return res.status(400).render('register', {isError: true, postData: req.body, errors: errors});
+        return res.status(400).render('register', {isError: true, postData: req.body, errors: errors, title: "Register Page"});
       }
       
       let data = req.body;
@@ -52,16 +51,19 @@ const router = express.Router();
         errors.push(e);
       }
 
-      if(data.hasOwnProperty('middleName')) {
-        try{
-          data.middleName = validateString(data.middleName, 'middleName');
-        } catch(e) {
-          errors.push(e);
-        }
-      }
+      if(data.password != data.confirmPassword) errors.push("Error: Confirm Password is not same as password!");
+
+      // if(data.hasOwnProperty('middleName')) {
+      //   try{
+      //     data.middleName = validateString(data.middleName, 'middleName');
+      //   } catch(e) {
+      //     errors.push(e);
+      //   }
+      // }
 
       if(errors.length > 0) {
-        return res.status(400).json({error: errors});
+        //return res.status(400).json({error: errors});
+        return res.status(400).render('register', {isError: true, postData: req.body, errors: errors, title: "Register Page"});
       }
 
     if(!data.hasOwnProperty('middleName')) {
@@ -71,13 +73,25 @@ const router = express.Router();
         data.profilePicture = '';
     }
   
+    let newuser = undefined;
+
       try{
         const {firstName, middleName, lastName, email, password, gender, age, city, state, profilePicture} = data;        
-        let newuser = await users.createUser(firstName, middleName, lastName, email, gender, age, password, city, state, profilePicture);
-        return res.status(200).json(newuser);
+        newuser = await users.createUser(firstName, middleName, lastName, email, gender, age, password, city, state, profilePicture);
+        //return res.status(200).json(newuser);
+        //return res.render('login');
       } catch(e) {
-        return res.status(500).json({error: e});
+          errors.push(e);
+          return res.status(400).render('register', {isError: true, postData: req.body, errors: errors, title: "Register Page"});
       }  
+
+      if(newuser) {
+        return res.render('login', {title: "Login Page"});
+      }
+      else {
+        return res.status(500).json({error: 'Internal Server Error'});
+      }
+
     });
   
   router
@@ -136,8 +150,54 @@ const router = express.Router();
           }
 
     })
-      
-  
 
+
+  router
+    .route('/login')
+    .post(async (req, res) => {
+    let errors = [];
+
+    if(!req.body || !req.body.email || !req.body.password) {
+      errors.push("All fields must be supplied!");
+      return res.status(400).render('login', {isError: true, postData: req.body, errors: errors, title: "Login Page"});
+    }
+
+    let data = req.body;
+
+    try{
+      data.email = validateEmail(data.email, 'email');
+    } catch(e) {
+      errors.push(e);
+    }
+
+    try{
+      data.password = validatePassword(data.password, 'password');
+    } catch(e) {
+      errors.push(e);
+    }
+
+    if(errors.length > 0) {
+      return res.status(400).render('login', {isError: true, postData: req.body, errors: errors, title: "Login Page"});
+    }
+
+    let user = {};
+    const {email, password} = data;
+    try{
+      user = await users.loginUser(email, password);
+    } catch(e) {
+      errors.push(e);
+      return res.status(400).render('login', {isError: true, postData: req.body, errors: errors, title: "Login Page"});
+    }
+
+    if(user && user.email == email) {
+        req.session.user = {firstName: user.firstName, middleName: user.middleName, lastName: user.lastName, email: user.email, gender: user.gender, age: user.age, city: user.city, state: user.state, profilePicture: user.profilePicture};
+        return res.render('homepage', {isAuthenticated: true});
+    }
+    else {
+      errors.push("Did not provide a valid username and/or password.")
+      return res.status(400).render('login', {isError: true, postData: req.body, errors: errors, title: "Login Page"});
+    }
+  
+  })
 
 export default router;

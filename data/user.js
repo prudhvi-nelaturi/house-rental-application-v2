@@ -86,4 +86,22 @@ export const updateUser = async (userId, updateObject) => {
   return {...updatedUser, _id: updatedUser._id.toString()};
 
 };
+
+export const loginUser = async (email, password) => {
+  if(!email || !password) throw "Error: All fields must be supplied.";
+  email = validateEmail(email, 'email');
+  password = validatePassword(password, 'password');
+
+  const user = await getUserByEmail(email);
+  if(!user) throw "Error: No details found with this email ID";
+
+  const check = await bcrypt.compare(password, user.hashPassword);
+  if(check) {
+    return {firstName: user.firstName, middleName: user.middleName, lastName: user.lastName, email: user.email, gender: user.gender, age: user.age, city: user.city, state: user.state, profilePicture: user.profilePicture};
+  }
+  else {
+    throw "Error: Either the username or password is invalid";
+  }
+
+};
   
