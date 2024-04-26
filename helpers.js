@@ -1,7 +1,8 @@
 import moment from 'moment';
 import PasswordValidator from 'password-validator';
 import validator from 'validator';
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
+import { postcodeValidator } from 'postcode-validator';
 
 // arr: the variable for array
 // arrName: the name of the field or variable name
@@ -87,24 +88,24 @@ export const validatePassword = (pass, pName) => {
         .has().digits()
         .has().symbols();
 
-    // Validate a password
-    if (!schema.validate(pass)) {
-        let valList = schema.validate(pass, { list: true })
-        let errStr = `${pName || 'Provided parameter'} must consist of `
-        for (let i = 0; i < valList.length; i++) {
-            if (i != 0 && i != valList.length - 1) errStr = errStr + `, `
-            if (i == valList.length - 1 && i != 0) errStr = errStr + ` and `
-            if (valList[i] == 'min') errStr = errStr + `minimum ${minLen} characters`
-            if (valList[i] == 'max') errStr = errStr + `maximum ${maxLen} characters`
-            if (valList[i] == 'uppercase') errStr = errStr + `an uppercase letter`
-            if (valList[i] == 'lowercase') errStr = errStr + `a lowercase letter`
-            if (valList[i] == 'digits') errStr = errStr + `a number`
-            if (valList[i] == 'symbols') errStr = errStr + `a special character`
-        }
-        throw errStr
+  // Validate a password
+  if (!schema.validate(pass)) {
+    let valList = schema.validate(pass, { list: true });
+    let errStr = `${pName || 'Provided parameter'} must consist of `;
+    for (let i = 0; i < valList.length; i++) {
+      if (i != 0 && i != valList.length - 1) errStr = errStr + `, `;
+      if (i == valList.length - 1 && i != 0) errStr = errStr + ` and `;
+      if (valList[i] == 'min') errStr = errStr + `minimum ${minLen} characters`;
+      if (valList[i] == 'max') errStr = errStr + `maximum ${maxLen} characters`;
+      if (valList[i] == 'uppercase') errStr = errStr + `an uppercase letter`;
+      if (valList[i] == 'lowercase') errStr = errStr + `a lowercase letter`;
+      if (valList[i] == 'digits') errStr = errStr + `a number`;
+      if (valList[i] == 'symbols') errStr = errStr + `a special character`;
     }
-    return pass;
-}
+    throw errStr;
+  }
+  return pass;
+};
 
 //this function requires date input in mm-dd-yyyy format
 export const validateAge = (inputDate, varName) => {

@@ -2,7 +2,7 @@ import { properties } from '../config/mongoCollections.js';
 import { ObjectId } from 'mongodb';
 import { validateString } from '../helpers.js';
 
-export const createReview = async (propertyId, userId, CommentText) => {
+export const createComment = async (propertyId, userId, CommentText) => {
   if (!propertyId || !userId || !CommentText) {
     throw 'All fields need to have valid values';
   }
@@ -10,8 +10,8 @@ export const createReview = async (propertyId, userId, CommentText) => {
   userId = validateString(userId, 'userId');
   CommentText = validateString(CommentText, 'CommentText');
 
-  if (!Object.isValid(propertyId)) throw 'Invalid PropertyId';
-  if (!Object.isValid(userId)) throw 'Invalid userId';
+  if (!ObjectId.isValid(propertyId)) throw 'Invalid PropertyId';
+  if (!ObjectId.isValid(userId)) throw 'Invalid userId';
   const commentId = new ObjectId();
   const currentDate = new Date();
   const postTime = currentDate.toLocaleString('en-US', {
@@ -32,11 +32,11 @@ export const createReview = async (propertyId, userId, CommentText) => {
   };
   const propertyCollection = await properties();
   const property = await propertyCollection.findOne({
-    propertyId: new ObjectId(propertyId),
+    _id: new ObjectId(propertyId),
   });
   if (!property) throw 'property not found';
   await propertyCollection.updateOne(
-    { propertyId: new ObjectId(propertyId) },
+    { _id: new ObjectId(propertyId) },
     { $push: { comments: commentObj } }
   );
   return commentObj;
@@ -49,7 +49,7 @@ export const getAllComments = async (propertyId) => {
 
   const propertyCollection = await properties();
   const property = await propertyCollection.findOne({
-    propertyId: new ObjectId(propertyId),
+    _id: new ObjectId(propertyId),
   });
   if (!property) throw 'property not found';
   return property.comments;
@@ -72,7 +72,7 @@ export const getComment = async (commentId) => {
   return foundComment;
 };
 
-export const updateReview = async (commentId, updateObj) => {
+export const updateComment = async (commentId, updateObj) => {
   if (!commentId) throw 'commentId is required';
   if (typeof commentId !== 'string') throw 'commentId must be a string';
   if (!ObjectId.isvalid(commentId)) throw 'Invalid commentId';
