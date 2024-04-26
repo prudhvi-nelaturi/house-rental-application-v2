@@ -122,7 +122,10 @@ export const update = async (
   if (!address.street) throw 'street must be present';
   else address.street = validateString(address.street, 'street');
   if (address.apartmentNum)
-    address.apartmentNum = address.apartmentNum = validateString(address.apartmentNum, 'apartmentNum');
+    address.apartmentNum = address.apartmentNum = validateString(
+      address.apartmentNum,
+      'apartmentNum'
+    );
   if (!address.city) throw 'city must be present';
   else address.city = validateString(address.city, 'city');
   if (!address.zip) throw 'zip must be present';
@@ -156,4 +159,27 @@ export const update = async (
   );
 
   return await get(propertyId);
+};
+
+//gives search result for city, zip, state. gives emtpy Array if no results.
+export const getPropertiesViaSearch = async (search) => {
+  if (typeof search === 'string') {
+    search = validateString(search, 'search');
+  }
+  if (typeof search === 'number') {
+    search = validateNumber(search, 'seach');
+  }
+
+  const propertyCollection = await properties();
+  const query = new RegExp(search, 'i');
+  const propertyList = await propertyCollection
+    .find({
+      $or: [
+        { 'address.city': { $regex: query } },
+        { 'address.zip': { $regex: query } },
+        { 'address.state': { $regex: query } },
+      ],
+    })
+    .toArray();
+  return propertyList;
 };
