@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 
 // arr: the variable for array
 // arrName: the name of the field or variable name
-const validateArray = (arr, arrName) => {
+export const validateArray = (arr, arrName) => {
     if (arr === undefined || arr === null)
         throw `Error: ${arrName || 'Provided parameter'} is null or undefined `
     if (!Array.isArray(arr))
@@ -18,7 +18,7 @@ const validateArray = (arr, arrName) => {
 // num: the variable for number
 // numName: the name of number field or variable name
 // intFlag: set inflag as true to check if the number is an integer, else set it as false
-const validateNumber = (num, numName, intFlag) => {
+export const validateNumber = (num, numName, intFlag) => {
     if (num === undefined || num === null)
         throw `Error: ${numName || 'Provided parameter'} is null or undefined`
     if (typeof num != "number")
@@ -34,7 +34,7 @@ const validateNumber = (num, numName, intFlag) => {
 
 // str: the variable for string
 // varName: the name of string field or variable name
-const validateString = (str, varName) => {
+export const validateString = (str, varName) => {
     if (str === undefined || str === null)
         throw `Error: ${varName || 'Provided parameter'} is null or undefined`
     if (typeof str !== 'string')
@@ -47,7 +47,7 @@ const validateString = (str, varName) => {
 
 // obj: the variable for object
 // objName: the name of object field or variable name
-const validateObject = (obj, objName) => {
+export const validateObject = (obj, objName) => {
     if (obj === null || obj === undefined)
         throw `Error: ${objName || 'Provided parameter'} is null or undefined`
     if (typeof obj !== 'object' || Array.isArray(obj))
@@ -59,7 +59,7 @@ const validateObject = (obj, objName) => {
     return obj
 }
 
-const validateRatings = (ratings, numName) => {
+export const validateRatings = (ratings, numName) => {
     if (ratings === undefined || ratings === null) throw `Error: ${numName || 'Provided parameter'} is null or undefined`
 
     if (typeof ratings !== "number") throw `Error: ${numName || 'Provided parameter'} is not a number`
@@ -73,8 +73,7 @@ const validateRatings = (ratings, numName) => {
     if (testArr.length > 1 && testArr[1].length > 1) throw `Error: ${numName || 'Provided parameter'} must be upto 1 decimal place`
     return ratings
 }
-
-const validatePassword = (pass, pName) => {
+export const validatePassword = (pass, pName) => {
     if (pass.includes(" ")) throw `Password must not consist of spaces`
     pass = validateString(pass, pName)
     const schema = new PasswordValidator();
@@ -108,7 +107,7 @@ const validatePassword = (pass, pName) => {
 }
 
 //this function requires date input in mm-dd-yyyy format
-const validateAge = (inputDate, varName) => {
+export const validateAge = (inputDate, varName) => {
     inputDate = validateString(inputDate, varName)
     let birthDate = moment(inputDate, 'MM/DD/YYYY')
     let age = moment().diff(birthDate, 'years')
@@ -116,27 +115,26 @@ const validateAge = (inputDate, varName) => {
     return inputDate
 }
 
-const validateEmail = (email, varName) => {
+export const validateEmail = (email, varName) => {
     email = validateString(email, varName)
     if (!validator.isEmail(email)) throw `${varName || 'Provided parameter'} is invalid`
     return email
 }
 
-const validateId = (objId, varName) => {
+export const validateId = (objId, varName) => {
     objId = validateString(objId, varName)
     if (!ObjectId.isValid(objId)) throw `${varName || 'Provided parameter'} is invalid`
     return objId
 }
 
-const validatePrice = (price, varName) => {
+export const validatePrice = (price, varName) => {
     price = validateNumber(price, varName, false)
     if (price <= 0.00) throw `${varName || 'Provided parameter'} must be greater than 0`
     checkDecimalValue(price, varName, 2)
     return price
 }
 
-
-const checkDecimalValue = (num, numName, dec) => {
+export const checkDecimalValue = (num, numName, dec) => {
     if (dec !== undefined && dec !== null) {
         let test = num.toString()
         let testArr = test.split(".")
@@ -145,21 +143,21 @@ const checkDecimalValue = (num, numName, dec) => {
     return num
 }
 
-const checkStringMinLength = (str, varName, min) => {
+export const checkStringMinLength = (str, varName, min) => {
     str = validateString(str, varName)
     if ((min !== undefined && min !== null) && str.length < min)
         throw `Error: ${varName || 'Provided parameter'} should consist of at least ${min} characters`
     return str
 }
 
-const checkStringMaxLength = (str, varName, max) => {
+export const checkStringMaxLength = (str, varName, max) => {
     str = validateString(str, varName)
     if ((max !== undefined && max !== null) && str.length > max)
         throw `Error: ${varName || 'Provided parameter'} should consist of at most ${max} characters`
     return str
 }
 
-const checkArrLength = (arr, arrName, min) => {
+export const checkArrLength = (arr, arrName, min) => {
     if (min !== undefined && min !== null) {
         if (arr.length < min)
             throw `Error: ${arrName || 'Provided parameter'} should consist of at least ${min} elements`
@@ -167,16 +165,27 @@ const checkArrLength = (arr, arrName, min) => {
     return arr
 }
 
-const checkMinValue = (num, numName, min) => {
+export const checkMinValue = (num, numName, min) => {
     if (num < min)
         throw `Error: Minimum value of ${numName || 'Provided parameter'} should be ${min}`
     return num
 }
 
-const checkMaxValue = (num, numName, max) => {
+export const checkMaxValue = (num, numName, max) => {
     if (num > max)
         throw `Error: Maximum value of ${numName || 'Provided parameter'} should be ${max}`
     return num
 }
 
-export { validateArray, validateNumber, validateString, validateObject, validateRatings, validatePassword, validateAge, validateEmail, validateId, validatePrice, checkDecimalValue, checkArrLength, checkMaxValue, checkMinValue, checkStringMaxLength, checkStringMinLength }
+export const validateState = (state, varName) => {
+    const names = [
+        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS',
+        'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC',
+        'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+    ]
+    
+    state = validateString(state, varName)
+
+    if (!names.includes(state)) throw `Invalid state`
+}
+
