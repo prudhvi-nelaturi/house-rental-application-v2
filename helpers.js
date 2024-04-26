@@ -190,3 +190,10 @@ export const validateState = (state, varName) => {
     if (!names.includes(state)) throw `Invalid state`
 }
 
+export const validateZip = (zip, varname) => {
+    if (postcodeValidator(zip.trim(), 'US')) {
+      return zip.trim();
+    }
+    throw 'Enter valid zip';
+  };
+
