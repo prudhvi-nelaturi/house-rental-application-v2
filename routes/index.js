@@ -8,15 +8,18 @@
 
 import userRoutes from './user.js';
 import mainRoutes from './mainRoute.js';
+import propertyRoutes from './properties.js';
 
 const configRoutesFunction = (app) => {
-    app.use('/', mainRoutes);
+  app.use('/', mainRoutes);
 
-    app.use('/users', userRoutes);
+  app.use('/users', userRoutes);
+  app.use('/search', propertyRoutes);
+  app.use('/search/propertyId', propertyRoutes);
 
-    app.use('*', (req, res) => {
-        res.status(404).json({error: 'Route Not Found'});
-    })
-}
+  app.use('*', (req, res) => {
+    res.status(404).json({ error: 'Route Not Found' });
+  });
+};
 
 export default configRoutesFunction;
