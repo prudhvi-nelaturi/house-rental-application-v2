@@ -183,3 +183,12 @@ export const getPropertiesViaSearch = async (search) => {
     .toArray();
   return propertyList;
 };
+
+export const getPropertiesByOwner = async (ownerId) => {
+  ownerId = validateId(ownerId, 'ownerId');
+  const propertyCollection = await properties();
+  const propertyList = await propertyCollection
+    .find({ ownerId: ownerId })
+    .toArray();
+  return propertyList;
+};
