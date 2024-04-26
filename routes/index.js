@@ -15,7 +15,6 @@ const configRoutesFunction = (app) => {
 
   app.use('/users', userRoutes);
   app.use('/search', propertyRoutes);
-  app.use('/search/propertyId', propertyRoutes);
 
   app.use('*', (req, res) => {
     res.status(404).json({ error: 'Route Not Found' });
