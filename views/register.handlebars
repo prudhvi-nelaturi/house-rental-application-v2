@@ -1,7 +1,7 @@
 <main id="register-page">
     <h1>{{title}}</h1>
 
-    <form id="register-form" method="post" action="/register">
+    <form id="register-form" method="post" action="/register" enctype="multipart/form-data">
     <label for="firstName">First Name: </label>
     <input type="text" name="firstName" id="firstName" value="{{postData.firstName}}" required>
     <p id="firstName-error" hidden></p>
