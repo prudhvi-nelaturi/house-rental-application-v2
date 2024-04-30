@@ -1,0 +1,7 @@
+.favorite-icon {
+    position: absolute; /* Absolute positioning within the image container */
+    top: 10px;  /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    font-size: 20px; /* Adjust font size for the icon */
+    color: red;  /* Adjust color as desired */
+  }
