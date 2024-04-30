@@ -15,6 +15,7 @@ const configRoutesFunction = (app) => {
 
   app.use('/', userRoutes);
   app.use('/search', propertyRoutes);
+  // app.use('/property/:propertyId', propertyRoutes);
   //app.use('/search/propertyId', propertyRoutes);
 
   app.use('*', (req, res) => {
