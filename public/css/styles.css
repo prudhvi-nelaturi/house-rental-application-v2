@@ -1,7 +1,47 @@
 .favorite-icon {
-    position: absolute; /* Absolute positioning within the image container */
-    top: 10px;  /* Adjust top position as needed */
-    right: 10px; /* Adjust right position as needed */
-    font-size: 20px; /* Adjust font size for the icon */
-    color: red;  /* Adjust color as desired */
-  }
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: red;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.card-content {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ff6b6b;
+  cursor: pointer;
+}
+
+.favorite-icon.active {
+  color: #ff4757;
+}
+
+.property-details {
+  padding: 10px;
+}
