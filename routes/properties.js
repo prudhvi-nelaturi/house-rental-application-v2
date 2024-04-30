@@ -109,6 +109,9 @@ router
       res.status(404).render('error', { title: 'error', error: e });
     }
   })
+
+  router
+  .route('/remove/:propertyId')
   .delete(async (req, res) => {
     //code here for DELETE
     try {
@@ -118,10 +121,12 @@ router
     }
     try {
       let deletedProperty = await properties.remove(req.params.propertyId);
-      if (deletedProperty.deleted) {
-        res.status(200).json({ message: 'Property deleted successfully' });
-      } else {
-        res.status(404).json({ message: 'Unable to delete the property' });
+      if(deletedProperty.deleted){
+        //res.status(200).json({message: "Property deleted successfully"});
+        return res.status(200).redirect('/userProfile');
+      }
+      else{
+        res.status(404).json({message: "Unable to delete the property"});
       }
     } catch (e) {
       res.status(404).json({ error: e });
