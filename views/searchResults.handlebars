@@ -1,1 +1,13 @@
-<p>Search Result</p>
+<h1>Property Search Results</h1>
+{{#each searchResults}}
+<div class = "card">
+    <div class = "image-container">
+        <img src="{{iamgeUrl}}" alt="Property Image">
+        <i class="favorite-icon fas fa-heart"></i>
+    </div>
+    <div class = 'property'>
+    <p>Address: ${{address}}</p>
+    <p>Price: ${{price}}</p>
+    </div>
+</div>
+{{/each}}

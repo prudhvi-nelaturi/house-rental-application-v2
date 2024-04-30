@@ -52,6 +52,7 @@ router
       if (searchResults) {
         return res.render('searchResults', {
           title: 'searchResults',
+          searchResults: searchResults
         });
       }
     } catch (error) {
