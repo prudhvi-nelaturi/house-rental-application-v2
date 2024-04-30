@@ -1,5 +1,6 @@
 <h1>Property Search Results</h1>
 {{#each searchResults}}
+<a href="/property/{{this.id}}" class="property-link">
 <div class="card">
     <div class="card-content">
         <div class="image-container">
@@ -17,4 +18,5 @@
         </div>
     </div>
 </div>
+</a>
 {{/each}}
