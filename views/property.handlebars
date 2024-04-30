@@ -1,0 +1,44 @@
+<div class="property-details">
+    <h1>Property Details</h1>
+    <div class="address">
+        <h2>Address</h2>
+        <p>{{propertyDetails.address.street}}, Apt {{propertyDetails.address.apartmentNum}}</p>
+        <p>{{propertyDetails.address.city}}, {{propertyDetails.address.state}} {{propertyDetails.address.zip}}</p>
+    </div>
+    <div class="price">
+        <h2>Price</h2>
+        <p>${{propertyDetails.price}}</p>
+    </div>
+    <div class="details">
+        <h2>Details</h2>
+        <p>Description: {{propertyDetails.details.description}}</p>
+        <p>Property Type: {{propertyDetails.details.propertyType}}</p>
+        <p>Apartment Type: {{propertyDetails.details.apartmentType}}</p>
+        <p>Accommodation Type: {{propertyDetails.details.accommodationType}}</p>
+        <p>Area (sq ft): {{propertyDetails.details.area}}</p>
+        <p>Bedrooms: {{propertyDetails.details.bedroomCount}}</p>
+        <p>Bathrooms: {{propertyDetails.details.bathroomCount}}</p>
+    </div>
+    <div class="location">
+        <h2>Location</h2>
+        <p>Latitude: {{propertyDetails.location.latitude}}</p>
+        <p>Longitude: {{propertyDetails.location.longitute}}</p>
+    </div>
+    <div class="images">
+        <h2>Images</h2>
+        {{#each propertyDetails.images}}
+        <img src="{{this}}" alt="Property Image">
+        {{/each}}
+    </div>
+    <div class="comments">
+        <h2>Comments</h2>
+        <ul>
+            {{#each propertyDetails.comments}}
+            <li>
+                <p>{{this.CommentText}}</p>
+                <p>Posted on: {{this.postTime}}</p>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
