@@ -11,7 +11,8 @@ import {
   removeComment,
 } from './data/comments.js';
 
-// const db = await dbConnection();
+const db = await dbConnection();
+let count = 0;
 // const userId = new ObjectId();
 // try {
 //   const result = await createComment(
@@ -33,9 +34,10 @@ try {
   };
   let price = 1500;
   let ownerId = new ObjectId();
+  ownerId = '66314871d4853b4cc140a934';
   let location = {
-    latitute: '40.74856',
-    longitute: '-74.16018',
+    latitude: '40.74856',
+    longitude: '-74.16018',
   };
   let images = [
     '/static/house1.jpg',
@@ -51,14 +53,20 @@ try {
     bedroomCount: 2,
     bathroomCount: 2,
   };
+  let nearestLandmark =
+    '15 min to path, 10 min to indian groceries, 5 min to bus stop';
   const result = await create(
     address,
     price,
     ownerId,
     location,
     images,
-    details
+    details,
+    nearestLandmark
   );
+  if (result) {
+    count++;
+  }
 } catch (error) {
   console.log(error);
 }
@@ -73,9 +81,10 @@ try {
   };
   let price = 3100;
   let ownerId = new ObjectId();
+  ownerId = '66314871d4853b4cc140a934';
   let location = {
-    latitute: '40.719074',
-    longitute: '-74.050552',
+    latitude: '40.719074',
+    longitude: '-74.050552',
   };
   let images = [
     '/static/house1.jpg',
@@ -91,14 +100,20 @@ try {
     bedroomCount: 4,
     bathroomCount: 1,
   };
+  let nearestLandmark =
+    "2 min to Laudromat, 10 min to Patel's, 5 min to bus stop";
   const result = await create(
     address,
     price,
     ownerId,
     location,
     images,
-    details
+    details,
+    nearestLandmark
   );
+  if (result) {
+    count++;
+  }
 } catch (error) {
   console.log(error);
 }
@@ -113,9 +128,10 @@ try {
   };
   let price = 1700;
   let ownerId = new ObjectId();
+  ownerId = '66314871d4853b4cc140a934';
   let location = {
-    latitute: '40.74856',
-    longitute: '-74.16018',
+    latitude: '40.74856',
+    longitude: '-74.16018',
   };
   let images = [
     '/static/house1.jpg',
@@ -131,66 +147,71 @@ try {
     bedroomCount: 3,
     bathroomCount: 2,
   };
+  let nearestLandmark =
+    '15 min to path, 10 min to indian groceries, 5 min to bus stop';
   const result = await create(
     address,
     price,
     ownerId,
     location,
     images,
-    details
+    details,
+    nearestLandmark
   );
-  console.log(result);
+  if (result) {
+    count++;
+  }
 } catch (error) {
   console.log(error.message);
 }
 
-try {
-  let address = {
-    street: '30 poplar street',
-    apartmentNum: '2',
-    city: 'Jersey city',
-    state: 'NJ',
-    zip: '07307',
-  };
-  let price = 11;
-  let ownerId = new ObjectId();
-  let location = {
-    latitute: '40.75396',
-    longitute: '-74.04547',
-  };
-  let comments = [];
-  let images = [
-    '/static/house1.jpg',
-    '/static/bedroom1.jpg',
-    '/static/bathroom.jpg',
-  ];
-  let details = {
-    description: 'This house is very old',
-    propertyType: 'Private',
-    apartmentType: '3BHK',
-    accommodationType: 'Permanent',
-    area: '1012 ft',
-    bedroomCount: 3,
-    bathroomCount: 2,
-  };
-  async function main() {
-    const updateProp = await update(
-      '661ca190df012c073aac5f13',
-      address,
-      price,
-      ownerId,
-      location,
-      3,
-      images,
-      details,
-      comments
-    );
-    console.log(updateProp);
-  }
-  await main();
-} catch (error) {
-  console.log(error);
-}
+// try {
+//   let address = {
+//     street: '30 poplar street',
+//     apartmentNum: '2',
+//     city: 'Jersey city',
+//     state: 'NJ',
+//     zip: '07307',
+//   };
+//   let price = 11;
+//   let ownerId = new ObjectId();
+//   let location = {
+//     latitute: '40.75396',
+//     longitute: '-74.04547',
+//   };
+//   let comments = [];
+//   let images = [
+//     '/static/house1.jpg',
+//     '/static/bedroom1.jpg',
+//     '/static/bathroom.jpg',
+//   ];
+//   let details = {
+//     description: 'This house is very old',
+//     propertyType: 'Private',
+//     apartmentType: '3BHK',
+//     accommodationType: 'Permanent',
+//     area: '1012 ft',
+//     bedroomCount: 3,
+//     bathroomCount: 2,
+//   };
+//   async function main() {
+//     const updateProp = await update(
+//       '661ca190df012c073aac5f13',
+//       address,
+//       price,
+//       ownerId,
+//       location,
+//       3,
+//       images,
+//       details,
+//       comments
+//     );
+//     console.log(updateProp);
+//   }
+//   await main();
+// } catch (error) {
+//   console.log(error);
+// }
 
 // try {
 //   let result = await createUser(
@@ -210,5 +231,7 @@ try {
 // } catch (e) {
 //   console.log(e);
 // }
-
-// await closeConnection();
+console.log('Done seeding database');
+if (count == 3) {
+  await closeConnection();
+}
