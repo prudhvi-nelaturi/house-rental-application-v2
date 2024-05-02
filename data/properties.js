@@ -1,5 +1,5 @@
 // This data file should export all functions using the ES6 standard as shown in the lecture code
-import { properties } from '../config/mongoCollections.js';
+import { properties, users } from '../config/mongoCollections.js';
 import { ObjectId } from 'mongodb';
 import {
   validateZip,
@@ -8,18 +8,41 @@ import {
   validateObject,
   validateString,
   validateId,
+  validateArray,
 } from '../helpers.js';
+import { getUser } from './user.js';
 
 export const create = async (
   address,
   price,
   ownerId,
+  ownerFullName,
   location,
   images,
-  details
+  details,
+  nearestLandmarks
 ) => {
-  if (!address || !price || !ownerId || !location || !images || !details) {
+  if (
+    !address ||
+    !price ||
+    !ownerId ||
+    !ownerFullName ||
+    !location ||
+    !images ||
+    !details ||
+    !nearestLandmarks
+  ) {
     throw 'All fields must be defined';
+  }
+  ownerFullName = validateString(ownerFullName, 'Owner Full Name');
+  nearestLandmarks = validateString(nearestLandmarks, 'nearest Landmark');
+
+  let nearestLandmarkArray = nearestLandmarks.split(',');
+  for (let i = 0; i < nearestLandmarkArray.length; i++) {
+    nearestLandmarkArray[i] = validateString(
+      nearestLandmarkArray[i],
+      'Landmark'
+    );
   }
 
   validateObject(address, 'address');
@@ -44,10 +67,12 @@ export const create = async (
     address: address,
     price: price,
     ownerId: ownerId,
+    ownerFullName: ownerFullName,
     location: location,
     favouriteCount: 0,
     images: images,
     details: details,
+    nearestLandmarks: nearestLandmarkArray,
     comments: [],
   };
 
@@ -58,6 +83,15 @@ export const create = async (
   }
   const newId = insertInfo.insertedId.toString();
   const theProperty = get(newId);
+  let userCollection = await users();
+  userCollection.updateOne(
+    { _id: new ObjectId(ownerId) },
+    {
+      $push: {
+        housesPosted: newId,
+      },
+    }
+  );
   return theProperty;
 };
 
@@ -81,13 +115,22 @@ export const get = async (propertyId) => {
   return theProperty;
 };
 
-export const remove = async (propertyId) => {
+export const remove = async (propertyId, ownerId) => {
   propertyId = validateId(propertyId, 'propertyId');
   let propertyCollection = await properties();
   const deletionInfo = await propertyCollection.findOneAndDelete({
     _id: new ObjectId(propertyId),
   });
 
+  let userCollection = await users();
+  userCollection.updateOne(
+    { _id: new ObjectId(ownerId) },
+    {
+      $pull: {
+        housesPosted: propertyId,
+      },
+    }
+  );
   if (!deletionInfo) {
     throw `Could not delete property with id of ${propertyId}`;
   }
@@ -100,10 +143,12 @@ export const update = async (
   address,
   price,
   ownerId,
+  ownerFullName,
   location,
   favouriteCount,
   images,
   details,
+  nearestLandmarks,
   comments
 ) => {
   if (
@@ -111,11 +156,24 @@ export const update = async (
     !address ||
     !price ||
     !ownerId ||
+    !ownerFullName ||
     !location ||
     !images ||
-    !details
+    !details ||
+    !nearestLandmarks
   ) {
     throw 'All fields must be defined';
+  }
+
+  ownerFullName = validateString(ownerFullName, 'Owner Full Name');
+  nearestLandmarks = validateString(nearestLandmarks, 'nearest Landmark');
+
+  let nearestLandmarkArray = nearestLandmarks.split(',');
+  for (let i = 0; i < nearestLandmarkArray.length; i++) {
+    nearestLandmarkArray[i] = validateString(
+      nearestLandmarkArray[i],
+      'Landmark'
+    );
   }
 
   address = validateObject(address, 'address');
@@ -149,10 +207,12 @@ export const update = async (
         address: address,
         price: price,
         ownerId: ownerId,
+        ownerFullName: ownerFullName,
         location: location,
         favouriteCount: favouriteCount,
         images: images,
         details: details,
+        nearestLandmarks: nearestLandmarkArray,
         comments: comments,
       },
     }
