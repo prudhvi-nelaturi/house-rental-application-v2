@@ -1,14 +1,21 @@
 <div class="property-details">
     <h1>Property Details</h1>
+
+
     <div class="address">
         <h2>Address</h2>
-        <p>{{propertyDetails.address.street}}, Apt {{propertyDetails.address.apartmentNum}}</p>
+        <p>{{propertyDetails.address.street}}{{#if propertyDetails.address.apartmentNum}}, Apt
+            {{propertyDetails.address.apartmentNum}}{{/if}}</p>
         <p>{{propertyDetails.address.city}}, {{propertyDetails.address.state}} {{propertyDetails.address.zip}}</p>
     </div>
+
+
     <div class="price">
         <h2>Price</h2>
         <p>${{propertyDetails.price}}</p>
     </div>
+
+
     <div class="details">
         <h2>Details</h2>
         <p>Description: {{propertyDetails.details.description}}</p>
@@ -19,19 +26,39 @@
         <p>Bedrooms: {{propertyDetails.details.bedroomCount}}</p>
         <p>Bathrooms: {{propertyDetails.details.bathroomCount}}</p>
     </div>
+
+
+    <div class="nearestLandmarks">
+        <h2>Nearest Landmark(s)</h2>
+        {{#if propertyDetails.nearestLandmarks}}
+        <ul>
+            {{#each propertyDetails.nearestLandmarks}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>No landmarks available.</p>
+        {{/if}}
+    </div>
+
+
     <div class="location">
         <h2>Location</h2>
         <p>Latitude: {{propertyDetails.location.latitude}}</p>
-        <p>Longitude: {{propertyDetails.location.longitute}}</p>
+        <p>Longitude: {{propertyDetails.location.longitude}}</p>
     </div>
+
+
     <div class="images">
         <h2>Images</h2>
         {{#each propertyDetails.images}}
-        <img src="{{this}}" alt="Property Image">
+        <img src="{{this}}" alt="Property image">
         {{/each}}
     </div>
+
     <div class="comments">
         <h2>Comments</h2>
+        {{#if propertyDetails.comments}}
         <ul>
             {{#each propertyDetails.comments}}
             <li>
@@ -40,5 +67,8 @@
             </li>
             {{/each}}
         </ul>
+        {{else}}
+        <p>No comments yet.</p>
+        {{/if}}
     </div>
 </div>
