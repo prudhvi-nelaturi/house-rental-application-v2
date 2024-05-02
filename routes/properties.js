@@ -59,17 +59,43 @@ router
       return res.status(404).render('error', { title: 'Error', error: error });
     }
   })
+
+  router
+  .route('/')
   .post(async (req, res) => {
     //code here for POST
     let propertyInfo = req.body;
+    let address = {
+      street : propertyInfo.street,
+      apartmentNum : propertyInfo.apartmentNum,
+      city : propertyInfo.city,
+      state : propertyInfo.state,
+      zip : propertyInfo.zip
+    }
+    let details = {
+      description: propertyInfo.description,
+      propertyType: propertyInfo.propertyType,
+      apartmentType: propertyInfo.apartmentType,
+      accomodationType: propertyInfo.accomodationType,
+      area: propertyInfo.area,
+      bedroomCount: propertyInfo.bedroomCount,
+      bathroomCount: propertyInfo.bathroomCount
+    }
+    let location = {
+      latitude: propertyInfo.latitude,
+      longitude: propertyInfo.longitude
+    }
+    let ownerFullName = req.session.user.firstName + '  ' + req.session.user.lastName;
     try {
       const newProduct = await properties.create(
-        propertyInfo.address,
+        address,
         propertyInfo.price,
-        propertyInfo.ownerId,
-        propertyInfo.location,
+        req.session.user.id,
+        ownerFullName,
+        location,
         propertyInfo.images,
-        propertyInfo.details
+        details,
+        propertyInfo.nearestLandmarks
       );
       res.render('home');
       // return res.json(newUser);
@@ -116,7 +142,7 @@ router
       return res.status(400).render('userPage', { title: 'userPage' });
     }
     try {
-      let deletedProperty = await properties.remove(req.params.propertyId);
+      let deletedProperty = await properties.remove(req.params.propertyId,req.session.user.id);
       if (deletedProperty.deleted) {
         //res.status(200).json({message: "Property deleted successfully"});
         return res.status(200).redirect('/userProfile');
