@@ -1,0 +1,133 @@
+<main>
+    <p id="errorTag" hidden>{{errorMsg}}</p>
+    {{#if errFlag}}
+    <p id="errorTag">{{errorMsg}}</p>
+    {{/if}}
+    <form id="add-property-form" action="/" method="POST">
+        {{!-- <h4>Address</h4> --}}
+        <label for="street">Street:</label>
+        <input type="text" name="street" id="street">
+        <p id="street-error" hidden></p>
+
+        <label for="apartmentNum">Apartment No.:</label>
+        <input type="text" name="apartmentNum" id="apartmentNum">
+        <p id="apartmentNum-error" hidden></p>
+
+        <label for="city">City:</label>
+        <input type="text" name="city" id="city">
+        <p id="city-error" hidden></p>
+
+        <label for="state">State:</label>
+        <select name="state" id="state">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+        </select>
+        <p id="state-error" hidden></p>
+
+        <label for="zip">Zip Code:</label>
+        <input type="number" name="zip" id="zip">
+        <p id="zip-error" hidden></p>
+
+        <label for="nearestLandmarks">Nearest Landmarks:</label>
+        <input type="text" name="nearestLandmarks" id="nearestLandmarks">
+        <p id="nearestLandmarks-error" hidden></p>
+
+        {{!-- <h4>Price</h4> --}}
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price">
+        <p id="price-error" hidden></p>
+
+        <label for="latitude">Latitude:</label>
+        <input type="number" name="latitude" id="latitude">
+        <p id="latitude-error" hidden></p>
+
+        <label for="longitude">Longitude:</label>
+        <input type="number" name="longitude" id="longitude">
+        <p id="longitude-error" hidden></p>
+
+
+        {{!-- <h4>Details</h4> --}}
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description">
+        <p id="description-error" hidden></p>
+
+        <label for="propertyType">Property Type:</label>
+        <input type="text" name="propertyType" id="propertyType">
+        <p id="propertyType-error" hidden></p>
+
+        <label for="apartmentType">Apartment Type:</label>
+        <input type="text" name="apartmentType" id="apartmentType">
+        <p id="apartmentType-error" hidden></p>
+
+        <label for="accomodationType">Accommodation Type:</label>
+        <input type="text" name="accomodationType" id="accomodationType">
+        <p id="accomodationType-error" hidden></p>
+
+        <label for="area">Area in square feet:</label>
+        <input type="number" name="area" id="area">
+        <p id="area-error" hidden></p>
+
+        <label for="bedroomCount">No. of Bedrooms:</label>
+        <input type="number" name="bedroomCount" id="bedroomCount">
+        <p id="bedroomCount-error" hidden></p>
+
+        <label for="bathroomCount">No. of Bathrooms:</label>
+        <input type="number" name="bathroomCount" id="bathroomCount">
+        <p id="bathroomCount-error" hidden></p>
+
+        <label for="propertyImages">Upload Property Photos: </label>
+        <input name="propertyImages" id="propertyImages" type="file" accept="image/*">
+        <p id="propertyImages-error" hidden></p>
+
+        <button type="submit" name="submitButton" id="submitButton">Submit</button>
+        <button type="cancel" name="cancelButton" id="cancelButton">Cancel</button>
+    </form>
+</main>
