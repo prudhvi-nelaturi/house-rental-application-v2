@@ -125,6 +125,21 @@ const validatePassword = (pass, pName) => {
 //this function requires date input in mm-dd-yyyy format
 const validateAge = (inputDate, varName) => {
     inputDate = validateString(inputDate, varName);
+    if(inputDate.length != 10) "Error: Enter date in mm/dd/yyyy format"
+    inputDate = formatDob(inputDate);
+    let dateCheck = inputDate.split('/');
+    if(dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
+    if(dateCheck[0].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+    if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
+    if(dateCheck[2].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+
+    dateCheck = dateCheck.map(x => Number(x));
+    dateCheck.forEach(x => {
+        if(isNaN(x)) throw "Error: Date must have numbers"
+    });
+
+    if(!(moment(inputDate, 'MM/DD/YYYY').isValid())) throw `Error: ${varName} must be a valid date`;
+
     let birthDate = moment(inputDate, 'MM/DD/YYYY');
     let age = moment().diff(birthDate, 'years');
     if (age < 18 || age >= 100)
@@ -136,7 +151,7 @@ const validateEmail = (email, varName) => {
     email = validateString(email, varName);
     if (!validator.isEmail(email))
         throw `${varName || 'Provided parameter'} is invalid`;
-    return email;
+    return email.toLowerCase();
 };
 
 const validateId = (objId, varName) => {
@@ -206,13 +221,13 @@ const checkMaxValue = (num, numName, max) => {
 
 const validateUserObj = (userObj) => {
     if (userObj['firstName']) {
-        userObj['firstName'] = validateString(userObj['firstName'], 'firstName');
+        userObj['firstName'] = validateName(userObj['firstName'], 'firstName');
     }
     if (userObj['middleName']) {
-        userObj['middleName'] = validateString(userObj['middleName'], 'middleName');
+        userObj['middleName'] = validateName(userObj['middleName'], 'middleName');
     }
     if (userObj['lastName']) {
-        userObj['lastName'] = validateString(userObj['lastName'], 'lastName');
+        userObj['lastName'] = validateName(userObj['lastName'], 'lastName');
     }
     if (userObj['email']) {
         userObj['email'] = validateEmail(userObj['email'], 'email');
@@ -221,10 +236,16 @@ const validateUserObj = (userObj) => {
         userObj['city'] = validateString(userObj['city'], 'city');
     }
     if (userObj['state']) {
-        userObj['state'] = validateString(userObj['state'], 'state');
+        userObj['state'] = validateState(userObj['state'], 'state');
     }
     if (userObj['password']) {
-        userObj['password'] = validateString(userObj['password'], 'password');
+        userObj['password'] = validatePassword(userObj['password'], 'password');
+    }
+    if (userObj['gender']) {
+        userObj['gender'] = validateGender(userObj['gender'], 'gender');
+    }
+    if (userObj['age']) {
+        userObj['age'] = validateDob(userObj['age'], 'age');
     }
 
     return userObj;
@@ -251,6 +272,56 @@ const validateState = (state, varName) => {
     return state
 }
 
+const validateName = (value, name) => {
+    if(!value) throw `Error: ${name} must be supplied`;
+    if(typeof value !== 'string') throw `Error: ${name} must be a string`;
+    if(value.trim().length === 0) throw `Error: ${name} must not be empty`;
+
+    value = value.trim();
+    if(value.length <2 || value.length > 25) throw `Error: ${name} must be 2 to 25 chars long`;
+    for(let x of value) {
+        if(!isNaN(x)) throw `Error: ${name} must not contain numbers`;
+    }
+    return value;
+}
+
+const validateGender = (value, varName) => {
+    const options = ['male', 'female', 'other'];
+
+    value = validateString(value, varName)
+    if (!options.includes(value)) throw `Gender is not valid!`
+    return value
+}
+
+const formatDob = (val) => {
+    val = val.trim();
+    let ans =  val.split('-');
+    let age = ans[1]+'/'+ans[2]+'/'+ans[0];
+    return age;
+  }
+
+  const validateDob = (inputDate, varName) => {
+    inputDate = validateString(inputDate, varName);
+    let dateCheck = inputDate.split('/');
+    if(dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
+    if(dateCheck[0].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+    if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
+    if(dateCheck[2].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+
+    dateCheck = dateCheck.map(x => Number(x));
+    dateCheck.forEach(x => {
+        if(isNaN(x)) throw "Error: Date must have numbers"
+    });
+
+    if(!(moment(inputDate, 'MM/DD/YYYY').isValid())) throw `Error: ${varName} must be a valid date`;
+
+    let birthDate = moment(inputDate, 'MM/DD/YYYY');
+    let age = moment().diff(birthDate, 'years');
+    if (age < 18 || age >= 100)
+        throw `${varName || 'Provided parameter'} should be between 18-100`;
+    return inputDate;
+};
+
 export {
     validateArray,
     validateNumber,
@@ -270,5 +341,8 @@ export {
     checkStringMinLength,
     validateUserObj,
     validateZip,
-    validateState
+    validateState,
+    validateName,
+    validateGender,
+    validateDob
 };

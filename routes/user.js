@@ -1,6 +1,6 @@
 import express from 'express';
 import {users} from '../data/index.js';
-import {validateId, validateString, validateEmail, validatePassword, validateAge, validateUserObj} from '../helpers.js';
+import {validateId, validateString, validateEmail, validatePassword, validateAge, validateUserObj, validateName, validateState, validateGender} from '../helpers.js';
 
 const router = express.Router();
 
@@ -10,7 +10,6 @@ const router = express.Router();
       let errors = [];
 
       console.log(req.body);
-      //console.log(req.file.filename);
   
       if(!req.body || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password || !req.body.confirmPassword || !req.body.gender || !req.body.age || !req.body.city || !req.body.state ) {
         errors.push("All required fields must be filled!");
@@ -19,15 +18,23 @@ const router = express.Router();
       
       let data = req.body;
       try{
-        data.firstName = validateString(data.firstName, 'firstName');
+        data.firstName = validateName(data.firstName, 'firstName');
       } catch(e) {
         errors.push(e);
       }
   
       try{
-        data.lastName = validateString(data.lastName, 'lastName');
+        data.lastName = validateName(data.lastName, 'lastName');
       } catch(e) {
         errors.push(e);
+      }
+
+      if(data.middleName){
+        try{
+          data.middleName = validateName(data.middleName, 'middleName');
+        } catch(e) {
+          errors.push(e);
+        }
       }
   
       try{
@@ -49,6 +56,18 @@ const router = express.Router();
       }
 
       try{
+        data.gender = validateGender(data.gender, 'gender');
+      } catch(e) {
+        errors.push(e);
+      }
+
+      try{
+        data.state = validateState(data.state, 'state');
+      } catch(e) {
+        errors.push(e);
+      }
+
+      try{
         data.city = validateString(data.city, 'city');
       } catch(e) {
         errors.push(e);
@@ -61,17 +80,12 @@ const router = express.Router();
         return res.status(400).render('register', {isError: true, postData: req.body, errors: errors, title: "Register Page"});
       }
 
-    // if(!data.hasOwnProperty('middleName')) {
-    //     data.middleName = '';
-    // }
-    // if(!data.hasOwnProperty('profilePicture')) {
-    //     data.profilePicture = '';
-    // }
-
     let profilePicture = "";
     if(req.file && req.file.filename) {
       profilePicture = req.file.filename;
     }
+    else profilePicture = "BasePic.jpg";
+
     let newuser = undefined;
 
       try{
@@ -115,11 +129,62 @@ const router = express.Router();
     .route('/edit')
     .post(async (req, res) => {
         let userObj = req.body;
+        
+        try{
+          userObj.firstName = validateName(userObj.firstName, 'firstName');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+    
+        try{
+          userObj.lastName = validateName(userObj.lastName, 'lastName');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+  
+        if(userObj.middleName){
+          try{
+            userObj.middleName = validateName(userObj.middleName, 'middleName');
+          } catch(e) {
+            return res.status(400).json({error: e});
+          }
+        }
+    
+        try{
+          userObj.email = validateEmail(userObj.email, 'email');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+    
+        try{
+          userObj.age = validateAge(userObj.age, 'age');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+  
+        try{
+          userObj.gender = validateGender(userObj.gender, 'gender');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+  
+        try{
+          userObj.state = validateState(userObj.state, 'state');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+  
+        try{
+          userObj.city = validateString(userObj.city, 'city');
+        } catch(e) {
+          return res.status(400).json({error: e});
+        }
+
         //validations here
 
         if(userObj['password'] != "") {
           try{
-            userObj.password = validateString(userObj.password);
+            userObj.password = validatePassword(userObj.password);
           }catch(e) {
             return res.status(400).json({error: e});
           }
@@ -144,11 +209,11 @@ const router = express.Router();
         let user = await users.getUserByEmail(email);
         let id = user._id.toString();
 
-        try{
-            userObj = validateUserObj(userObj);
-          }catch(e) {
-            return res.status(400).json({error: e});
-          }
+        // try{
+        //     userObj = validateUserObj(userObj);
+        //   }catch(e) {
+        //     return res.status(400).json({error: e});
+        //   }
       
           try{
             let user = await users.updateUser(id, userObj);
