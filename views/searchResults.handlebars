@@ -1,1 +1,22 @@
-<p>Search Result</p>
+<h1>Property Search Results</h1>
+{{#each searchResults}}
+<a href="/search/property/{{this._id}}" class="property-link">
+    <div class="card">
+        <div class="card-content">
+            <div class="image-container">
+                <img src="{{this.images}}" alt="Property Image">
+                <i class="favorite-icon fas fa-heart{{#if this.isFavorite}} active{{/if}}"></i>
+            </div>
+            <div class="property-details">
+                <p>Address: {{this.address.street}}</p>
+                <p>City: {{this.address.city}}</p>
+                <p>State: {{this.address.state}}</p>
+                <p>Price: ${{this.price}}</p>
+                {{#if this.favouriteCount}}
+                <p class="favorite-count">Favorite Count: {{this.favouriteCount}}</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</a>
+{{/each}}

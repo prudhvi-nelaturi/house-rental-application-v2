@@ -205,25 +205,25 @@ const checkMaxValue = (num, numName, max) => {
 };
 
 const validateUserObj = (userObj) => {
-    if (userObj.hasOwnProperty('firstName')) {
+    if (userObj['firstName']) {
         userObj['firstName'] = validateString(userObj['firstName'], 'firstName');
     }
-    if (userObj.hasOwnProperty('middleName')) {
+    if (userObj['middleName']) {
         userObj['middleName'] = validateString(userObj['middleName'], 'middleName');
     }
-    if (userObj.hasOwnProperty('lastName')) {
+    if (userObj['lastName']) {
         userObj['lastName'] = validateString(userObj['lastName'], 'lastName');
     }
-    if (userObj.hasOwnProperty('email')) {
+    if (userObj['email']) {
         userObj['email'] = validateEmail(userObj['email'], 'email');
     }
-    if (userObj.hasOwnProperty('city')) {
+    if (userObj['city']) {
         userObj['city'] = validateString(userObj['city'], 'city');
     }
-    if (userObj.hasOwnProperty('state')) {
+    if (userObj['state']) {
         userObj['state'] = validateString(userObj['state'], 'state');
     }
-    if (userObj.hasOwnProperty('password')) {
+    if (userObj['password']) {
         userObj['password'] = validateString(userObj['password'], 'password');
     }
 

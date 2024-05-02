@@ -4,7 +4,8 @@ const router = express.Router();
 
 //route for homepage
 router.get('/', (req, res) => {
-    return res.render('homepage', {title: "Homepage"});
+    if(req.session && req.session.user) return res.render('homepage', {isAuthenticated: true});
+    return res.render('homepage', {title: "Homepage", isAuthenticated: false});
 });
 
 //login route

@@ -1,6 +1,10 @@
 import express from 'express';
 import configRoutesFunction from './routes/index.js';
 import exphbs from 'express-handlebars';
+import session from "express-session";
+import multer from 'multer';
+import path from 'path';
+import {loginMiddleware, registerMiddleware, userMiddleware} from './middleware.js';
 
 const app = express();
 
@@ -10,6 +14,35 @@ app.use(express.urlencoded({ extended: true }));
 
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+const changeRemoveMethod = (req, res, next) => {
+  req.method = "DELETE";
+  next();
+};
+
+let storage = multer.diskStorage({
+  destination: './public/images' ,
+  filename: function(req, img, next) {
+    next(null, 'img_'+ Date.now()+ path.extname(img.originalname));
+  }
+});
+
+let upload = multer({storage: storage});
+
+app.use(session({
+  name: 'AuthenticationState',
+  secret: 'This is our secret message!!!',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use('/login', loginMiddleware);
+app.use('/register', registerMiddleware);
+app.use('/userProfile', userMiddleware);
+app.use('/register', upload.single('profilePicture'));
+app.use('/edit', upload.single('profilePicture'));
+app.use('/search/remove/:propertyId', changeRemoveMethod);
+app.use('/removeFavorite/:propId', changeRemoveMethod);
 
 configRoutesFunction(app);
 
