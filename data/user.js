@@ -1,7 +1,7 @@
 import { users, properties } from "../config/mongoCollections.js";
 import {ObjectId} from 'mongodb';
 import bcrypt from 'bcrypt';
-import { validateString, validateEmail, validateAge, validateId, validateUserObj, validatePassword } from "../helpers.js";
+import { validateString, validateEmail, validateId, validateUserObj, validatePassword, validateName, validateState, validateGender, validateDob} from "../helpers.js";
 
 const rounds = 16;
 
@@ -9,14 +9,15 @@ export const createUser = async (firstName, middleName, lastName, email, gender,
 
   if(!firstName || !lastName || !email || !gender || !age || !password || !city || !state) throw "Error: All fields must be supplied!";
 
-   firstName = validateString(firstName, 'firstName');
-   if(middleName.trim() != 0) middleName = validateString(middleName, 'middleName');
-   lastName = validateString(lastName, 'lastName');
+   firstName = validateName(firstName, 'firstName');
+   if(middleName) middleName = validateName(middleName, 'middleName');
+   lastName = validateName(lastName, 'lastName');
    email = validateEmail(email, 'email');
-   age = validateAge(age, 'age');
-   state = validateString(state, 'state');
+   age = validateDob(age, 'age');
+   state = validateState(state, 'state');
    city = validateString(city, 'city');
    password = validatePassword(password, 'password');
+   gender = validateGender(gender, 'gender');
   
   let oldUser = await getUserByEmail(email);
   if(oldUser !== null) {
@@ -114,7 +115,7 @@ export const loginUser = async (email, password) => {
   email = validateEmail(email, 'email');
   password = validatePassword(password, 'password');
 
-  const user = await getUserByEmail(email);
+  const user = await getUserByEmail(email.toLowerCase());
   if(!user) throw "Error: No details found with this email ID";
 
   const check = await bcrypt.compare(password, user.hashPassword);

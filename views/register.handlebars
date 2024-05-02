@@ -2,31 +2,26 @@
     <h1>{{title}}</h1>
 
     <form id="register-form" method="post" action="/register" enctype="multipart/form-data">
-    <label for="firstName">First Name: </label>
-    <input type="text" name="firstName" id="firstName" value="{{postData.firstName}}" required>
+    <label for="firstName">First Name<span id="er">*</span>: </label>
+    <input type="text" name="firstName" id="firstName" minlength="2" maxlength="25" value="{{postData.firstName}}" required>
     <p id="firstName-error" hidden></p>
 
 
     <label for="middleName">Middle Name: </label>
     <input type="text" name="middleName" id="middleName" value="{{postData.middleName}}">
+    <p id="middleName-error" hidden></p>
 
-    <label for="lastName">Last Name: </label>
-    <input type="text" name="lastName" id="lastName" value="{{postData.lastName}}" required>
+    <label for="lastName">Last Name<span id="er">*</span>: </label>
+    <input type="text" name="lastName" id="lastName" minlength="2" maxlength="25" value="{{postData.lastName}}" required>
     <p id="lastName-error" hidden></p>
 
-    <label for="email">Email: </label>
+    <label for="email">Email<span id="er">*</span>: </label>
     <input type="email" name="email" id="email" value="{{postData.email}}" required>
     <p id="email-error" hidden></p>
 
-    {{!-- <input name="gender" id="male" type="radio" value="male">
-    <label for="male">Male</label>
-    <input name="gender" id="female" type="radio" value="female">
-    <label for="female">Female</label>
-    <input name="gender" id="other" type="radio" value="other">
-    <label for="other">Other</label> --}}
-
-    <label for="gender">Gender: </label>
-    <select name="gender" id="gender">
+    <label for="gender">Gender<span id="er">*</span>: </label>
+    <select name="gender" id="gender" required>
+        <option value="" selected disabled>Select Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="other">Other</option>
@@ -34,21 +29,22 @@
     <p id="gender-error" hidden></p>
 
 
-    <labe for="age">Date Of Birth: </labe>
+    <labe for="age">Date Of Birth<span id="er">*</span>: </labe>
     <input name="age" id="age" type="date" value="{{postData.age}}" required>
     <p id="age-error" hidden></p>
     <!--yyyy-mm-dd -->
 
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password" value="{{postData.password}}" required>
+    <label for="password">Password<span id="er">*</span>: </label>
+    <input type="password" name="password" id="password" minlength="8" value="{{postData.password}}" required>
     <p id="password-error" hidden></p>
 
-    <label for="confirmPassword">Confirm Password:</label>
+    <label for="confirmPassword">Confirm Password<span id="er">*</span>:</label>
     <input type="password" name="confirmPassword" id="confirmPassword" value="{{postData.confirmPassword}}" required>
     <p id="confirmPassword-error" hidden></p>
     
-    <label for="state">State: </label>
-    <select name="state" id="state">
+    <label for="state">State<span id="er">*</span>: </label>
+    <select name="state" id="state" required>
+        <option value="" selected disabled>Select State</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -102,7 +98,7 @@
     </select>
     <p id="state-error" hidden></p>
 
-    <label for="city">City: </label>
+    <label for="city">City<span id="er">*</span>: </label>
     <input type="text" name="city" id="city" value="{{postData.city}}" required>
     <p id="city-error" hidden></p>
 
