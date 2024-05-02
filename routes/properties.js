@@ -23,89 +23,96 @@ import {
   getPropertiesViaSearch,
 } from '../data/properties.js';
 
-router
-  .route('/check')
-  .post(async (req, res) => {
-    //code here for GET
-    try {
-      if (Number.isNaN(req.body.searchProperty)) {
-        let isZip = validateZip(req.body.searchProperty);
-        if (isZip == false) {
-          res.render('searchResults', {
-            title: 'searchResults',
-            hasError: true,
-            error: error,
-          });
-        }
-      } else {
-        req.body.searchProperty = validateString(req.body.searchProperty);
-      }
-    } catch (error) {
-      return res.render('searchResults', {
-        title: 'searchResults',
-        hasError: true,
-        error: error,
-      });
-    }
-    try {
-      let searchResults = await getPropertiesViaSearch(req.body.searchProperty);
-      if (searchResults) {
-        return res.render('searchResults', {
+router.route('/check').post(async (req, res) => {
+  //code here for GET
+  let isAuthenticated = false;
+  if (req.session.user) {
+    isAuthenticated = true;
+  }
+  try {
+    if (Number.isNaN(req.body.searchProperty)) {
+      let isZip = validateZip(req.body.searchProperty);
+      if (isZip == false) {
+        res.render('searchResults', {
           title: 'searchResults',
-          searchResults: searchResults,
+          hasError: true,
+          error: error,
         });
       }
-    } catch (error) {
-      return res.status(404).render('error', { title: 'Error', error: error });
+    } else {
+      req.body.searchProperty = validateString(req.body.searchProperty);
     }
-  })
+  } catch (error) {
+    return res.render('searchResults', {
+      title: 'searchResults',
+      hasError: true,
+      error: error,
+      isAuthenticated: isAuthenticated,
+    });
+  }
+  try {
+    let searchResults = await getPropertiesViaSearch(req.body.searchProperty);
+    if (searchResults) {
+      return res.render('searchResults', {
+        title: 'searchResults',
+        searchResults: searchResults,
+        isAuthenticated: isAuthenticated,
+      });
+    }
+  } catch (error) {
+    return res.status(404).render('error', { title: 'Error', error: error });
+  }
+});
 
-  router
-  .route('/')
-  .post(async (req, res) => {
-    //code here for POST
-    let propertyInfo = req.body;
-    let address = {
-      street : propertyInfo.street,
-      apartmentNum : propertyInfo.apartmentNum,
-      city : propertyInfo.city,
-      state : propertyInfo.state,
-      zip : propertyInfo.zip
-    }
-    let details = {
-      description: propertyInfo.description,
-      propertyType: propertyInfo.propertyType,
-      apartmentType: propertyInfo.apartmentType,
-      accomodationType: propertyInfo.accomodationType,
-      area: propertyInfo.area,
-      bedroomCount: propertyInfo.bedroomCount,
-      bathroomCount: propertyInfo.bathroomCount
-    }
-    let location = {
-      latitude: propertyInfo.latitude,
-      longitude: propertyInfo.longitude
-    }
-    let ownerFullName = req.session.user.firstName + '  ' + req.session.user.lastName;
-    try {
-      const newProduct = await properties.create(
-        address,
-        propertyInfo.price,
-        req.session.user.id,
-        ownerFullName,
-        location,
-        propertyInfo.images,
-        details,
-        propertyInfo.nearestLandmarks
-      );
-      res.render('home');
-      // return res.json(newUser);
-    } catch (e) {
-      return res.sendStatus(500).json({ error: e.message });
-    }
-  });
+router.route('/').post(async (req, res) => {
+  //code here for POST
+  let propertyInfo = req.body;
+  let address = {
+    street: propertyInfo.street,
+    apartmentNum: propertyInfo.apartmentNum,
+    city: propertyInfo.city,
+    state: propertyInfo.state,
+    zip: propertyInfo.zip,
+  };
+  let details = {
+    description: propertyInfo.description,
+    propertyType: propertyInfo.propertyType,
+    apartmentType: propertyInfo.apartmentType,
+    accomodationType: propertyInfo.accomodationType,
+    area: propertyInfo.area,
+    bedroomCount: propertyInfo.bedroomCount,
+    bathroomCount: propertyInfo.bathroomCount,
+  };
+  let location = {
+    latitude: propertyInfo.latitude,
+    longitude: propertyInfo.longitude,
+  };
+  let ownerFullName =
+    req.session.user.firstName + '  ' + req.session.user.lastName;
+  try {
+    const newProduct = await properties.create(
+      address,
+      propertyInfo.price,
+      req.session.user.id,
+      ownerFullName,
+      location,
+      propertyInfo.images,
+      details,
+      propertyInfo.nearestLandmarks
+    );
+    res.render('homepage');
+    // return res.json(newUser);
+  } catch (e) {
+    return res.sendStatus(500).json({ error: e.message });
+  }
+});
 
 router.route('/property/:propertyId').get(async (req, res) => {
   //code here for GET
+  let isAuthenticated = false;
+  if (req.session.user) {
+    isAuthenticated = true;
+  }
   try {
     if (!req.params.propertyId)
       throw `Error: You must supply a valid propertyId!`;
@@ -119,13 +126,16 @@ router.route('/property/:propertyId').get(async (req, res) => {
       error: error,
       hasError: true,
       title: 'Search Results',
+      isAuthenticated: isAuthenticated,
     });
   }
+
   try {
     const propertyDetails = await properties.get(req.params.propertyId);
     res.render('property', {
       title: 'Property',
       propertyDetails: propertyDetails,
+      isAuthenticated: isAuthenticated,
     });
   } catch (e) {
     res.status(404).render('error', { title: 'error', error: e });
@@ -142,7 +152,10 @@ router
       return res.status(400).render('userPage', { title: 'userPage' });
     }
     try {
-      let deletedProperty = await properties.remove(req.params.propertyId,req.session.user.id);
+      let deletedProperty = await properties.remove(
+        req.params.propertyId,
+        req.session.user.id
+      );
       if (deletedProperty.deleted) {
         //res.status(200).json({message: "Property deleted successfully"});
         return res.status(200).redirect('/userProfile');
