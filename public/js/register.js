@@ -1,4 +1,5 @@
 let regForm = document.querySelector('#register-form');
+let loginForm = document.querySelector('#login-form');
 
 if(regForm) {
     regForm.addEventListener('submit', (e) => {
@@ -11,49 +12,199 @@ if(regForm) {
         let age = document.getElementById('age').value;
         let password = document.getElementById('password').value;
         let confirmPassword = document.getElementById('confirmPassword').value;
-        //let state = document.getElementsByName('state').value;
         let city = document.getElementById('city').value;
-        //let gender = document.getElementsByName('gender').value;
         let profilePicture = document.getElementById('profilePicture').value;
+        let gender = document.getElementById('gender').value;
+        let state = document.getElementById('state').value;
+
 
         let errorFlag = false;
 
+        if(!firstName || !lastName || !email || !age || !password || !confirmPassword || !city || !state  || !gender){
+            let errorsDiv = document.getElementById('errors');
+            errorsDiv.innerHTML = "Please provide all mandatory fields";
+            errorsDiv.hidden = false;
+        } 
+        else {
+            let fNameError = document.getElementById('firstName-error');
+            let fFlag = false;
+            try {
+                validateName(firstName, 'firstName');
+            } catch(e) {
+                fNameError.hidden = false;
+                fNameError.innerHTML = e;
+                errorFlag = true;
+                fFlag = true;
+            }
+            if(!fFlag) fNameError.hidden = true;
+    
+            let lNameError = document.getElementById('lastName-error');
+            let lFlag = false;
+            try {
+                validateName(lastName, 'lastName');
+            } catch(e) {
+                lNameError.hidden = false;
+                lNameError.innerHTML = e;
+                errorFlag = true;
+                lFlag = true;
+            }
+            if(!lFlag) lNameError.hidden = true;
 
-        let fNameError = document.getElementById('firstName-error');
-        try {
-            validateString(firstName, 'firstName');
-        } catch(e) {
-            fNameError.hidden = false;
-            fNameError.innerHTML = e;
-            errorFlag = true;
+            let mNameError = document.getElementById('middleName-error');
+            if(middleName){
+                let mFlag = false;
+                try {
+                    validateName(middleName, 'middleName');
+                } catch(e) {
+                    mNameError.hidden = false;
+                    mNameError.innerHTML = e;
+                    errorFlag = true;
+                    mFlag = true;
+                }
+                if(!mFlag) mNameError.hidden = true;
+            }
+            if(!middleName) mNameError.hidden = true;
+
+            let emailError = document.getElementById('email-error');
+            let eFlag = false;
+            try {
+                validateEmail(email, 'email');
+            } catch(e) {
+                emailError.hidden = false;
+                emailError.innerHTML = e;
+                errorFlag = true;
+                eFlag = false;
+            }
+            if(!eFlag) emailError.hidden = true;
+
+            let pwError = document.getElementById('password-error');
+            let pFlag = false;
+            try {
+                validatepassword(password, 'password');
+            } catch(e) {
+                pwError.hidden = false;
+                pwError.innerHTML = e;
+                errorFlag = true;
+                pFlag = true;
+            }
+            if(!pFlag) pwError.hidden = true;
+
+            let cityError = document.getElementById('city-error');
+            let cFlag = false;
+            try {
+                validateString(city, 'city');
+            } catch(e) {
+                cityError.hidden = false;
+                cityError.innerHTML = e;
+                errorFlag = true;
+                cFlag = true;
+            }
+            if(!cFlag) cityError.hidden = true;
+
+            let stateError = document.getElementById('state-error');
+            let sFlag = false;
+            try {
+                validateState(state, 'state');
+            } catch(e) {
+                stateError.hidden = false;
+                stateError.innerHTML = e;
+                errorFlag = true;
+                sFlag = false;
+            }
+            if(!sFlag) stateError.hidden = true;
+
+            let genError = document.getElementById('gender-error');
+            let gFlag = false;
+            try {
+                validateGender(gender, 'gender');
+            } catch(e) {
+                genError.hidden = false;
+                genError.innerHTML = e;
+                errorFlag = true;
+                gFlag = true;
+            }
+            if(!gFlag) genError.hidden = true;
+
+            let confirmError = document.getElementById('confirmPassword-error');
+            let cpFlag = false;
+            if(password != confirmPassword) {
+                confirmError.hidden = false;
+                confirmError.innerHTML = "Both passwwords did not match";
+                errorFlag = true;
+                cpFlag = true;
+            }
+            if(!cpFlag) confirmError.hidden = true;
+
+            let ageError = document.getElementById('age-error');
+            let aFlag = false;
+
+            try {
+                validateAge(age, 'age');
+            } catch(e) {
+                ageError.hidden = false;
+                ageError.innerHTML = e;
+                errorFlag = true;
+                aFlag = true;
+            }
+            if(!aFlag) ageError.hidden = true;
         }
-
-        let lNameError = document.getElementById('lastName-error');
-        try {
-            validateString(lastName, 'lastName');
-        } catch(e) {
-            lNameError.hidden = false;
-            lNameError.innerHTML = e;
-            errorFlag = true;
-        }
-
+       
         if(!errorFlag){
-            lNameError.hidden = false;
-            fNameError.hidden = false;
+            // lNameError.hidden = false;
+            // fNameError.hidden = false;
+            // mNameError.hidden = false;
+            // emailError.hidden = false;
+            // pwError.hidden = false;
+            // cityError.hidden = false;
+            // stateError.hidden = false;
+            // genError.hidden = false;
+            // confirmError.hidden = false;
 
             firstName = firstName.trim();
-            middleName = middleName.trim();
+            if(middleName) middleName = middleName.trim();
             lastName = lastName.trim();
             email = email.trim().toLowerCase();
-            age = age.trim();
+            //regForm.elements['age'].value = formatAge(age);
             city = city.trim();
 
             regForm.submit();
         }
+    })
+};
 
+if(loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-        //add more validations here 
+        let errMsg = "";
+        let flag =false;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
 
+        if(email == '' || password == '') {
+            errMsg = "All fields must be supplied!";
+            flag = true;
+        }
+        else {
+            try{
+                validateEmail(email ,'email');
+                validatepassword(password, 'password');
+              } catch(e) {
+                errMsg = e;
+                flag = true;
+              }
+        }
 
+        if(flag) {
+            let errorsDiv = document.getElementById('errors');
+            errorsDiv.innerHTML = errMsg;
+            errorsDiv.hidden = false;
+        }
+        else {
+            email = email.trim().toLowerCase();
+
+            document.getElementById('errors').hidden = true;
+            loginForm.submit();
+        }
     })
 }

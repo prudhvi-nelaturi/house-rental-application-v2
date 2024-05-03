@@ -1,10 +1,12 @@
     <main>
         <div id="user-card">
             <h2>User Info: </h2>
-            <img src="/public/images/{{user.profilePicture}}" alt="User Picture" id="ig" height="250" width="150">
+            <img src="/public/images/{{user.profilePicture}}" alt="User Picture" onerror="this.onerror=null; this.src='/public/images/BasePic.jpg'" id="ig" height="250" width="150">
             <h3 id="fn">{{user.firstName}} {{user.lastName}}</h2>
             <input id="userId" name="userId" type="hidden" value="{{user._id}}">
-            <p id="db">DOB: {{user.age}}</p>
+            <input id="st" name="st" value="{{user.state}}" type="hidden">
+            <input id="gen" name="gen" value="{{user.gender}}" type="hidden">
+            <p id="db">DOB: <span id="dob">{{user.age}}</span></p>
             <p id="ct">City: {{user.city}}</p>
             <p id="st">State: {{user.state}}</p>
             <br>
@@ -28,7 +30,7 @@
         <p id="lastName-error" hidden></p>
 
         <label for="email">Email: </label>
-        <input type="email" name="email" id="email" value="{{user.email}}" readonly>
+        <input type="email" name="email" id="email" value="{{user.email}}" readonly> <span>* Can not edit Email Id</span>
         <p id="email-error" hidden></p>
 
         <label for="gender">Gender: </label>
@@ -41,16 +43,16 @@
 
 
         <labe for="age">Date Of Birth: </labe>
-        <input name="age" id="age" type="date" value="{{user.age}}" required>
+        <input name="age" id="age" type="date" required>
         <p id="age-error" hidden></p>
         <!--yyyy-mm-dd -->
 
         <label for="password">Password: </label>
-        <input type="password" name="password" id="password" value="{{postData.password}}" required>
+        <input type="password" name="password" id="password">
         <p id="password-error" hidden></p>
 
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" value="{{postData.confirmPassword}}" required>
+        <input type="password" name="confirmPassword" id="confirmPassword">
         <p id="confirmPassword-error" hidden></p>
         
         <label for="state">State: </label>
@@ -139,17 +141,21 @@
             <h2>Properties posted:</h2>
             {{#if properties.length}}
             {{#each properties}}
-            <div id="property-card">
+            <a href="/search/property/{{this._id}}" id="p-card">
+                <div id="property-card">
                 <p><strong>House: </strong>{{this.address.street}}, {{this.address.city}}, {{this.address.state}}</p>
                 <p><strong>Rent: </strong>{{this.price}}</p>
                 <p><strong>Property Type: </strong>{{this.details.propertyType}}</p>
                 <p><strong>Apartment Type: </strong>{{this.details.apartmentType}}</p>
                 <p><strong>Area: </strong>{{this.details.area}}</p>
                 <p><strong>Fovorite Count: </strong>{{#if this.favoriteCount}} {{this.favoriteCount}} {{else}} 0 {{/if}}</p>
-                <p><a href="/editProp">Edit Property</a></p>
-                <p><a href="../search/remove/{{this._id}}">Remove Property</a></p>
-
-            </div>
+                <div id="prop-actions">
+                    <p><a href="/editProp">Edit Property</a></p>
+                    {{!-- <a href="/editProp"><button>Edit Property</button></a> --}}
+                    <p><a href="../search/remove/{{this._id}}">Remove Property</a></p>
+                </div>
+                </div>
+            </a>
             {{/each}}
 
             {{else}}

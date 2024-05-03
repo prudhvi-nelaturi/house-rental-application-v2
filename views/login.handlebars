@@ -3,9 +3,9 @@
 
     <form id="login-form" method="post" action="/login">
     <label for="email">Email: </label>
-    <input name="email" id="email" type="email" placeholder="abcd@gmail.com" value="{{postData.firstName}}">
+    <input name="email" id="email" type="email" placeholder="abcd@gmail.com" value="{{postData.email}}">
     <label for="password">Password: </label>
-    <input name="password" id="password" type="password" value="{{postData.firstName}}">
+    <input name="password" id="password" type="password" value="{{postData.password}}">
     <button name="submit-button" id="submit-button" type="submit">Login</button>
 </form>
 
@@ -24,3 +24,5 @@
 {{/if}}
 
 </main>
+
+<script src="/public/js/register.js"></script>
