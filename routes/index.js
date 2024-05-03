@@ -6,23 +6,23 @@
     - All other enpoints should respond with a 404 as shown in the lecture code
 */
 
-import userRoutes from './user.js';
-import mainRoutes from './mainRoute.js';
-import propertyRoutes from './properties.js';
-import commentRoutes from './comments.js';
+import userRoutes from "./user.js";
+import mainRoutes from "./mainRoute.js";
+import propertyRoutes from "./properties.js";
+import commentRoutes from "./comments.js";
 
 const configRoutesFunction = (app) => {
-  app.use('/', mainRoutes);
+  app.use("/", mainRoutes);
 
-  app.use('/', userRoutes);
-  app.use('/search', propertyRoutes);
-  app.use('/comment', commentRoutes);
+  app.use("/", userRoutes);
+  app.use("/search", propertyRoutes);
+  app.use("/comment", commentRoutes);
 
   // app.use('/property/:propertyId', propertyRoutes);
   //app.use('/search/propertyId', propertyRoutes);
 
-  app.use('*', (req, res) => {
-    res.status(404).json({ error: 'Route Not Found' });
+  app.use("*", (req, res) => {
+    res.status(404).json({ error: "Route Not Found" });
   });
 };
 
