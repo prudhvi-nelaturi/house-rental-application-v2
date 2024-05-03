@@ -13,7 +13,9 @@ router
     try {
       const propertyId = req.params.propertyId;
       if (!ObjectId.isValid(propertyId)) {
-        return res.status(400).json({ error: 'Invalid propertyId' });
+        return res
+          .status(400)
+          .render('error', { title: 'error', error: 'invalid property Id' });
       }
       const property = await comments.getAllComments(propertyId);
       if (!property)
@@ -27,6 +29,11 @@ router
   })
   .post(async (req, res) => {
     //code here for POST
+
+    let isAuthenticated = false;
+    if (req.session.user) {
+      isAuthenticated = true;
+    }
     const propertyId = req.params.propertyId;
     const commentData = req.body;
     if (!ObjectId.isValid(propertyId))
@@ -34,25 +41,32 @@ router
     if (!commentData || Object.keys(commentData).length === 0)
       return res
         .status(400)
-        .json({ error: 'All fields need to have valid values' });
+        .render('error', { title: 'error', error: 'invalid property Id' });
 
     try {
-      req.body.userId = validateId(req.body.userId, 'userId');
-      req.body.CommentText = validateString(
-        req.body.CommentText,
+      req.body.commentText = validateString(
+        req.body.commentText,
         'CommentText'
       );
     } catch (e) {
-      return res.status(400).json({ error: e.message });
+      return res
+        .status(400)
+        .render('error', { title: 'error', error: 'invalid property Id' });
     }
     try {
-      const { userId, CommentText } = commentData;
+      const userId = req.session.user.id;
+      const CommentText = req.body.commentText;
       const property = await comments.createComment(
         propertyId,
         userId,
         CommentText
       );
-      return res.status(200).json(property);
+      const propertyDetails = await properties.get(req.params.propertyId);
+      res.render('property', {
+        title: 'Property',
+        propertyDetails: propertyDetails,
+        isAuthenticated: isAuthenticated,
+      });
     } catch (e) {
       return res.status(404).json({ error: e.message });
     }
@@ -87,3 +101,5 @@ router
       return res.status(404).json({ error: 'comment not found' });
     }
   });
+
+export default router;
