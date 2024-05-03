@@ -34,7 +34,7 @@ try {
   };
   let price = 1500;
   let ownerId = new ObjectId();
-  ownerId = '66314871d4853b4cc140a934';
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
     latitude: '40.74856',
     longitude: '-74.16018',
@@ -59,6 +59,7 @@ try {
     address,
     price,
     ownerId,
+    'TEst',
     location,
     images,
     details,
@@ -81,7 +82,7 @@ try {
   };
   let price = 3100;
   let ownerId = new ObjectId();
-  ownerId = '66314871d4853b4cc140a934';
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
     latitude: '40.719074',
     longitude: '-74.050552',
@@ -106,6 +107,7 @@ try {
     address,
     price,
     ownerId,
+    'TEst',
     location,
     images,
     details,
@@ -128,7 +130,7 @@ try {
   };
   let price = 1700;
   let ownerId = new ObjectId();
-  ownerId = '66314871d4853b4cc140a934';
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
     latitude: '40.74856',
     longitude: '-74.16018',
@@ -153,6 +155,7 @@ try {
     address,
     price,
     ownerId,
+    'TEst',
     location,
     images,
     details,
