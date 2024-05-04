@@ -64,6 +64,8 @@
     <h2>Location</h2>
     <p>Latitude: {{propertyDetails.location.latitude}}</p>
     <p>Longitude: {{propertyDetails.location.longitude}}</p>
+    <input id="lat" value="{{propertyDetails.location.latitude}}" hidden>
+    <input id="lng" value="{{propertyDetails.location.longitude}}" hidden>
   </div>
 
   <div class="images">
@@ -102,4 +104,7 @@
     {{/if}}
 
   </div>
+  <div id="location-map"></div>
 </div>
+<script src="/public/js/property.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRnTkBRD7xFLM0-r898l24ypcCyLiCkO8&loading=async&callback=showMap"></script>

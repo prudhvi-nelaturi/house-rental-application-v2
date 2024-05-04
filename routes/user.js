@@ -11,14 +11,14 @@ import {
   validateState,
   validateGender,
 } from '../helpers.js';
+import xss from 'xss';
 
 const router = express.Router();
 
 router.route('/register').post(async (req, res) => {
   let errors = [];
 
-  console.log(req.body);
-
+  //console.log(req.body);
   if (
     !req.body ||
     !req.body.firstName ||
@@ -41,8 +41,19 @@ router.route('/register').post(async (req, res) => {
         title: 'Register Page',
       });
   }
-
-  let data = req.body;
+  //let data = req.body;
+  let data = {
+    firstName: xss(req.body.firstName),
+    lastName: xss(req.body.lastName),
+    middleName: xss(req.body.middleName),
+    email: xss(req.body.email),
+    password: xss(req.body.password),
+    age: xss(req.body.age),
+    gender: xss(req.body.gender),
+    state: xss(req.body.state),
+    city: xss(req.body.city),
+    confirmPassword: xss(req.body.confirmPassword)
+  }
   try {
     data.firstName = validateName(data.firstName, 'firstName');
   } catch (e) {
@@ -183,7 +194,19 @@ router.route('/users/:userId').get(async (req, res) => {
 });
 
 router.route('/edit').post(async (req, res) => {
-  let userObj = req.body;
+  //let userObj = req.body;
+  let userObj = {
+    firstName: xss(req.body.firstName),
+    lastName: xss(req.body.lastName),
+    middleName: xss(req.body.middleName),
+    email: xss(req.body.email),
+    age: xss(req.body.age),
+    gender: xss(req.body.gender),
+    state: xss(req.body.state),
+    city: xss(req.body.city),
+    password: xss(req.body.password),
+    confirmPassword: xss(req.body.confirmPassword),
+  }
 
   try {
     userObj.firstName = validateName(userObj.firstName, 'firstName');
@@ -292,8 +315,11 @@ router.route('/login').post(async (req, res) => {
         title: 'Login Page',
       });
   }
-
-  let data = req.body;
+  //let data = req.body;
+  let data = {
+    email: xss(req.body.email),
+    password: xss(req.body.password)
+  };
 
   try {
     data.email = validateEmail(data.email, 'email');
