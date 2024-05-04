@@ -197,6 +197,7 @@ $(document).ready(()=> {
                 success: function(res) {
                     console.log(res);
                     alert('hi');
+                    //$('#errors').hide();
                     showForm();
                     $('#fn').html(res.firstName+" "+res.lastName);
                     $('#db').html('DOB: '+res.age);
@@ -207,6 +208,8 @@ $(document).ready(()=> {
                 error: function(e) {
                     console.log('Can`t edit profile: ', e);
                     alert("Can`t edit profile. Please try again");
+                    // $('#errors').val("Can`t edit profile. Please try again");
+                    // $('#errors').show();
                 }
             })
         }

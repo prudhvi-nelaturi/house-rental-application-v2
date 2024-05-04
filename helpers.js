@@ -127,22 +127,31 @@ const validatePassword = (pass, pName) => {
 
 //this function requires date input in mm-dd-yyyy format
 const validateAge = (inputDate, varName) => {
-  inputDate = validateString(inputDate, varName);
-  if (inputDate.length != 10) 'Error: Enter date in mm/dd/yyyy format';
-  inputDate = formatDob(inputDate);
-  let dateCheck = inputDate.split('/');
-  if (dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
-  if (dateCheck[0].length !== 2)
-    throw `Error: ${varName} must have 2 chars for month`;
-  if (dateCheck[1].length !== 2)
-    throw `Error: ${varName} must have 2 chars for day`;
-  if (dateCheck[2].length !== 4)
-    throw `Error: ${varName} must have 4 chars for year`;
+    inputDate = validateString(inputDate, varName);
+    //if(inputDate.length != 10) "Error: Enter date in mm/dd/yyyy format"
+    if(inputDate.length != 10) "Error: Enter date in yyyy-mm-dd format"
+    let dateCheck = inputDate.split('-');
+    if(dateCheck.length !== 3) throw `Error: ${varName} must have yyyy-mm-dd`;
+    if(dateCheck[0].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+    if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+    if(dateCheck[2].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
 
-  dateCheck = dateCheck.map((x) => Number(x));
-  dateCheck.forEach((x) => {
-    if (isNaN(x)) throw 'Error: Date must have numbers';
-  });
+    dateCheck = dateCheck.map(x => Number(x));
+    dateCheck.forEach(x => {
+        if(isNaN(x)) throw "Error: Date must have numbers"
+    });
+
+    inputDate = formatDob(inputDate);
+    // let dateCheck = inputDate.split('/');
+    // if(dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
+    // if(dateCheck[0].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+    // if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
+    // if(dateCheck[2].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+
+    // dateCheck = dateCheck.map(x => Number(x));
+    // dateCheck.forEach(x => {
+    //     if(isNaN(x)) throw "Error: Date must have numbers"
+    // });
 
   if (!moment(inputDate, 'MM/DD/YYYY').isValid())
     throw `Error: ${varName} must be a valid date`;
