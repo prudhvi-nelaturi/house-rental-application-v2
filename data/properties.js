@@ -222,22 +222,49 @@ export const update = async (
 };
 
 //gives search result for city, zip, state. gives emtpy Array if no results.
-export const getPropertiesViaSearch = async (search) => {
+export const getPropertiesViaSearch = async (
+  search,
+  price,
+  accomodationType
+) => {
   if (typeof search === 'string') {
     search = validateString(search, 'search');
   }
   if (typeof search === 'number') {
-    search = validateNumber(search, 'seach');
+    search = validateNumber(search, 'search');
   }
+  if (price) {
+    price = validateNumber(price, 'price');
+  } else {
+    let propertyCollection = await properties();
+    let allProperties = await propertyCollection.find({}).toArray();
+    if (allProperties.length > 0) {
+      const prices = allProperties.map((property) => property.price);
 
+      price = Math.max(...prices);
+    } else {
+      price = 0;
+    }
+  }
+  if (accomodationType) {
+    accomodationType = validateString(accomodationType, 'accomodation Type');
+  } else {
+    accomodationType = 'permanent';
+  }
   const propertyCollection = await properties();
   const query = new RegExp(search, 'i');
   const propertyList = await propertyCollection
     .find({
-      $or: [
-        { 'address.city': { $regex: query } },
-        { 'address.zip': { $regex: query } },
-        { 'address.state': { $regex: query } },
+      $and: [
+        {
+          $or: [
+            { 'address.city': { $regex: query } },
+            { 'address.zip': { $regex: query } },
+            { 'address.state': { $regex: query } },
+          ],
+        },
+        { price: { $lte: price } },
+        { 'details.accommodationType': accomodationType },
       ],
     })
     .toArray();
@@ -251,4 +278,40 @@ export const getPropertiesByOwner = async (ownerId) => {
     .find({ ownerId: ownerId })
     .toArray();
   return propertyList;
+};
+
+export const addFavInProp = async (propertyId) => {
+  propertyId = validateId(propertyId, 'propertyId');
+  let propertyCollection = await properties();
+  let property = await propertyCollection.updateOne(
+    { _id: new ObjectId(propertyId) },
+    {
+      $inc: {
+        favouriteCount: +1,
+      },
+    }
+  );
+  if (property) {
+    return { favAdded: true };
+  } else {
+    throw 'Unable to add favorite';
+  }
+};
+
+export const removeFavInProp = async (propertyId) => {
+  propertyId = validateId(propertyId, 'propertyId');
+  let propertyCollection = await properties();
+  let property = await propertyCollection.updateOne(
+    { _id: new ObjectId(propertyId) },
+    {
+      $inc: {
+        favouriteCount: -1,
+      },
+    }
+  );
+  if (property) {
+    return { favAdded: true };
+  } else {
+    throw 'Unable to add favorite';
+  }
 };
