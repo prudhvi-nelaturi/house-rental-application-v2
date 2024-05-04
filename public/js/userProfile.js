@@ -107,7 +107,7 @@ $(document).ready(()=> {
                 emailError.show();
                 emailError.html(e);
                 errorFlag = true;
-                eFlag = false;
+                eFlag = true;
             }
             if(!eFlag) emailError.hide();
 
@@ -147,7 +147,7 @@ $(document).ready(()=> {
                 stateError.show();
                 stateError.html(e);
                 errorFlag = true;
-                sFlag = false;
+                sFlag = true;
             }
             if(!sFlag) stateError.hide();
 
@@ -195,9 +195,9 @@ $(document).ready(()=> {
                 contentType: false,
                 processData: false,
                 success: function(res) {
-                    console.log(res);
-                    alert('hi');
-                    //$('#errors').hide();
+                    //console.log(res);
+                    //alert('hi');
+                    $('#errors').hide();
                     showForm();
                     $('#fn').html(res.firstName+" "+res.lastName);
                     $('#db').html('DOB: '+res.age);
@@ -206,10 +206,10 @@ $(document).ready(()=> {
                     $('#ig').prop('src', `/public/images/${res.profilePicture}`);
                 },
                 error: function(e) {
-                    console.log('Can`t edit profile: ', e);
-                    alert("Can`t edit profile. Please try again");
-                    // $('#errors').val("Can`t edit profile. Please try again");
-                    // $('#errors').show();
+                    console.log('Error: Can`t edit profile: ', e.responseJSON.error);
+                    //alert("Can`t edit profile. Please try again");
+                    $('#errors').html("Can`t Edit profile. Error: "+e.responseJSON.error);
+                    $('#errors').show();
                 }
             })
         }
