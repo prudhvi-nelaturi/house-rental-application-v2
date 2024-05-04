@@ -2,13 +2,13 @@
         <div id="user-card">
             <h2>User Info: </h2>
             <img src="/public/images/{{user.profilePicture}}" alt="User Picture" onerror="this.onerror=null; this.src='/public/images/BasePic.jpg'" id="ig" height="250" width="150">
-            <h3 id="fn">{{user.firstName}} {{user.lastName}}</h2>
+            <p id="fn"><strong>Name: </strong>{{user.firstName}} {{user.lastName}}</p>
             <input id="userId" name="userId" type="hidden" value="{{user._id}}">
             <input id="st" name="st" value="{{user.state}}" type="hidden">
             <input id="gen" name="gen" value="{{user.gender}}" type="hidden">
-            <p id="db">DOB: <span id="dob">{{user.age}}</span></p>
-            <p id="ct">City: {{user.city}}</p>
-            <p id="st">State: {{user.state}}</p>
+            <p id="db"><Strong>DOB: </Strong><span id="dob">{{user.age}}</span></p>
+            <p id="ct"><strong>City: </strong>{{user.city}}</p>
+            <p id="st"><strong>State: </strong>{{user.state}}</p>
             <br>
             <button onclick="showForm()">Edit Profile</button>
 
@@ -144,10 +144,10 @@
             <a href="/search/property/{{this._id}}" id="p-card">
                 <div id="property-card">
                 <p><strong>House: </strong>{{this.address.street}}, {{this.address.city}}, {{this.address.state}}</p>
-                <p><strong>Rent: </strong>{{this.price}}</p>
+                <p><strong>Rent: </strong>{{this.price}}$</p>
                 <p><strong>Property Type: </strong>{{this.details.propertyType}}</p>
                 <p><strong>Apartment Type: </strong>{{this.details.apartmentType}}</p>
-                <p><strong>Area: </strong>{{this.details.area}}</p>
+                <p><strong>Area(in sqft): </strong>{{this.details.area}}</p>
                 <p><strong>Fovorite Count: </strong>{{#if this.favoriteCount}} {{this.favoriteCount}} {{else}} 0 {{/if}}</p>
                 <div id="prop-actions">
                     <p><a href="/editProp">Edit Property</a></p>

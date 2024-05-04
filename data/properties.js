@@ -128,6 +128,7 @@ export const remove = async (propertyId, ownerId) => {
     {
       $pull: {
         housesPosted: propertyId,
+        favouriteIds: propertyId
       },
     }
   );

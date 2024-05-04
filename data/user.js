@@ -12,6 +12,7 @@ import {
   validateGender,
   validateDob,
 } from '../helpers.js';
+import { removeFavInProp } from './properties.js';
 
 const rounds = 16;
 
@@ -211,7 +212,9 @@ export const removeFav = async (userId, propId) => {
   if (!removed) {
     throw `Could not remove property from favorites`;
   }
-  return { _id: removed, deleted: true };
+  let decremented = await removeFavInProp(propId);
+  if(decremented && decremented.favAdded) return {deleted: true };
+  else return {deleted: false };
 };
 
 export const addFav = async (userId, propId) => {
