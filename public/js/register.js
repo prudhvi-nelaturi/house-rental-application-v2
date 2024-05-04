@@ -73,7 +73,7 @@ if(regForm) {
                 emailError.hidden = false;
                 emailError.innerHTML = e;
                 errorFlag = true;
-                eFlag = false;
+                eFlag = true;
             }
             if(!eFlag) emailError.hidden = true;
 
@@ -109,7 +109,7 @@ if(regForm) {
                 stateError.hidden = false;
                 stateError.innerHTML = e;
                 errorFlag = true;
-                sFlag = false;
+                sFlag = true;
             }
             if(!sFlag) stateError.hidden = true;
 

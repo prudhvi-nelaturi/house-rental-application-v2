@@ -87,18 +87,31 @@ const validateGender = (value, varName) => {
 
 const validateAge = (inputDate, varName) => {
   validateString(inputDate, varName);
-  if(inputDate.length != 10) "Error: Enter date in mm/dd/yyyy format"
-  let input = formatAge(inputDate);
-  let dateCheck = input.split('/');
-  if(dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
-  if(dateCheck[0].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
-  if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
-  if(dateCheck[2].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+  inputDate = inputDate.trim();
+  //if(inputDate.length != 10) "Error: Enter date in mm/dd/yyyy format"
+  if(inputDate.length != 10) "Error: Enter date in yyyy-mm-dd format"
+  let dateCheck = inputDate.split('-');
+    if(dateCheck.length !== 3) throw `Error: ${varName} must have yyyy-mm-dd`;
+    if(dateCheck[0].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+    if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+    if(dateCheck[2].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
 
-  dateCheck = dateCheck.map(x => Number(x));
-  dateCheck.forEach(x => {
+    dateCheck = dateCheck.map(x => Number(x));
+    dateCheck.forEach(x => {
       if(isNaN(x)) throw "Error: Date must have numbers"
-  });
+      } );
+
+  let input = formatAge(inputDate);
+  // let dateCheck = input.split('/');
+  // if(dateCheck.length !== 3) throw `Error: ${varName} must have mm/dd/yyyy`;
+  // if(dateCheck[0].length !== 2) throw `Error: ${varName} must have 2 chars for month`;
+  // if(dateCheck[1].length !== 2) throw `Error: ${varName} must have 2 chars for day`;
+  // if(dateCheck[2].length !== 4) throw `Error: ${varName} must have 4 chars for year`;
+
+  // dateCheck = dateCheck.map(x => Number(x));
+  // dateCheck.forEach(x => {
+  //     if(isNaN(x)) throw "Error: Date must have numbers"
+  // });
 
   let diff = Date.now() - (new Date(input)).getTime();
   let age = new Date(diff);
