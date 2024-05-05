@@ -60,7 +60,6 @@
 //   });
 // });
 $(document).ready(function () {
-  // Event delegation for click events on the parent container
   $(".card-content").on("click", "#addToFav", function (e) {
     e.preventDefault();
     let propertyId = $(this).closest(".card-content").find("#propId").val();
@@ -79,7 +78,6 @@ $(document).ready(function () {
     removeFromFavorite(propertyId, $(this), favoriteCountElement);
   });
 
-  // Function to add property to favorite
   function addToFavorite(propertyId, addButton, favoriteCountElement) {
     $.ajax({
       method: "GET",
@@ -93,7 +91,6 @@ $(document).ready(function () {
     });
   }
 
-  // Function to remove property from favorite
   function removeFromFavorite(propertyId, removeButton, favoriteCountElement) {
     $.ajax({
       method: "GET",
@@ -107,17 +104,16 @@ $(document).ready(function () {
     });
   }
 
-  // Function to update favorite count
   function updateFavoriteCount(favoriteCountElement, increment) {
     let currentCount =
-      parseInt(favoriteCountElement.attr("data-favorite-count")) || 0; // If data-favorite-count is not set, default to 0
+      parseInt(favoriteCountElement.attr("data-favorite-count")) || 0;
     if (increment) {
       currentCount++;
     } else {
       currentCount--;
     }
-    currentCount = Math.max(0, currentCount); // Ensure that favorite count is not negative
-    favoriteCountElement.attr("data-favorite-count", currentCount); // Update the data attribute
+    currentCount = Math.max(0, currentCount);
+    favoriteCountElement.attr("data-favorite-count", currentCount);
     favoriteCountElement.text(
       currentCount + " user(s) added this property as their Favorite"
     );
