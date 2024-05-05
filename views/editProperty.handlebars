@@ -52,6 +52,7 @@
         <input type="text" name="propertyType" id="propertyType">
         <p id="propertyType-error" hidden></p> --}}
 
+        <input type="text" value="{{propData.details.propertyType}}" hidden id="pType">
         <label for="propertyType">Property Type<span id="er">*</span>:</label>
         <select name="propertyType" id="propertyType"  required>
             <option value="private">Private</option>
@@ -72,6 +73,7 @@
         <input type="text" name="accomodationType" id="accomodationType">
         <p id="accomodationType-error" hidden></p> --}}
 
+        <input type="text" value="{{propData.details.accomodationType}}" hidden id="aType">
         <label for="accomodationType">Accommodation Type<span id="er">*</span>:</label>
         <select name="accomodationType" id="accomodationType" required>
             <option value="permanent">Permanent</option>

@@ -236,6 +236,10 @@ if(addPropertyForm) {
 
 
 if(editPropertyForm) {
+    let pType = document.getElementById('pType').value;
+    let aType = document.getElementById('aType').value;
+    document.getElementById('propertyType').value = pType;
+    document.getElementById('accomodationType').value = aType;
     editPropertyForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
