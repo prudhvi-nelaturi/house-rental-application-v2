@@ -22,3 +22,12 @@ export const userMiddleware = (req, res, next) => {
         next();
     }
 };
+
+export const addPropertyMiddleware = (req, res, next) => {
+    if(!req.session.user){
+        return res.redirect('/');
+    }
+    else {
+        next();
+    }
+};

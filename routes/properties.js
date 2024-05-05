@@ -33,7 +33,7 @@ router.route('/check').post(async (req, res) => {
     if (Number.isNaN(req.body.searchProperty)) {
       let isZip = validateZip(req.body.searchProperty);
       if (isZip == false) {
-        res.render('searchResults', {
+        return res.render('searchResults', {
           title: 'searchResults',
           hasError: true,
           error: error,
@@ -64,7 +64,7 @@ router.route('/check').post(async (req, res) => {
   }
 });
 
-router.route('/').post(async (req, res) => {
+router.route('/addProperty').post(async (req, res) => {
   //code here for POST
   let propertyInfo = req.body;
   let address = {
@@ -87,10 +87,12 @@ router.route('/').post(async (req, res) => {
     latitude: propertyInfo.latitude,
     longitude: propertyInfo.longitude,
   };
-  let ownerFullName =
-    req.session.user.firstName + '  ' + req.session.user.lastName;
+
+  let ownerFullName = req.session.user.firstName + '  ' + req.session.user.lastName;
+  console.log("req.session.user", req.session.user);
+  let newProduct = undefined;
   try {
-    const newProduct = await properties.create(
+      newProduct = await properties.create(
       address,
       propertyInfo.price,
       req.session.user.id,
@@ -100,10 +102,15 @@ router.route('/').post(async (req, res) => {
       details,
       propertyInfo.nearestLandmarks
     );
-    res.render('homepage');
+    console.log("returning from routes");
     // return res.json(newUser);
   } catch (e) {
-    return res.sendStatus(500).json({ error: e.message });
+    return res.status(400).render('addProperty',{ errorMsg: e, errFlag: true, title: 'Home Page'});
+  }
+  if (newProduct) {
+    return res.render('homepage', {title: 'Home Page'})
+  } else {
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -122,7 +129,7 @@ router.route('/property/:propertyId').get(async (req, res) => {
     if (req.params.propertyId.length === 0)
       throw `Error: value cannot be an empty string or string with just spaces`;
   } catch (error) {
-    res.status(400).render('searchResults', {
+    return res.status(400).render('searchResults', {
       error: error,
       hasError: true,
       title: 'Search Results',
@@ -132,13 +139,13 @@ router.route('/property/:propertyId').get(async (req, res) => {
 
   try {
     const propertyDetails = await properties.get(req.params.propertyId);
-    res.render('property', {
+    return res.render('property', {
       title: 'Property',
       propertyDetails: propertyDetails,
       isAuthenticated: isAuthenticated,
     });
   } catch (e) {
-    res.status(404).render('error', { title: 'error', error: e });
+    return res.status(404).render('error', { title: 'error', error: e });
   }
 });
 
@@ -160,10 +167,10 @@ router
         //res.status(200).json({message: "Property deleted successfully"});
         return res.status(200).redirect('/userProfile');
       } else {
-        res.status(404).json({ message: 'Unable to delete the property' });
+        return res.status(404).json({ message: 'Unable to delete the property' });
       }
     } catch (e) {
-      res.status(404).json({ error: e });
+      return res.status(404).json({ error: e });
     }
   })
   .put(async (req, res) => {

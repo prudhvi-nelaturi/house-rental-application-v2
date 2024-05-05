@@ -15,9 +15,11 @@ const configRoutesFunction = (app) => {
   app.use('/', mainRoutes);
 
   app.use('/', userRoutes);
+  app.use('/', propertyRoutes);
   app.use('/search', propertyRoutes);
   app.use('/comment', commentRoutes);
 
+  app.use('/addProperty', propertyRoutes);
   // app.use('/property/:propertyId', propertyRoutes);
   //app.use('/search/propertyId', propertyRoutes);
 

@@ -19,4 +19,9 @@ router.get('/register', (req, res) => {
   return res.render('register', { title: 'Register Page' });
 });
 
+//add property route
+router.get('/addProperty', (req, res) => {
+  return res.render('addProperty', { title: 'Add Property Page' });
+});
+
 export default router;

@@ -4,7 +4,7 @@ import exphbs from 'express-handlebars';
 import session from "express-session";
 import multer from 'multer';
 import path from 'path';
-import {loginMiddleware, registerMiddleware, userMiddleware} from './middleware.js';
+import {addPropertyMiddleware, loginMiddleware, registerMiddleware, userMiddleware} from './middleware.js';
 
 const app = express();
 
@@ -39,6 +39,7 @@ app.use(session({
 app.use('/login', loginMiddleware);
 app.use('/register', registerMiddleware);
 app.use('/userProfile', userMiddleware);
+app.use('/addProperty', addPropertyMiddleware);
 app.use('/register', upload.single('profilePicture'));
 app.use('/edit', upload.single('profilePicture'));
 app.use('/search/remove/:propertyId', changeRemoveMethod);
