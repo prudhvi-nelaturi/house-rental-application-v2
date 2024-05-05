@@ -16,12 +16,7 @@
     </form>
 </div>
 
-<script>
-document.getElementById("apply-filters-btn").addEventListener("click", function() {
-    document.getElementById("price-filter").value = "";
-    document.getElementById("accomodation-type-filter").selectedIndex = 0;
-});
-</script>
+
 {{#each searchResults}}
 <a href="/search/property/{{this._id}}" class="property-link">
     <div class="card">
@@ -36,27 +31,30 @@ document.getElementById("apply-filters-btn").addEventListener("click", function(
                 <p>State: {{this.address.state}}</p>
                 <p>Price: ${{this.price}}</p>
                 {{#if this.favouriteCount}}
-                <p class="favorite-count" >{{this.favouriteCount}} user(s) added this property as their Favorite</p>
+                <p class="favorite-count">{{this.favouriteCount}} user(s) added this property as their Favorite</p>
                 {{/if}}
             </div>
-            <p>Hello {{isAuthenticated}}</p>
-        {{#if isAuthenticated}}
-            <p>Authenticated .........</p>
-        {{else}}
-            <p>Not .........</p>
-                <p>Please sign in to add this property to your favorites.</p>
-        {{/if}} 
-        {{#if isAuthenticated}} 
-            {{#if this.isFavor}}
-                <a href="/search/removeFav/{{propertyDetails._id}}"><button>Remove Favorite</button></a>
+            {{#if this.isLoggedin}}
             {{else}}
-                <div class="add-to-favorite">
-                    <a href="/search/addFav/{{propertyDetails._id}}"><button>Add to Favorite</button></a>
-
-                </div>
+            <p>Please sign in to add this property to your favorites.</p>
             {{/if}}
-        {{/if}}     
+            {{#if this.isLoggedin}}
+            {{#if this.isFavor}}
+            <a href="/search/removeFav/{{this._id}}"><button>Remove Favorite</button></a>
+            {{else}}
+            <div class="add-to-favorite">
+                <a href="/search/addFav/{{this._id}}"><button>Add to Favorite</button></a>
+
+            </div>
+            {{/if}}
+            {{/if}}
         </div>
     </div>
 </a>
 {{/each}}
+<script>
+    document.getElementById("apply-filters-btn").addEventListener("click", function () {
+        document.getElementById("price-filter").value = "";
+        document.getElementById("accomodation-type-filter").selectedIndex = 0;
+    });
+</script>
