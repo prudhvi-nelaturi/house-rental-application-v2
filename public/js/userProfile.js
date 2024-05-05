@@ -2,7 +2,7 @@ $(document).ready(()=> {
     let userId = $('#userId').val();
     let st = $('#st').val();
     let g = $('#gen').val();
-    alert(userId);
+    //alert(userId);
 
     let requestConfig = {
         method: 'GET',

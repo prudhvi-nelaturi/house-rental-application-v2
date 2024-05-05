@@ -4,13 +4,32 @@
   <div class="address">
     <h2>Address</h2>
     <p>{{propertyDetails.address.street}}{{#if
-        propertyDetails.address.apartmentNum
+      propertyDetails.address.apartmentNum
       }}, Apt
-        {{propertyDetails.address.apartmentNum}}{{/if}}</p>
+      {{propertyDetails.address.apartmentNum}}{{/if}}</p>
     <p>{{propertyDetails.address.city}},
       {{propertyDetails.address.state}}
       {{propertyDetails.address.zip}}</p>
   </div>
+
+  {{#if isAuthenticated}}
+  {{else}}
+  <p>Please sign in to add this property to your favorites.</p>
+  {{/if}}
+
+  {{#if isAuthenticated}}
+
+  {{#if isFavAdded}}
+  <a href="/search/removeFav/{{propertyDetails._id}}"><button>Remove Favorite</button></a>
+  {{else}}
+  <div class="add-to-favorite">
+    <a href="/search/addFav/{{propertyDetails._id}}"><button>Add to Favorite</button></a>
+
+  </div>
+  {{/if}}
+  {{/if}}
+
+
 
   <div class="price">
     <h2>Price</h2>
@@ -31,13 +50,13 @@
   <div class="nearestLandmarks">
     <h2>Nearest Landmark(s)</h2>
     {{#if propertyDetails.nearestLandmarks}}
-      <ul>
-        {{#each propertyDetails.nearestLandmarks}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
+    <ul>
+      {{#each propertyDetails.nearestLandmarks}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
     {{else}}
-      <p>No landmarks available.</p>
+    <p>No landmarks available.</p>
     {{/if}}
   </div>
 
@@ -52,41 +71,36 @@
   <div class="images">
     <h2>Images</h2>
     {{#each propertyDetails.images}}
-      <img src="{{this}}" alt="Property image" />
+    <img src="{{this}}" alt="Property image" />
     {{/each}}
   </div>
 
   <div class="comments">
     <h2>Comments</h2>
     {{#if propertyDetails.comments}}
-      <ul>
-        {{#each propertyDetails.comments}}
-          <li>
-            <p>{{this.CommentText}}</p>
-            <p>Posted on: {{this.postTime}}</p>
-          </li>
-        {{/each}}
-      </ul>
+    <ul>
+      {{#each propertyDetails.comments}}
+      <li>
+        <p>{{this.CommentText}}</p>
+        <p>Posted on: {{this.postTime}}</p>
+      </li>
+      {{/each}}
+    </ul>
     {{else}}
-      <p>No comments yet.</p>
+    <p>No comments yet.</p>
     {{/if}}
 
     {{#if isAuthenticated}}
-      <div class="add-comment">
-        <h3>Add a Comment</h3>
-        <form action="/comment/{{propertyDetails._id}}" method="POST">
-          <textarea
-            name="commentText"
-            placeholder="Enter your comment here..."
-          ></textarea>
-          <br />
-          <button type="submit">Post Comment</button>
-        </form>
-      </div>
+    <div class="add-comment">
+      <h3>Add a Comment</h3>
+      <form action="/comment/{{propertyDetails._id}}" method="POST">
+        <textarea name="commentText" placeholder="Enter your comment here..."></textarea>
+        <br />
+        <button type="submit">Post Comment</button>
+      </form>
+    </div>
     {{else}}
-
-      <p>Please sign in to add comment.</p>
-
+    <p>Please sign in to add comment.</p>
     {{/if}}
 
   </div>

@@ -21,14 +21,33 @@ import {
   remove,
   update,
   getPropertiesViaSearch,
+  addFavInProp,
+  removeFavInProp,
 } from '../data/properties.js';
+import {
+  addFav,
+  removeFav,
+  getFavorites,
+  getFavoritesByUser,
+} from '../data/user.js';
 
 router.route('/check').post(async (req, res) => {
   //code here for GET
-  let isAuthenticated = false;
+  // let isFavAdded = false;
+  let userFavHouses = '';
   if (req.session.user) {
-    isAuthenticated = true;
+    userFavHouses = await getFavoritesByUser(req.session.user.id);
+
+    // userFavHouses.forEach((element) => {
+    //   if (element == req.params.propertyId) {
+    //     isFavAdded = true;
+    //   }
+    // });
   }
+  // let isAuthenticated = false;
+  // if (req.session.user) {
+  //   isAuthenticated = true;
+  // }
   try {
     if (Number.isNaN(req.body.searchProperty)) {
       let isZip = validateZip(req.body.searchProperty);
@@ -51,12 +70,37 @@ router.route('/check').post(async (req, res) => {
     });
   }
   try {
-    let searchResults = await getPropertiesViaSearch(req.body.searchProperty);
+    if (req.body.price) {
+      req.body.price = parseFloat(req.body.price);
+    }
+    let searchResults = await getPropertiesViaSearch(
+      req.body.searchProperty,
+      req.body.price,
+      req.body.accommodationType
+    );
+    searchResults.forEach((element) => {
+      if (userFavHouses.includes(element._id.toString())) {
+        element.isFavor = true;
+      } else element.isFavor = false;
+      if (req.session.user) {
+        element.isLoggedin = true;
+      } else {
+        element.isLoggedin = false;
+      }
+    });
+    let isAuthenticated = false;
+    let isLoggedin = false;
+    if (req.session.user) {
+      isAuthenticated = true;
+      isLoggedin = true;
+    }
     if (searchResults) {
       return res.render('searchResults', {
         title: 'searchResults',
         searchResults: searchResults,
         isAuthenticated: isAuthenticated,
+        userFavHouses: userFavHouses,
+        isLoggedin: isLoggedin,
       });
     }
   } catch (error) {
@@ -139,10 +183,22 @@ router.route('/property/:propertyId').get(async (req, res) => {
 
   try {
     const propertyDetails = await properties.get(req.params.propertyId);
-    return res.render('property', {
+    let isFavAdded = false;
+    if (req.session.user) {
+      const userFavHouses = await getFavoritesByUser(req.session.user.id);
+
+      userFavHouses.forEach((element) => {
+        if (element == req.params.propertyId) {
+          isFavAdded = true;
+        }
+      });
+    }
+
+    res.render('property', {
       title: 'Property',
       propertyDetails: propertyDetails,
       isAuthenticated: isAuthenticated,
+      isFavAdded: isFavAdded,
     });
   } catch (e) {
     return res.status(404).render('error', { title: 'error', error: e });
@@ -176,5 +232,50 @@ router
   .put(async (req, res) => {
     //code here for PUT
   });
+
+router.route('/addFav/:propertyId').get(async (req, res) => {
+  try {
+    req.params.propertyId = validateId(req.params.propertyId, 'Id URL Param');
+  } catch (e) {
+    return res.status(400).render('userPage', { title: 'userPage' });
+  }
+  try {
+    let addFavFunctionInUsers = await addFav(
+      req.session.user.id,
+      req.params.propertyId
+    );
+    let addFavCount = await addFavInProp(req.params.propertyId);
+    if (!addFavCount) {
+      return res.status(400).render('error', { title: 'Error' });
+    }
+    if (addFavFunctionInUsers.added) {
+      res.redirect(`/search/property/${req.params.propertyId}`);
+    }
+  } catch (error) {
+    return res.status(400).render('error', { title: 'Error' });
+  }
+});
+
+router.route('/removeFav/:propertyId').get(async (req, res) => {
+  try {
+    req.params.propertyId = validateId(req.params.propertyId, 'Id URL Param');
+  } catch (e) {
+    return res.status(400).render('userPage', { title: 'userPage' });
+  }
+  try {
+    let RemoveFavFunctionInUsers = await removeFav(
+      req.session.user.id,
+      req.params.propertyId
+    );
+    if (RemoveFavFunctionInUsers.deleted) {
+      res.redirect(`/search/property/${req.params.propertyId}`);
+    }
+  } catch (error) {
+    return res.status(400).render('error', {
+      title: 'Error',
+      error: "Couldn't remove fav from user function",
+    });
+  }
+});
 
 export default router;

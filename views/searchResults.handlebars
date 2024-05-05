@@ -1,4 +1,22 @@
 <h1>Property Search Results</h1>
+<div class="filters">
+    <form action="/search/check" method="post">
+        <label for="searchProperty">Enter a zip, city, or state(Ex: NJ, NY)
+            <input type="text" id="searchProperty" name="searchProperty" placeholder="Ex: Hoboken">
+        </label>
+        <label for="price-filter">Price:</label>
+        <input type="number" id="price" name="price">
+        <label for="accommodation-type-filter">Accommodation Type:</label>
+        <select name="accommodationType" id="accommodation-type-filter">
+            <option value="" selected disabled hidden></option>
+            <option value="permanent">Permanent</option>
+            <option value="temporary">Temporary</option>
+        </select>
+        <button id="apply-filters-btn" type="submit">Apply Filters</button>
+    </form>
+</div>
+
+
 {{#each searchResults}}
 <a href="/search/property/{{this._id}}" class="property-link">
     <div class="card">
@@ -13,10 +31,30 @@
                 <p>State: {{this.address.state}}</p>
                 <p>Price: ${{this.price}}</p>
                 {{#if this.favouriteCount}}
-                <p class="favorite-count">Favorite Count: {{this.favouriteCount}}</p>
+                <p class="favorite-count">{{this.favouriteCount}} user(s) added this property as their Favorite</p>
                 {{/if}}
             </div>
+            {{#if this.isLoggedin}}
+            {{else}}
+            <p>Please sign in to add this property to your favorites.</p>
+            {{/if}}
+            {{#if this.isLoggedin}}
+            {{#if this.isFavor}}
+            <a href="/search/removeFav/{{this._id}}"><button>Remove Favorite</button></a>
+            {{else}}
+            <div class="add-to-favorite">
+                <a href="/search/addFav/{{this._id}}"><button>Add to Favorite</button></a>
+
+            </div>
+            {{/if}}
+            {{/if}}
         </div>
     </div>
 </a>
 {{/each}}
+<script>
+    document.getElementById("apply-filters-btn").addEventListener("click", function () {
+        document.getElementById("price-filter").value = "";
+        document.getElementById("accomodation-type-filter").selectedIndex = 0;
+    });
+</script>
