@@ -6,15 +6,15 @@
     <form id="add-property-form" action="/addProperty" method="POST">
         {{!-- <h4>Address</h4> --}}
         <label for="street">Street<span id="er">*</span>:</label>
-        <input type="text" name="street" id="street" required>
+        <input type="text" name="street" maxlength="50" id="street" value="{{propData.street}}" required>
         <p id="street-error" hidden></p>
 
         <label for="apartmentNum">Apartment No.:</label>
-        <input type="text" name="apartmentNum" id="apartmentNum">
+        <input type="text" name="apartmentNum" maxlength="25" id="apartmentNum" value="{{propData.apartmentNum}}" >
         <p id="apartmentNum-error" hidden></p>
 
         <label for="city">City<span id="er">*</span>:</label>
-        <input type="text" name="city" id="city" required>
+        <input type="text" name="city" maxlength="25" id="city" value="{{propData.city}}" required>
         <p id="city-error" hidden></p>
 
         <label for="state">State<span id="er">*</span>:</label>
@@ -73,30 +73,30 @@
         <p id="state-error" hidden></p>
 
         <label for="zip">Zip Code<span id="er">*</span>:</label>
-        <input type="number" name="zip" id="zip" required>
+        <input type="number" name="zip" id="zip" value="{{propData.zip}}"  required>
         <p id="zip-error" hidden></p>
 
         <label for="nearestLandmarks">Nearest Landmarks<span id="er">*</span>:</label>
-        <input type="text" name="nearestLandmarks" id="nearestLandmarks" required>
+        <input type="text" name="nearestLandmarks" maxlength="1000" id="nearestLandmarks" value="{{propData.nearestLandmarks}}"  required>
         <p id="nearestLandmarks-error" hidden></p>
 
         {{!-- <h4>Price</h4> --}}
         <label for="price">Price<span id="er">*</span>: $</label>
-        <input type="number" step="0.01" name="price" id="price" required>
+        <input type="number" step="0.01" name="price" id="price" value="{{propData.price}}"  required>
         <p id="price-error" hidden></p>
 
         <label for="latitude">Latitude<span id="er">*</span>:</label>
-        <input type="number" step="0.000001" name="latitude" id="latitude" required>
+        <input type="number" step="0.000001" name="latitude" id="latitude" value="{{propData.latitude}}"  required>
         <p id="latitude-error" hidden></p>
 
         <label for="longitude">Longitude<span id="er">*</span>:</label>
-        <input type="number" step="0.000001" name="longitude" id="longitude" required>
+        <input type="number" step="0.000001" name="longitude" id="longitude" value="{{propData.longitude}}"  required>
         <p id="longitude-error" hidden></p>
 
 
         {{!-- <h4>Details</h4> --}}
         <label for="description">Description<span id="er">*</span>:</label>
-        <input type="text" name="description" id="description" required>
+        <input type="text" name="description" maxlength="1000" id="description" value="{{propData.description}}"  required>
         <p id="description-error" hidden></p>
 
         {{!-- <label for="propertyType">Property Type<span id="er">*</span>:</label>
@@ -104,7 +104,7 @@
         <p id="propertyType-error" hidden></p> --}}
 
         <label for="propertyType">Property Type<span id="er">*</span>:</label>
-        <select name="propertyType" id="propertyType" required>
+        <select name="propertyType" id="propertyType"  required>
             <option value="private">Private</option>
             <option value="shared">Shared</option>
         </select>
@@ -137,15 +137,15 @@
         <p id="accomodationType-error" hidden></p>
 
         <label for="area">Area in square feet<span id="er">*</span>:</label>
-        <input type="number" name="area" id="area" required>
+        <input type="number" name="area" id="area" value="{{propData.area}}"  required>
         <p id="area-error" hidden></p>
 
         <label for="bedroomCount">No. of Bedrooms<span id="er">*</span>:</label>
-        <input type="number" name="bedroomCount" id="bedroomCount" required>
+        <input type="number" name="bedroomCount" id="bedroomCount" value="{{propData.bedroomCount}}" required>
         <p id="bedroomCount-error" hidden></p>
 
         <label for="bathroomCount">No. of Bathrooms<span id="er">*</span>:</label>
-        <input type="number" name="bathroomCount" id="bathroomCount" required>
+        <input type="number" name="bathroomCount" id="bathroomCount" value="{{propData.bathroomCount}}"  required>
         <p id="bathroomCount-error" hidden></p>
 
         <label for="propertyImages">Upload Property Photos<span id="er">*</span>: </label>
@@ -155,6 +155,16 @@
         <button type="submit" name="submitButton" id="submitButton">Submit</button>
         {{!-- <button type="cancel" name="cancelButton" id="cancelButton">Cancel</button> --}}
     </form>
+    <div id="errors" hidden></div>
+    {{#if isError}}
+    <ul id="errors">
+        {{#each errors}}
+        <li>
+            {{this}}
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
 </main>
 
 <script src="/public/js/addProperty.js"></script>

@@ -150,7 +150,7 @@
                 <p><strong>Area(in sqft): </strong>{{this.details.area}}</p>
                 <p><strong>Fovorite Count: </strong>{{#if this.favoriteCount}} {{this.favoriteCount}} {{else}} 0 {{/if}}</p>
                 <div id="prop-actions">
-                    <p><a href="/editProp">Edit Property</a></p>
+                    <p><a href="/search/editProperty/{{this._id}}">Edit Property</a></p>
                     {{!-- <a href="/editProp"><button>Edit Property</button></a> --}}
                     <p><a href="../search/remove/{{this._id}}">Remove Property</a></p>
                 </div>

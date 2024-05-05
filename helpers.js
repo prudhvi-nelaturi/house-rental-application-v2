@@ -396,6 +396,87 @@ const validateDob = (inputDate, varName) => {
   return inputDate;
 };
 
+const validatePropertyType = (propertyType, varName) => {
+  propertyType = validateString(propertyType, varName);
+  if (propertyType !== 'private' && propertyType !== 'shared') throw  `Invalid ${varName || 'Property Type'}`
+  return propertyType
+}
+
+const validateApartType = (apartmentType, varName) => {
+  apartmentType = validateString(apartmentType, varName);
+  if (apartmentType !== '1bhk' 
+  && apartmentType !== '2bhk'
+  && apartmentType !== '3bhk'
+  && apartmentType !== '4bhk'
+  && apartmentType !== 'studio'
+  && apartmentType !== 'flex') throw  `Invalid ${varName || 'Apartment Type'}`
+  return apartmentType
+}
+
+const validateAccType = (accomodationType, varName) => {
+  accomodationType = validateString(accomodationType, varName);
+  if (accomodationType !== 'permanent' && accomodationType !== 'temporary') 
+      throw `Invalid ${varName || 'Accomodation Type'}`
+  return accomodationType
+}
+
+const compareData = (newData, oldData) => {
+  let finalStr = "";
+  if (oldData.street !== newData.street) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Street '
+  } 
+  if (oldData.apartmentNum !== newData.apartmentNum) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Apartment No. '
+  } 
+  if (oldData.city !== newData.city) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'City '
+  } 
+  if (oldData.state !== newData.state) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'State '
+  } 
+  if (oldData.zip !== newData.zip) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Zip Code '
+  } 
+  if (oldData.latitude !== newData.latitude) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Latitude '
+  } 
+  if (oldData.longitude !== newData.longitude) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Longitude '
+  } 
+  if (oldData.apartmentType !== newData.apartmentType) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Apartment Type '
+  } 
+  if (oldData.area !== newData.area) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'Area '
+  } 
+  if (oldData.bedroomCount !== newData.bedroomCount) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'No. of Bedrooms '
+  } 
+  if (oldData.bathroomCount !== newData.bathroomCount) {
+    if (finalStr != "") finalStr = finalStr + ', '
+    finalStr = finalStr + 'No. of Bathrooms '
+  } 
+  // if (oldData.images !== newData.images) {
+  //   if (finalStr != "") finalStr = finalStr + ', '
+  //   finalStr = finalStr + 'Images '
+  // } 
+  if (finalStr != "") {
+    finalStr = finalStr + " cannot be modified, if these field need to be modified then remove the property and add a new one."
+  }
+
+  return finalStr
+}
+
 export {
   validateArray,
   validateNumber,
@@ -419,4 +500,8 @@ export {
   validateName,
   validateGender,
   validateDob,
+  validateAccType,
+  validatePropertyType,
+  validateApartType,
+  compareData
 };

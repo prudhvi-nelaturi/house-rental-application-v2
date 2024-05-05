@@ -31,3 +31,21 @@ export const addPropertyMiddleware = (req, res, next) => {
         next();
     }
 };
+
+export const editPropertyMiddleware = (req, res, next) => {
+    if(!req.session.user){
+        return res.redirect('/');
+    }
+    else {
+        next();
+    }
+};
+
+export const searchPropertyMiddleware = (req, res, next) => {
+    if(!req.session.user){
+        return res.redirect('/');
+    }
+    else {
+        next();
+    }
+};

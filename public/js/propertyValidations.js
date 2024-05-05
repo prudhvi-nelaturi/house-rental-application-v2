@@ -62,15 +62,16 @@ const validateNumber = (num, numName, intFlag) => {
 
 const validateZip = (zip, varName) => {
     zip = validateStringNew(zip, varName);
-    for (i in zip) {
+    for (i of zip) {
         let num = parseInt(i);
         if (num === undefined || num === null)
-            throw `Error: ${varName || 'Provided parameter'} is invalid`;
+            throw `Error: ${varName || 'Zip'} is invalid`;
         if (typeof num != 'number')
-            throw `Error: ${varName || 'Provided parameter'} must consist of all numbers`;
+            throw `Error: ${varName || 'Zip'} must consist of all numbers`;
         if (Number.isNaN(num))
-            throw `Error: ${varName || 'Provided parameter'} is invalid`;
+            throw `Error: ${varName || 'Zip'} is invalid`;
     }
+    if (zip.length != 5 ) throw `Error: ${varName || 'Zip'} must consist of five digits`
     return zip
 };
 
@@ -86,4 +87,28 @@ const validateStateName = (state, varName) => {
     if (!names.includes(state)) throw `Invalid state`
 
     return state
+}
+
+const validatePropertyType = (propertyType, varName) => {
+    propertyType = validateStringNew(propertyType, varName);
+    if (propertyType !== 'private' && propertyType !== 'shared') throw  `Invalid ${varName || 'Property Type'}`
+    return propertyType
+}
+
+const validateApartType = (apartmentType, varName) => {
+    apartmentType = validateStringNew(apartmentType, varName);
+    if (apartmentType !== '1bhk' 
+    && apartmentType !== '2bhk'
+    && apartmentType !== '3bhk'
+    && apartmentType !== '4bhk'
+    && apartmentType !== 'studio'
+    && apartmentType !== 'flex') throw  `Invalid ${varName || 'Apartment Type'}`
+    return apartmentType
+}
+
+const validateAccType = (accomodationType, varName) => {
+    accomodationType = validateStringNew(accomodationType, varName);
+    if (accomodationType !== 'permanent' && accomodationType !== 'temporary') 
+        throw `Invalid ${varName || 'Accomodation Type'}`
+    return accomodationType
 }

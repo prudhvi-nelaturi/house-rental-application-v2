@@ -2,13 +2,17 @@
 import { properties, users } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import {
-  validateZip,
-  checkDecimalValue,
   validateNumber,
-  validateObject,
   validateString,
+  validateObject,
   validateId,
-  validateArray,
+  checkDecimalValue,
+  validateZip,
+  validateAccType,
+  validatePropertyType,
+  validateApartType,
+  validateState,
+  checkStringMaxLength
 } from "../helpers.js";
 import { getUser } from "./user.js";
 
@@ -28,41 +32,61 @@ export const create = async (
     !ownerId ||
     !ownerFullName ||
     !location ||
-    !images ||
+    // !images ||
     !details ||
     !nearestLandmarks
   ) {
     throw "All fields must be defined";
   }
   ownerFullName = validateString(ownerFullName, "Owner Full Name");
-  nearestLandmarks = validateString(nearestLandmarks, "nearest Landmark");
+  if (nearestLandmarks.trim() !== "" && nearestLandmarks !== undefined && nearestLandmarks !== null) {
+    nearestLandmarks = checkStringMaxLength(nearestLandmarks, "Nearest Landmark", 1000);
+  } else {
+      nearestLandmarks = "";
+  }
 
   let nearestLandmarkArray = nearestLandmarks.split(",");
   for (let i = 0; i < nearestLandmarkArray.length; i++) {
     nearestLandmarkArray[i] = validateString(
       nearestLandmarkArray[i],
-      "Landmark"
+      "Nearest Landmark"
     );
   }
 
   validateObject(address, "address");
   if (!address.street) throw "street must be present";
-  else address.street = validateString(address.street, "street");
-  if (address.apartmentNum)
-    address.apartmentNum = validateString(address.apartmentNum, "apartmentNum");
+  else address.street = checkStringMaxLength(address.street, "Street", 50);
+  if (address.apartmentNum && address.apartmentNum.trim() !=="")
+    address.apartmentNum = checkStringMaxLength(address.apartmentNum, "apartmentNum", 25);
   if (!address.city) throw "city must be present";
-  else address.city = validateString(address.city, "city");
+  else address.city = checkStringMaxLength(address.city, "City", 25);
   if (!address.zip) throw "zip must be present";
-  else address.zip = validateZip(address.zip, "zip");
+  else address.zip = validateZip(address.zip.trim(), "zip");
+  address.state = validateState(address.state, 'State')
   validateNumber(price, "price");
+  checkDecimalValue(price, 'price', 2)
+  if (price <= 0) throw  `Price must be greater than 0`
   // if (!ObjectId.isvalid(ownerId)) throw 'ownerId is not valid';
   ownerId = validateId(ownerId, "ownerId");
   validateObject(location, "location");
+  validateNumber(location.latitude,'Latitude', false)
+  checkDecimalValue(location.latitude, 'Latitude', 6)
+  validateNumber(location.longitude,'Longitude', false)
+  checkDecimalValue(location.longitude,'Longitude', 6)
   validateObject(details, "details");
   if (!details.description) throw "description must be present";
-  else details.description = validateString(details.description, "description");
+  else details.description = checkStringMaxLength(details.description, "description", 1000);
   if (!details.area) throw "area must be present";
   else validateNumber(details.area, "area", true);
+  if (details.area <= 0 ) throw `Area must be greater than 0`
+  validateNumber(details.bedroomCount, "No. of Bedrooms", true)
+  if (details.bedroomCount < 0 ) throw `No. of Bedrooms must be greater than or equal to 0`
+  validateNumber(details.bathroomCount, "No. of Bathrooms", true)
+  if (details.bathroomCount < 0 ) throw `No. of Bathrooms must be greater than or equal to 0`
+  details.propertyType = validatePropertyType(details.propertyType, 'Property Type')
+  details.apartmentType   = validateApartType(details.apartmentType, 'Apartment Type')
+  details.accomodationType   = validateAccType(details.accomodationType, 'Accomodation Type')
+
   let newProperty = {
     address: address,
     price: price,
@@ -159,48 +183,55 @@ export const update = async (
     !ownerId ||
     !ownerFullName ||
     !location ||
-    !images ||
-    !details ||
-    !nearestLandmarks
+    // !images ||
+    !details
   ) {
     throw "All fields must be defined";
   }
 
   ownerFullName = validateString(ownerFullName, "Owner Full Name");
-  nearestLandmarks = validateString(nearestLandmarks, "nearest Landmark");
+  if (nearestLandmarks.trim() !== "" && nearestLandmarks !== undefined && nearestLandmarks !== null) {
+    nearestLandmarks = checkStringMaxLength(nearestLandmarks, "Nearest Landmark",1000);
+  } else {
+      nearestLandmarks = "";
+  }
 
   let nearestLandmarkArray = nearestLandmarks.split(",");
   for (let i = 0; i < nearestLandmarkArray.length; i++) {
     nearestLandmarkArray[i] = validateString(
       nearestLandmarkArray[i],
-      "Landmark"
+      "Nearest Landmark"
     );
   }
 
   address = validateObject(address, "address");
   if (!address.street) throw "street must be present";
-  else address.street = validateString(address.street, "street");
+  else address.street = checkStringMaxLength(address.street, "street", 50);
   if (address.apartmentNum)
-    address.apartmentNum = address.apartmentNum = validateString(
+    address.apartmentNum = address.apartmentNum = checkStringMaxLength(
       address.apartmentNum,
-      "apartmentNum"
+      "apartmentNum", 25
     );
   if (!address.city) throw "city must be present";
-  else address.city = validateString(address.city, "city");
+  else address.city = checkStringMaxLength(address.city, "city", 25);
   if (!address.zip) throw "zip must be present";
   else address.zip = validateZip(address.zip, "zip");
-  price = validateNumber(price, "price");
+  let p = parseFloat(price)
+  p = validateNumber(p, "price");
   // if (!ObjectId.isvalid(ownerId)) throw 'ownerId is not valid';
   ownerId = validateId(ownerId, "ownerId");
-  location = validateObject(location, "location");
+  // location = validateObject(location, "location");
   details = validateObject(details, "details");
+
+  details.propertyType = validatePropertyType(details.propertyType, 'Property Type')
+  details.accomodationType   = validateAccType(details.accomodationType, 'Accomodation Type')
+
   if (!details.description) throw "description must be present";
-  else details.description = validateString(details.description, "description");
+  else details.description = checkStringMaxLength(details.description, "description", 1000);
   if (!details.area) throw "area must be present";
   else details.area = validateNumber(details.area, "area");
   let getCollectionFn = await properties();
   let theProperty = get(propertyId);
-
   await getCollectionFn.updateOne(
     { _id: new ObjectId(propertyId) },
     {

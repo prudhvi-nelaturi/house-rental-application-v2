@@ -20,6 +20,7 @@ const configRoutesFunction = (app) => {
   app.use('/comment', commentRoutes);
 
   app.use('/addProperty', propertyRoutes);
+  app.use('/editProperty', propertyRoutes);
   // app.use('/property/:propertyId', propertyRoutes);
   //app.use('/search/propertyId', propertyRoutes);
 
