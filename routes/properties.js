@@ -1,6 +1,6 @@
 // Import the express router as shown in the lecture code
 // Note: please do not forget to export the router!
-import express from 'express';
+import express from "express";
 import {
   validateId,
   validateString,
@@ -27,18 +27,18 @@ import {
   getPropertiesViaSearch,
   addFavInProp,
   removeFavInProp,
-} from '../data/properties.js';
+} from "../data/properties.js";
 import {
   addFav,
   removeFav,
   getFavorites,
   getFavoritesByUser,
-} from '../data/user.js';
+} from "../data/user.js";
 
-router.route('/check').post(async (req, res) => {
+router.route("/check").post(async (req, res) => {
   //code here for GET
   // let isFavAdded = false;
-  let userFavHouses = '';
+  let userFavHouses = "";
   if (req.session.user) {
     userFavHouses = await getFavoritesByUser(req.session.user.id);
 
@@ -66,8 +66,8 @@ router.route('/check').post(async (req, res) => {
       req.body.searchProperty = validateString(req.body.searchProperty);
     }
   } catch (error) {
-    return res.render('searchResults', {
-      title: 'searchResults',
+    return res.render("searchResults", {
+      title: "searchResults",
       hasError: true,
       error: error,
       isAuthenticated: isAuthenticated,
@@ -99,16 +99,17 @@ router.route('/check').post(async (req, res) => {
       isLoggedin = true;
     }
     if (searchResults) {
-      return res.render('searchResults', {
-        title: 'searchResults',
+      return res.render("searchResults", {
+        title: "searchResults",
         searchResults: searchResults,
         isAuthenticated: isAuthenticated,
         userFavHouses: userFavHouses,
         isLoggedin: isLoggedin,
+        searchProperty: req.body.searchProperty,
       });
     }
   } catch (error) {
-    return res.status(404).render('error', { title: 'Error', error: error });
+    return res.status(404).render("error", { title: "Error", error: error });
   }
 });
 
@@ -498,7 +499,7 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
   }
 });
 
-router.route('/property/:propertyId').get(async (req, res) => {
+router.route("/property/:propertyId").get(async (req, res) => {
   //code here for GET
   let isAuthenticated = false;
   if (req.session.user) {
@@ -507,7 +508,7 @@ router.route('/property/:propertyId').get(async (req, res) => {
   try {
     if (!req.params.propertyId)
       throw `Error: You must supply a valid propertyId!`;
-    if (typeof req.params.propertyId !== 'string')
+    if (typeof req.params.propertyId !== "string")
       throw `Error: value must be a string!`;
     req.params.propertyId = req.params.propertyId.trim();
     if (req.params.propertyId.length === 0)
@@ -516,7 +517,7 @@ router.route('/property/:propertyId').get(async (req, res) => {
     return res.status(400).render('searchResults', {
       error: error,
       hasError: true,
-      title: 'Search Results',
+      title: "Search Results",
       isAuthenticated: isAuthenticated,
     });
   }
@@ -534,8 +535,8 @@ router.route('/property/:propertyId').get(async (req, res) => {
       });
     }
 
-    res.render('property', {
-      title: 'Property',
+    res.render("property", {
+      title: "Property",
       propertyDetails: propertyDetails,
       isAuthenticated: isAuthenticated,
       isFavAdded: isFavAdded,
@@ -546,13 +547,13 @@ router.route('/property/:propertyId').get(async (req, res) => {
 });
 
 router
-  .route('/remove/:propertyId')
+  .route("/remove/:propertyId")
   .delete(async (req, res) => {
     //code here for DELETE
     try {
-      req.params.propertyId = validateId(req.params.propertyId, 'Id URL Param');
+      req.params.propertyId = validateId(req.params.propertyId, "Id URL Param");
     } catch (e) {
-      return res.status(400).render('userPage', { title: 'userPage' });
+      return res.status(400).render("userPage", { title: "userPage" });
     }
     try {
       let deletedProperty = await properties.remove(
@@ -561,7 +562,7 @@ router
       );
       if (deletedProperty.deleted) {
         //res.status(200).json({message: "Property deleted successfully"});
-        return res.status(200).redirect('/userProfile');
+        return res.status(200).redirect("/userProfile");
       } else {
         return res.status(404).json({ message: 'Unable to delete the property' });
       }
@@ -573,11 +574,11 @@ router
     //code here for PUT
   });
 
-router.route('/addFav/:propertyId').get(async (req, res) => {
+router.route("/addFav/:propertyId").get(async (req, res) => {
   try {
-    req.params.propertyId = validateId(req.params.propertyId, 'Id URL Param');
+    req.params.propertyId = validateId(req.params.propertyId, "Id URL Param");
   } catch (e) {
-    return res.status(400).render('userPage', { title: 'userPage' });
+    return res.status(400).render("userPage", { title: "userPage" });
   }
   try {
     let addFavFunctionInUsers = await addFav(
@@ -586,21 +587,21 @@ router.route('/addFav/:propertyId').get(async (req, res) => {
     );
     let addFavCount = await addFavInProp(req.params.propertyId);
     if (!addFavCount) {
-      return res.status(400).render('error', { title: 'Error' });
+      return res.status(400).render("error", { title: "Error" });
     }
     if (addFavFunctionInUsers.added) {
       res.redirect(`/search/property/${req.params.propertyId}`);
     }
   } catch (error) {
-    return res.status(400).render('error', { title: 'Error' });
+    return res.status(400).render("error", { title: "Error" });
   }
 });
 
-router.route('/removeFav/:propertyId').get(async (req, res) => {
+router.route("/removeFav/:propertyId").get(async (req, res) => {
   try {
-    req.params.propertyId = validateId(req.params.propertyId, 'Id URL Param');
+    req.params.propertyId = validateId(req.params.propertyId, "Id URL Param");
   } catch (e) {
-    return res.status(400).render('userPage', { title: 'userPage' });
+    return res.status(400).render("userPage", { title: "userPage" });
   }
   try {
     let RemoveFavFunctionInUsers = await removeFav(
@@ -611,8 +612,55 @@ router.route('/removeFav/:propertyId').get(async (req, res) => {
       res.redirect(`/search/property/${req.params.propertyId}`);
     }
   } catch (error) {
-    return res.status(400).render('error', {
-      title: 'Error',
+    return res.status(400).render("error", {
+      title: "Error",
+      error: "Couldn't remove fav from user function",
+    });
+  }
+});
+
+router.route("/addFavFromSearch/:propertyId").get(async (req, res) => {
+  try {
+    req.params.propertyId = validateId(req.params.propertyId, "Id URL Param");
+  } catch (e) {
+    return res.status(400).render("error", { title: "Error" });
+  }
+  try {
+    let addFavFunctionInUsers = await addFav(
+      req.session.user.id,
+      req.params.propertyId
+    );
+    let addFavCount = await addFavInProp(req.params.propertyId);
+    if (!addFavCount) {
+      return res.status(400).render("error", { title: "Error" });
+    }
+    if (addFavCount.favAdded) {
+      //res.redirect(`/search/property/${req.params.propertyId}`);
+      return res.json(addFavCount);
+    }
+  } catch (error) {
+    return res.status(400).render("error", { title: "Error" });
+  }
+});
+
+router.route("/removeFavFromSearch/:propertyId").get(async (req, res) => {
+  try {
+    req.params.propertyId = validateId(req.params.propertyId, "Id URL Param");
+  } catch (e) {
+    return res.status(400).render("error", { title: "Error" });
+  }
+  try {
+    let RemoveFavFunctionInUsers = await removeFav(
+      req.session.user.id,
+      req.params.propertyId
+    );
+    if (RemoveFavFunctionInUsers.deleted) {
+      //res.redirect(`/search/property/${req.params.propertyId}`);
+      return res.json(RemoveFavFunctionInUsers);
+    }
+  } catch (error) {
+    return res.status(400).render("error", {
+      title: "Error",
       error: "Couldn't remove fav from user function",
     });
   }

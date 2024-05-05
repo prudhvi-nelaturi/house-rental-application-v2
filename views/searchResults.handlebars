@@ -1,9 +1,7 @@
-<h1>Property Search Results</h1>
 <div class="filters">
     <form action="/search/check" method="post">
-        <label for="searchProperty">Enter a zip, city, or state(Ex: NJ, NY)
-            <input type="text" id="searchProperty" name="searchProperty" placeholder="Ex: Hoboken">
-        </label>
+    <input type="hidden" id="searchProperty" name="searchProperty" value="{{searchProperty}}">
+    <h2 id="searchProperty" name="searchProperty">Showing results for: {{searchProperty}}</h2>
         <label for="price-filter">Price:</label>
         <input type="number" id="price" name="price">
         <label for="accommodation-type-filter">Accommodation Type:</label>
@@ -15,6 +13,7 @@
         <button id="apply-filters-btn" type="submit">Apply Filters</button>
     </form>
 </div>
+<br>
 
 
 {{#each searchResults}}
@@ -26,13 +25,12 @@
                 <i class="favorite-icon fas fa-heart{{#if this.isFavorite}} active{{/if}}"></i>
             </div>
             <div class="property-details">
+                <input type="text" value="{{this._id}}" id="propId" hidden> 
                 <p>Address: {{this.address.street}}</p>
                 <p>City: {{this.address.city}}</p>
                 <p>State: {{this.address.state}}</p>
                 <p>Price: ${{this.price}}</p>
-                {{#if this.favouriteCount}}
-                <p class="favorite-count">{{this.favouriteCount}} user(s) added this property as their Favorite</p>
-                {{/if}}
+                <p class="favorite-count" data-favorite-count="{{this.favouriteCount}}">{{this.favouriteCount}} user(s) added this property as their Favorite</p>
             </div>
             {{#if this.isLoggedin}}
             {{else}}
@@ -40,11 +38,12 @@
             {{/if}}
             {{#if this.isLoggedin}}
             {{#if this.isFavor}}
-            <a href="/search/removeFav/{{this._id}}"><button>Remove Favorite</button></a>
+            <a href="javascript:void(0)" id="addToFav" hidden><button>Add to Favorite</button></a>
+            <a href="javascript:void(0)" id="removeFav"><button>Remove from Favorite</button></a>
             {{else}}
             <div class="add-to-favorite">
-                <a href="/search/addFav/{{this._id}}"><button>Add to Favorite</button></a>
-
+                <button type="submit" id="addToFav">Add to Favorite</button></a>
+                <button type="submit" id="removeFav" hidden>Remove from Favorite</button></a>
             </div>
             {{/if}}
             {{/if}}
@@ -52,9 +51,13 @@
     </div>
 </a>
 {{/each}}
+
 <script>
     document.getElementById("apply-filters-btn").addEventListener("click", function () {
         document.getElementById("price-filter").value = "";
         document.getElementById("accomodation-type-filter").selectedIndex = 0;
     });
 </script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="/public/js/propertyResults_favorite.js"></script>
