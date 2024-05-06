@@ -1,10 +1,17 @@
 import express from 'express';
 import configRoutesFunction from './routes/index.js';
 import exphbs from 'express-handlebars';
-import session from "express-session";
+import session from 'express-session';
 import multer from 'multer';
 import path from 'path';
-import {loginMiddleware, registerMiddleware, userMiddleware} from './middleware.js';
+import {
+  searchPropertyMiddleware,
+  editPropertyMiddleware,
+  addPropertyMiddleware,
+  loginMiddleware,
+  registerMiddleware,
+  userMiddleware,
+} from './middleware.js';
 
 const app = express();
 
@@ -16,34 +23,45 @@ app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 const changeRemoveMethod = (req, res, next) => {
-  req.method = "DELETE";
+  req.method = 'DELETE';
+  next();
+};
+
+const changeEditMethod = (req, res, next) => {
+  req.method = 'PUT';
   next();
 };
 
 let storage = multer.diskStorage({
-  destination: './public/images' ,
-  filename: function(req, img, next) {
-    next(null, 'img_'+ Date.now()+ path.extname(img.originalname));
-  }
+  destination: './public/images',
+  filename: function (req, img, next) {
+    next(null, 'img_' + Date.now() + path.extname(img.originalname));
+  },
 });
 
-let upload = multer({storage: storage});
+let upload = multer({ storage: storage });
 
-app.use(session({
-  name: 'AuthenticationState',
-  secret: 'This is our secret message!!!',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  session({
+    name: 'AuthenticationState',
+    secret: 'This is our secret message!!!',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use('/login', loginMiddleware);
 app.use('/register', registerMiddleware);
 app.use('/userProfile', userMiddleware);
+app.use('/addProperty', addPropertyMiddleware);
+app.use('/editProperty', editPropertyMiddleware);
+app.use('/search/addProperty', searchPropertyMiddleware);
+app.use('/search/editProperty/:propertyId', editPropertyMiddleware);
 app.use('/register', upload.single('profilePicture'));
 app.use('/edit', upload.single('profilePicture'));
 app.use('/search/remove/:propertyId', changeRemoveMethod);
 app.use('/removeFavorite/:propId', changeRemoveMethod);
-
+app.use('/search/updateProperty/:propertyId', changeEditMethod);
 configRoutesFunction(app);
 
 app.listen(3000, (req, res) => {

@@ -1,11 +1,11 @@
 <div class="filters">
     <form action="/search/check" method="post">
-    <input type="hidden" id="searchProperty" name="searchProperty" value="{{searchProperty}}">
-    <h2 id="searchProperty" name="searchProperty">Showing results for: {{searchProperty}}</h2>
-        <label for="price-filter">Price:</label>
+        <input type="hidden" id="searchProperty" name="searchProperty" value="{{searchProperty}}">
+        <h2 id="searchProperty" name="searchProperty">Showing results for: {{searchProperty}}</h2>
+        <label for="price-filter">Price less than or equal to:</label>
         <input type="number" id="price" name="price">
-        <label for="accommodation-type-filter">Accommodation Type:</label>
-        <select name="accommodationType" id="accommodation-type-filter">
+        <label for="accomodation-type-filter">Accommodation Type:</label>
+        <select name="accomodationType" id="accomodation-type-filter">
             <option value="" selected disabled hidden></option>
             <option value="permanent">Permanent</option>
             <option value="temporary">Temporary</option>
@@ -25,12 +25,13 @@
                 <i class="favorite-icon fas fa-heart{{#if this.isFavorite}} active{{/if}}"></i>
             </div>
             <div class="property-details">
-                <input type="text" value="{{this._id}}" id="propId" hidden> 
+                <input type="text" value="{{this._id}}" id="propId" hidden>
                 <p>Address: {{this.address.street}}</p>
                 <p>City: {{this.address.city}}</p>
                 <p>State: {{this.address.state}}</p>
                 <p>Price: ${{this.price}}</p>
-                <p class="favorite-count" data-favorite-count="{{this.favouriteCount}}">{{this.favouriteCount}} user(s) added this property as their Favorite</p>
+                <p class="favorite-count" data-favorite-count="{{this.favouriteCount}}">{{this.favouriteCount}} user(s)
+                    added this property as their Favorite</p>
             </div>
             {{#if this.isLoggedin}}
             {{else}}
@@ -42,13 +43,14 @@
             <a href="javascript:void(0)" id="removeFav"><button>Remove from Favorite</button></a>
             {{else}}
             <div class="add-to-favorite">
-                <button type="submit" id="addToFav">Add to Favorite</button></a>
-                <button type="submit" id="removeFav" hidden>Remove from Favorite</button></a>
-            </div>
-            {{/if}}
-            {{/if}}
-        </div>
-    </div>
+                <button type="submit" id="addToFav">Add to Favorite</button>
+</a>
+<button type="submit" id="removeFav" hidden>Remove from Favorite</button></a>
+</div>
+{{/if}}
+{{/if}}
+</div>
+</div>
 </a>
 {{/each}}
 
@@ -59,5 +61,6 @@
     });
 </script>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="/public/js/propertyResults_favorite.js"></script>
