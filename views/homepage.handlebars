@@ -1,18 +1,43 @@
-<h1>HomePage</h1>
-<form action="/search/check" method="post">
-  <label for="searchProperty">Enter a zip, city, or state(Ex: NJ, NY)
-    <input
-      type="text"
-      id="searchProperty"
-      name="searchProperty"
-      placeholder="Ex: Hoboken"
-    />
+<header>
+  <h1>Welcome to House Rental Application!</h1>
+  <p>Are you an international student struggling to find the perfect rental home in the United States? Look no further!
+    Our House Rental Application is here
+    to make your search easier and more efficient.</p>
+</header>
+<form action="/search/check" method="post" id="searchBox">
+  <label for="searchProperty">
+    <input type="text" id="searchProperty" name="searchProperty"
+      placeholder="Enter an address, city, state or zip code">
   </label>
-  <br />
+  <br>
   <button type="submit">Search</button>
 </form>
+<p id="error" hidden>Please enter search word!</p>
+<section id="how-it-works">
+  <h2>How It Works:</h2>
+  <ol>
+    <li><strong>Search:</strong> Enter your desired location in the search bar and click "Search."</li>
+    <li><strong>Browse:</strong> Explore the listings that match your criteria, filtering by price, and more.
+    </li>
+    <li><strong>Connect:</strong> Found a property you love? Contact the owner through the comment section to schedule
+      a viewing or ask questions.</li>
+  </ol>
+</section>
 
-<div id="ads" hidden></div>   
-<div id="ads2" hidden></div> 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<div id="ads" hidden></div>
+<div id="ads2" hidden></div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+  let searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (document.getElementById('searchProperty').value.trim() == "") {
+      document.getElementById('error').hidden = false;
+    } else {
+      document.getElementById('error').hidden = true;
+      searchBox.submit();
+    }
+  });
+</script>
 <script src="/public/js/homepage.js"></script>
