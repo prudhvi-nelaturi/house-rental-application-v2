@@ -32,7 +32,7 @@ export const create = async (
     !ownerId ||
     !ownerFullName ||
     !location ||
-    // !images ||
+    !images ||
     !details
     //!nearestLandmarks
   ) {
@@ -216,7 +216,7 @@ export const update = async (
     !ownerId ||
     !ownerFullName ||
     !location ||
-    // !images ||
+    !images ||
     !details
   ) {
     throw 'All fields must be defined';

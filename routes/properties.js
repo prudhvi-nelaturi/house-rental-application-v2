@@ -15,6 +15,7 @@ import {
   checkStringMaxLength,
   compareData,
   checkMinValue,
+  validateArray,
 } from '../helpers.js';
 
 const router = express.Router();
@@ -273,8 +274,8 @@ router.route('/addProperty').post(async (req, res) => {
   try {
     if (
       propertyInfo.nearestLandmarks.trim() !== '' &&
-      nearestLandmarks !== undefined &&
-      nearestLandmarks !== null
+      propertyInfo.nearestLandmarks !== undefined &&
+      propertyInfo.nearestLandmarks !== null
     ) {
       propertyInfo.nearestLandmarks = validateString(
         propertyInfo.nearestLandmarks,
@@ -308,7 +309,7 @@ router.route('/addProperty').post(async (req, res) => {
     return res.status(400).render('addProperty', {
       isAuthenticated: true,
       isError: true,
-      postData: req.body,
+      propData: req.body,
       errors: errors,
       title: 'Add Property Page',
     });
@@ -338,6 +339,12 @@ router.route('/addProperty').post(async (req, res) => {
   };
   let ownerFullName =
     req.session.user.firstName + ' ' + req.session.user.lastName;
+
+  let imgs = [];
+  req.files.forEach((x)=> {
+    imgs.push(x.filename)
+  })
+  propertyInfo.images = imgs;
   let newProduct = undefined;
   try {
     newProduct = await properties.create(
@@ -481,18 +488,7 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
     errors.push(e);
   }
 
-  if (errors.length > 0) {
-    //return res.status(400).json({error: errors});
-    return res.status(400).render('editProperty', {
-      isAuthenticated: true,
-      isError: true,
-      propData: req.body,
-      errors: errors,
-      title: 'Edit Property Page',
-    });
-  }
-
-  let address = {
+   let address = {
     street: propertyInfo.street,
     apartmentNum: propertyInfo.apartmentNum,
     city: propertyInfo.city,
@@ -516,6 +512,7 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
     req.session.user.firstName + ' ' + req.session.user.lastName;
   let newProduct = undefined;
   let retObj = {
+    _id : req.params.propertyId,
     address: address,
     details: details,
     nearestLandmarks: propertyInfo.nearestLandmarks,
@@ -531,7 +528,44 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
   } catch (e) {
     errors.push(e);
   }
-
+  let finalImages = [];
+  let inputImages = []
+  if (!Array.isArray(propertyInfo.images)) {
+    if (propertyInfo.images.trim().length !==0) {
+      inputImages.push(propertyInfo.images)
+    }
+  } else {
+    for (let img3 of propertyInfo.images) {
+      inputImages.push(img3)
+    }
+  }
+  if (propertyDetails.images) {
+    for (let img of propertyDetails.images) {
+      finalImages.push(img)
+    }
+  }
+  if (finalImages.length === 5 && inputImages.length > 0) {
+    let str = "This property already has 5 images posted, no more images can be uploaded"
+    errors.push(str)
+  } else if (finalImages.length === 0 && inputImages.length > 5) {
+    errors.push("Maximum 5 images can be uploaded")
+  } else if (5-finalImages.length < inputImages.length) {
+    let str2 = "This property already has " + finalImages.length + " posted, only " + (5-finalImages.length) + " more image/images can be uploaded"
+    errors.push(str2)
+  } else {
+    for (let img2 of inputImages) {
+      finalImages.push(img2)
+    }
+  }
+  if (errors.length > 0) {
+    return res.status(400).render('editProperty', {
+      isAuthenticated: true,
+      isError: true,
+      propData: retObj,
+      errors: errors,
+      title: 'Edit Property Page',
+    });
+  }
   try {
     newProduct = await properties.update(
       req.params.propertyId,
@@ -541,7 +575,7 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
       ownerFullName,
       location,
       propertyDetails.favouriteCount,
-      propertyInfo.images,
+      finalImages,
       details,
       propertyInfo.nearestLandmarks,
       propertyDetails.comments

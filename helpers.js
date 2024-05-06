@@ -466,10 +466,6 @@ const compareData = (newData, oldData) => {
     if (finalStr != "") finalStr = finalStr + ', '
     finalStr = finalStr + 'No. of Bathrooms '
   } 
-  // if (oldData.images !== newData.images) {
-  //   if (finalStr != "") finalStr = finalStr + ', '
-  //   finalStr = finalStr + 'Images '
-  // } 
   if (finalStr != "") {
     finalStr = finalStr + " cannot be modified, if these field need to be modified then remove the property and add a new one."
   }

@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use('/public', express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/uploads', express.static('uploads'));
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
@@ -38,8 +38,15 @@ let storage = multer.diskStorage({
     next(null, 'img_' + Date.now() + path.extname(img.originalname));
   },
 });
+let storage2 = multer.diskStorage({
+  destination: './uploads/images',
+  filename: function (req, file, next) {
+    next(null, 'img_' + Date.now() + path.extname(file.originalname));
+  },
+});
 
 let upload = multer({ storage: storage });
+let upload2 = multer({ storage: storage2 });
 
 app.use(
   session({
@@ -54,14 +61,17 @@ app.use('/login', loginMiddleware);
 app.use('/register', registerMiddleware);
 app.use('/userProfile', userMiddleware);
 app.use('/addProperty', addPropertyMiddleware);
+app.use('/addProperty', upload2.array('images', 5));
 app.use('/editProperty', editPropertyMiddleware);
 app.use('/search/addProperty', searchPropertyMiddleware);
 app.use('/search/editProperty/:propertyId', editPropertyMiddleware);
+app.use('/search/updateProperty/:propertyId', editPropertyMiddleware);
 app.use('/register', upload.single('profilePicture'));
 app.use('/edit', upload.single('profilePicture'));
 app.use('/search/remove/:propertyId', changeRemoveMethod);
 app.use('/removeFavorite/:propId', changeRemoveMethod);
 app.use('/search/updateProperty/:propertyId', changeEditMethod);
+app.use('/search/updateProperty/:propertyId', upload2.array('images', 5));
 configRoutesFunction(app);
 
 app.listen(3000, (req, res) => {

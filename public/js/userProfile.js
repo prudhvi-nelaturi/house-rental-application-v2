@@ -16,8 +16,7 @@ $(document).ready(()=> {
         if(responseData.length > 0) {
             responseData.forEach(x => {
                 let content = $(
-                    `<a href="/search/property/${x._id}" id="f-card">
-                    <div id="favorite-card">
+                    `<div class="favorite-card">
                     <p><strong>House: </strong>${x.address.street}, ${x.address.city}, ${x.address.state}</p>
                     <p><strong>Posted By: </strong>${x.ownerFullName}</p>
                     <p><strong>Rent: </strong>${x.price}</p>
@@ -25,8 +24,8 @@ $(document).ready(()=> {
                     <p><strong>Area: </strong>${x.details.area}</p>
                     <p><strong>Fovorite Count: </strong>${x.favoriteCount ? `<div> ${x.favoriteCount} </div>` : '<span>0</span>'}</p>
                     <p><a href="/removeFavorite/${x._id}">Remove From Favorites</a></p>
-                    </div>
-                    </a>`
+                    <a href="/search/property/${x._id}" class="f-card">View Property</a
+                    </div>`
                 );
 
                 favCard.append(content);
@@ -202,7 +201,7 @@ $(document).ready(()=> {
                     $('#fn').html(res.firstName+" "+res.lastName);
                     $('#db').html('DOB: '+res.age);
                     $('#ct').html('City: '+res.city);
-                    $('#st').html('State: '+res.state);
+                    $('#stat').html('State: '+res.state);
                     $('#ig').prop('src', `/public/images/${res.profilePicture}`);
                 },
                 error: function(e) {
