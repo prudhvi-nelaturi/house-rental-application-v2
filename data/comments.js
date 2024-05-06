@@ -2,13 +2,19 @@ import { properties } from '../config/mongoCollections.js';
 import { ObjectId } from 'mongodb';
 import { validateString } from '../helpers.js';
 
-export const createComment = async (propertyId, userId, CommentText) => {
-  if (!propertyId || !userId || !CommentText) {
+export const createComment = async (
+  propertyId,
+  userId,
+  CommentText,
+  commenterFullName
+) => {
+  if (!propertyId || !userId || !CommentText || !commenterFullName) {
     throw 'All fields need to have valid values';
   }
   propertyId = validateString(propertyId, 'propertyId');
   userId = validateString(userId, 'userId');
   CommentText = validateString(CommentText, 'CommentText');
+  commenterFullName = validateString(commenterFullName, 'Commenter Full Name');
 
   if (!ObjectId.isValid(propertyId)) throw 'Invalid PropertyId';
   if (!ObjectId.isValid(userId)) throw 'Invalid userId';
@@ -29,6 +35,7 @@ export const createComment = async (propertyId, userId, CommentText) => {
     userId,
     CommentText,
     postTime,
+    commenterFullName,
   };
   const propertyCollection = await properties();
   const property = await propertyCollection.findOne({

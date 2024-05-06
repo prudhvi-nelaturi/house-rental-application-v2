@@ -14,7 +14,7 @@ import {
 } from '../helpers.js';
 import { removeFavInProp } from './properties.js';
 
-const rounds = 16;
+const rounds = 10;
 
 export const createUser = async (
   firstName,
@@ -213,8 +213,8 @@ export const removeFav = async (userId, propId) => {
     throw `Could not remove property from favorites`;
   }
   let decremented = await removeFavInProp(propId);
-  if(decremented && decremented.favAdded) return {deleted: true };
-  else return {deleted: false };
+  if (decremented && decremented.favAdded) return { deleted: true };
+  else return { deleted: false };
 };
 
 export const addFav = async (userId, propId) => {
@@ -241,21 +241,20 @@ export const getFavoritesByUser = async (userId) => {
 export const propertyAdsLast = async () => {
   let propCollection = await properties();
   let allProps = await propCollection.find({}).toArray();
-  if(!allProps) throw "Error: Could not fetch properties";
+  if (!allProps) throw 'Error: Could not fetch properties';
   let n = allProps.length;
-  if(n>0) return allProps[n-1];
-  else return {propLen: 0};
-}
+  if (n > 0) return allProps[n - 1];
+  else return { propLen: 0 };
+};
 
 export const propertyAdsRandom = async () => {
   let propCollection = await properties();
   let allProps = await propCollection.find({}).toArray();
-  if(!allProps) throw "Error: Could not fetch properties";
+  if (!allProps) throw 'Error: Could not fetch properties';
   let n = allProps.length;
-  if(n>1) {
-    let index = Math.floor(Math.random()*n);
-    return allProps[index-1];
-  }
-  else if(n==1) return allProps[0];
-  else return {propLen: 0};
-}
+  if (n > 1) {
+    let index = Math.floor(Math.random() * n);
+    return allProps[index - 1];
+  } else if (n == 1) return allProps[0];
+  else return { propLen: 0 };
+};

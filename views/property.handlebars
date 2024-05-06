@@ -14,20 +14,35 @@
 
   {{#if isAuthenticated}}
   {{else}}
+  <p class="favorite-count" data-favorite-count="{{propertyDetails.favouriteCount}}">{{propertyDetails.favouriteCount}}
+    user(s)
+    added this property as their Favorite</p>
+  <br>
+
   <p>Please sign in to add this property to your favorites.</p>
   {{/if}}
 
   {{#if isAuthenticated}}
 
   {{#if isFavAdded}}
+  <p class="favorite-count" data-favorite-count="{{propertyDetails.favouriteCount}}">{{propertyDetails.favouriteCount}}
+    user(s)
+    added this property as their Favorite</p>
+  <br>
   <a href="/search/removeFav/{{propertyDetails._id}}"><button>Remove Favorite</button></a>
   {{else}}
+  <p class="favorite-count" data-favorite-count="{{propertyDetails.favouriteCount}}">{{propertyDetails.favouriteCount}}
+    user(s)
+    added this property as their Favorite</p>
+  <br>
   <div class="add-to-favorite">
     <a href="/search/addFav/{{propertyDetails._id}}"><button>Add to Favorite</button></a>
 
   </div>
   {{/if}}
   {{/if}}
+
+
 
 
 
@@ -75,7 +90,9 @@
     {{/each}}
   </div>
   {{#if isAuthenticated}}
-  <div class="lease"><p><strong>Lease PDF: </strong><button id="leasePdf">Download Lease</button></p></div>
+  <div class="lease">
+    <p><strong>Lease PDF: </strong><button id="leasePdf">Download Lease</button></p>
+  </div>
   {{/if}}
   <div class="comments">
     <h2>Comments</h2>
@@ -84,7 +101,7 @@
       {{#each propertyDetails.comments}}
       <li>
         <p>{{this.CommentText}}</p>
-        <p>Posted on: {{this.postTime}}</p>
+        <p>Posted by:<strong>{{this.commenterFullName}}</strong> on {{this.postTime}} </p>
       </li>
       {{/each}}
     </ul>
