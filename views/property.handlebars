@@ -20,10 +20,10 @@
   {{#if isAuthenticated}}
 
   {{#if isFavAdded}}
-  <a href="/search/removeFav/{{propertyDetails._id}}"><button>Remove Favorite</button></a>
+  <a href="/search/removeFav/{{propertyDetails._id}}"><p>Remove Favorite</p></a>
   {{else}}
   <div class="add-to-favorite">
-    <a href="/search/addFav/{{propertyDetails._id}}"><button>Add to Favorite</button></a>
+    <a href="/search/addFav/{{propertyDetails._id}}"><p>Add to Favorite</p></a>
 
   </div>
   {{/if}}
@@ -71,7 +71,7 @@
   <div class="images">
     <h2>Images</h2>
     {{#each propertyDetails.images}}
-    <img src="{{this}}" alt="Property image" />
+    <img src="/uploads/images/{{this}}" alt="Property image" class="prop-images"/>
     {{/each}}
   </div>
   {{#if isAuthenticated}}
