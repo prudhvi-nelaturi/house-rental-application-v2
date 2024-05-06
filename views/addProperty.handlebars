@@ -18,6 +18,7 @@
         <input type="text" name="city" maxlength="25" id="city" value="{{propData.city}}" required>
         <p id="city-error" hidden></p>
 
+        <input type="text" value="{{propData.state}}" hidden id="stateTag">
         <label for="state">State<span class="er">*</span>:</label>
         <select name="state" id="state" required>
             <option value="" selected disabled>Select State</option>
@@ -107,6 +108,7 @@
         <input type="text" name="propertyType" id="propertyType">
         <p id="propertyType-error" hidden></p> --}}
 
+        <input type="text" value="{{propData.propertyType}}" hidden id="propertyTypeTag">
         <label for="propertyType">Property Type<span class="er">*</span>:</label>
         <select name="propertyType" id="propertyType" required>
             <option value="" selected disabled>Select Property Type</option>
@@ -119,6 +121,7 @@
         <input type="text" name="apartmentType" id="apartmentType">
         <p id="apartmentType-error" hidden></p> --}}
 
+        <input type="text" value="{{propData.apartmentType}}" hidden id="apartmentTypeTag">
         <label for="apartmentType">Apartment Type<span class="er">*</span>:</label>
         <select name="apartmentType" id="apartmentType" required>
             <option value="" selected disabled>Select ApartmentType</option>
@@ -135,6 +138,7 @@
         <input type="text" name="accomodationType" id="accomodationType">
         <p id="accomodationType-error" hidden></p> --}}
 
+        <input type="text" value="{{propData.accomodationType}}" hidden id="accomodationTypeTag">
         <label for="accomodationType">Accommodation Type<span class="er">*</span>:</label>
         <select name="accomodationType" id="accomodationType" required>
             <option value="" selected disabled>Select Accom Type</option>

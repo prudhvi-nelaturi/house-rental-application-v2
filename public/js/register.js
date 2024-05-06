@@ -2,6 +2,10 @@ let regForm = document.querySelector('#register-form');
 let loginForm = document.querySelector('#login-form');
 
 if(regForm) {
+    let sType = document.getElementById('stateTag').value;
+    let pType = document.getElementById('genderTag').value;
+    document.getElementById('stateTag').value = sType;
+    document.getElementById('genderTag').value = pType;
     regForm.addEventListener('submit', (e) => {
         e.preventDefault();
 

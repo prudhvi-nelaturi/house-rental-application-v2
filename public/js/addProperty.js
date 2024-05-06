@@ -3,6 +3,14 @@ let editPropertyForm = document.querySelector('#edit-property-form');
 
 
 if(addPropertyForm) {
+    let sType = document.getElementById('stateTag').value;
+    let pType = document.getElementById('propertyTypeTag').value;
+    let apType = document.getElementById('apartmentTypeTag').value;
+    let acType = document.getElementById('accomodationTypeTag').value;
+    document.getElementById('stateTag').value = sType;
+    document.getElementById('propertyTypeTag').value = pType;
+    document.getElementById('apartmentTypeTag').value = apType;
+    document.getElementById('accomodationTypeTag').value = acType;
     addPropertyForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const files = document.getElementById('images').files;
