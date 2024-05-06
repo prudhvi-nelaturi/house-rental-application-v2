@@ -528,6 +528,13 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
   } catch (e) {
     errors.push(e);
   }
+  let imgs = [];
+  if(req.files && req.files.length>0){
+    req.files.forEach((x)=> {
+      imgs.push(x.filename)
+    })
+  }
+  propertyInfo.images = imgs;
   let finalImages = [];
   let inputImages = []
   if (!Array.isArray(propertyInfo.images)) {
