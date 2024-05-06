@@ -12,7 +12,7 @@
     <ul>
       <li><a href="/">Home</a></li>
       {{#if isAuthenticated}}
-      <li><a href="/">Add Property</a></li>
+      <li><a href="/addProperty">Add Property</a></li>
       <li><a href="/userProfile">User Page</a></li>
       <li><a href="/logout">Logout</a></li>
       {{else}}
@@ -24,5 +24,6 @@
 </header>
     {{{body}}}
     <script src="/public/js/validation.js"></script>
+    <script src="/public/js/propertyValidations.js"></script>
 </body>
 </html>
