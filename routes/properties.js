@@ -338,6 +338,12 @@ router.route('/addProperty').post(async (req, res) => {
   };
   let ownerFullName =
     req.session.user.firstName + ' ' + req.session.user.lastName;
+
+  let imgs = [];
+  req.files.forEach((x)=> {
+    imgs.push(x.filename)
+  })
+  propertyInfo.images = imgs;
   let newProduct = undefined;
   try {
     newProduct = await properties.create(

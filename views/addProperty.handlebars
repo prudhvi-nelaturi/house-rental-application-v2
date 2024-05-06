@@ -3,7 +3,7 @@
     {{#if errFlag}}
     <p id="errorTag">{{errorMsg}}</p>
     {{/if}}
-    <form id="add-property-form" action="/addProperty" method="POST">
+    <form id="add-property-form" action="/addProperty" method="POST" enctype="multipart/form-data">
         {{!-- <h4>Address</h4> --}}
         <label for="street">Street<span id="er">*</span>:</label>
         <input type="text" name="street" maxlength="50" id="street" value="{{propData.street}}" required>
