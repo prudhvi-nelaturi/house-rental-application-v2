@@ -14,7 +14,7 @@ header {
     color: #fff;
     display: grid;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5px;
 }
   
 header h1{
@@ -293,6 +293,7 @@ form button[type="submit"]:active {
 }
 
 #user-card {
+    text-align: center;
     margin-top: 20px;
     display: grid;
     flex-direction: column;
@@ -301,7 +302,7 @@ form button[type="submit"]:active {
     border: 2px solid #ccc;
     padding: 5px;
     box-sizing: border-box;
-    width: 200px;
+    width: 400px;
     height: 500px;
 }
 
@@ -314,6 +315,7 @@ form button[type="submit"]:active {
     height: 150px;
     width: 150px;
     margin-bottom: 2px;
+    margin-left: 31%;
 }
 
 #user-card p {
@@ -577,6 +579,8 @@ main {
 
 
 #add-property-form form{
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
 }
 
@@ -592,6 +596,7 @@ main {
 #add-property-form input[type="date"],
 #add-property-form input[type="password"],
 #add-property-form select {
+    display: flex;
     width: 300px;
     padding: 10px;
     margin-bottom: 10px;
@@ -600,9 +605,7 @@ main {
 }
 
 #add-property-form select {
-appearance: none;
-background-repeat: no-repeat;
-background-position: right 10px center;
+appearance: menulist;
 }
 
 #add-property-form button {
@@ -677,4 +680,12 @@ background-position: right 10px center;
 .property-details .comments textarea { width: 100%; padding: 10px; margin-top: 10px; font-size: 18px; border: 1px solid #ccc; border-radius: 5px; }
 .property-details .comments button { margin-top: 20px; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
 .property-details .comments button:hover { background-color: #45a049; } 
-#location-map { width: 300px; height: 400px; margin-top: 30px; border: 1px solid #ccc; border-radius: 5px; } 
+#location-map { width: 500px; height: 300px; margin-top: 30px; border: 1px solid #ccc; border-radius: 5px; } 
+
+.property-card .p-card{
+    color: #007bff; /* Link color inside property card */
+}
+
+a :hover{
+    text-decoration: underline;
+}
