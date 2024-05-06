@@ -44,7 +44,8 @@
   let searchBox = document.getElementById('searchBox');
   searchBox.addEventListener("submit", (event) => { event.preventDefault(); if
   (document.getElementById('searchProperty').value.trim() == "") {
-  document.getElementById('error').hidden = false; } else {
+  document.getElementById('error').hidden = false;
+  document.getElementById('searchProperty').value = "" } else {
   document.getElementById('error').hidden = true; searchBox.submit(); } });
 </script>
 <script src="/public/js/homepage.js"></script>
