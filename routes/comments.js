@@ -4,6 +4,7 @@ import express from 'express';
 import { properties, comments } from '../data/index.js';
 import { ObjectId } from 'mongodb';
 import { validateId, validateString } from '../helpers.js';
+import xss from 'xss';
 const router = express.Router();
 
 router
@@ -42,10 +43,10 @@ router
       return res
         .status(400)
         .render('error', { title: 'error', error: 'invalid property Id' });
-
+    let cData = xss(req.body.commentText);
     try {
-      req.body.commentText = validateString(
-        req.body.commentText,
+      cData = validateString(
+        cData,
         'CommentText'
       );
     } catch (e) {
@@ -57,7 +58,7 @@ router
       const userId = req.session.user.id;
       const commenterFullName =
         req.session.user.firstName + ' ' + req.session.user.lastName;
-      const CommentText = req.body.commentText;
+      const CommentText = cData;
       const property = await comments.createComment(
         propertyId,
         userId,
@@ -71,7 +72,7 @@ router
         isAuthenticated: isAuthenticated,
       });
     } catch (e) {
-      return res.status(404).json({ error: e.message });
+      return res.status(400).json({ error: e.message });
     }
   });
 

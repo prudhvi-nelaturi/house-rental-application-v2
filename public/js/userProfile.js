@@ -22,7 +22,7 @@ $(document).ready(()=> {
                     <p><strong>Rent: </strong>${x.price}</p>
                     <p><strong>Type: </strong>${x.details.apartmentType}, ${x.details.propertyType}</p>
                     <p><strong>Area: </strong>${x.details.area}</p>
-                    <p><strong>Fovorite Count: </strong>${x.favouriteCount ? `<div> ${x.favouriteCount} </div>` : '<span>0</span>'}</p>
+                    <p><strong>Favorite Count: </strong>${x.favouriteCount ? `<div> ${x.favouriteCount} </div>` : '<span>0</span>'}</p>
                     <p><a href="/removeFavorite/${x._id}">Remove From Favorites</a></p>
                     <a href="/search/property/${x._id}" class="f-card">View Property</a
                     </div>`

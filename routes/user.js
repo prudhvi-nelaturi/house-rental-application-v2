@@ -297,7 +297,7 @@ router.route('/edit').post(async (req, res) => {
     let user = await users.updateUser(id, userObj);
     return res.json(user);
   } catch (e) {
-    return res.status(404).json({ error: e });
+    return res.status(400).json({ error: e });
   }
 });
 
@@ -429,10 +429,10 @@ router.route('/removeFavorite/:propId').delete(async (req, res) => {
     if (removed) {
       return res.status(200).redirect('/userProfile');
     } else {
-      res.status(404).json({ message: 'Unable to remove from favorites' });
+      res.status(400).json({ message: 'Unable to remove from favorites' });
     }
   } catch (e) {
-    res.status(404).json({ error: e });
+    res.status(400).json({ error: e });
   }
 });
 
