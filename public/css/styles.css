@@ -399,3 +399,14 @@ nav {
 .favorite-card a:hover {
   text-decoration: underline;
 }
+
+#error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.er{
+  color: red;
+  font-weight: bold;
+}
