@@ -168,6 +168,14 @@ if(addPropertyForm) {
             } else {
                 nearestLandmarks = "";
             }
+            if (nearestLandmarks && nearestLandmarks.trim() !== "") {
+                let lmArr = nearestLandmarks.split(',')
+                for (lm of lmArr) {
+                    if (lm.trim() === "") {
+                        throw `Invalid nearest landmark value`
+                    }
+                }
+            }
         } catch(e) {
             nearestLandmarksErr.hidden = false;
             nearestLandmarksErr.innerHTML = e;
@@ -323,6 +331,14 @@ if(editPropertyForm) {
                 nearestLandmarks = validateStringNew(nearestLandmarks, 'Nearest Landmarks');
             } else {
                 nearestLandmarks = "";
+            }
+            if (nearestLandmarks && nearestLandmarks.trim() !== "") {
+                let lmArr = nearestLandmarks.split(',')
+                for (lm of lmArr) {
+                    if (lm.trim() === "") {
+                        throw `Invalid nearest landmark value`
+                    }
+                }
             }
         } catch(e) {
             nearestLandmarksErr.hidden = false;
