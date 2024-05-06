@@ -44,6 +44,24 @@ if(addPropertyForm) {
         let nearestLandmarksErr = document.getElementById('nearestLandmarks-error');
         let imagesErr = document.getElementById('images-error');
  
+        streetErr.hidden = true;
+        apartmentNumErr.hidden = true;
+        cityErr.hidden = true;
+        stateErr.hidden = true;
+        zipErr.hidden = true;
+        priceErr.hidden = true;
+        latitudeErr.hidden = true;
+        longitudeErr.hidden = true;
+        descriptionErr.hidden = true;
+        propertyTypeErr.hidden = true;
+        apartmentTypeErr.hidden = true;
+        accomodationTypeErr.hidden = true;
+        areaErr.hidden = true;
+        bedroomCountErr.hidden = true;
+        bathroomCountErr.hidden = true;
+        nearestLandmarksErr.hidden = true;
+        imagesErr.hidden = true;
+
         let errorFlag = false;
 
         if (files.length < 2) {
@@ -210,23 +228,23 @@ if(addPropertyForm) {
         }
 
         if (!errorFlag) {
-            streetErr.hidden = false;
-            apartmentNumErr.hidden = false;
-            cityErr.hidden = false;
-            stateErr.hidden = false;
-            zipErr.hidden = false;
-            priceErr.hidden = false;
-            latitudeErr.hidden = false;
-            longitudeErr.hidden = false;
-            descriptionErr.hidden = false;
-            propertyTypeErr.hidden = false;
-            apartmentTypeErr.hidden = false;
-            accomodationTypeErr.hidden = false;
-            areaErr.hidden = false;
-            bedroomCountErr.hidden = false;
-            bathroomCountErr.hidden = false;
-            imagesErr.hidden = false;
-            nearestLandmarksErr.hidden = false;
+            streetErr.hidden = true;
+            apartmentNumErr.hidden = true;
+            cityErr.hidden = true;
+            stateErr.hidden = true;
+            zipErr.hidden = true;
+            priceErr.hidden = true;
+            latitudeErr.hidden = true;
+            longitudeErr.hidden = true;
+            descriptionErr.hidden = true;
+            propertyTypeErr.hidden = true;
+            apartmentTypeErr.hidden = true;
+            accomodationTypeErr.hidden = true;
+            areaErr.hidden = true;
+            bedroomCountErr.hidden = true;
+            bathroomCountErr.hidden = true;
+            imagesErr.hidden = true;
+            nearestLandmarksErr.hidden = true;
             addPropertyForm.submit();
         }
 
@@ -258,6 +276,13 @@ if(editPropertyForm) {
 
         let imagesErr = document.getElementById('images-error');
  
+        priceErr.hidden = true;
+        descriptionErr.hidden = true;
+        propertyTypeErr.hidden = true;
+        accomodationTypeErr.hidden = true;
+        nearestLandmarksErr.hidden = true;
+        imagesErr.hidden = true;
+
         let errorFlag = false;
        
         try {
@@ -306,12 +331,12 @@ if(editPropertyForm) {
         }
 
         if (!errorFlag) {
-            priceErr.hidden = false;
-            descriptionErr.hidden = false;
-            propertyTypeErr.hidden = false;
-            accomodationTypeErr.hidden = false;
-            imagesErr.hidden = false;
-            nearestLandmarksErr.hidden = false;
+            priceErr.hidden = true;
+            descriptionErr.hidden = true;
+            propertyTypeErr.hidden = true;
+            accomodationTypeErr.hidden = true;
+            imagesErr.hidden = true;
+            nearestLandmarksErr.hidden = true;
             editPropertyForm.submit();
         }
 

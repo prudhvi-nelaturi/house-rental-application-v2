@@ -17,6 +17,7 @@ import {
   checkMinValue,
   validateArray,
 } from '../helpers.js';
+import xss from 'xss';
 
 const router = express.Router();
 import { users, properties, comments } from '../data/index.js';
@@ -54,9 +55,16 @@ router.route('/check').post(async (req, res) => {
   // if (req.session.user) {
   //   isAuthenticated = true;
   // }
+
+  let searchInfo = {
+    searchProperty: xss(req.body.searchProperty),
+    price: xss(req.body.price),
+    accomodationType : xss(req.body.accomodationType)
+  }
+
   try {
-    if (Number.isNaN(req.body.searchProperty)) {
-      let isZip = validateZip(req.body.searchProperty);
+    if (Number.isNaN(searchInfo.searchProperty)) {
+      let isZip = validateZip(searchInfo.searchProperty);
       if (isZip == false) {
         return res.render('searchResults', {
           title: 'searchResults',
@@ -65,7 +73,7 @@ router.route('/check').post(async (req, res) => {
         });
       }
     } else {
-      req.body.searchProperty = validateString(req.body.searchProperty);
+      searchInfo.searchProperty = validateString(searchInfo.searchProperty);
     }
   } catch (error) {
     return res.render('searchResults', {
@@ -76,13 +84,13 @@ router.route('/check').post(async (req, res) => {
     });
   }
   try {
-    if (req.body.price) {
-      req.body.price = parseFloat(req.body.price);
+    if (searchInfo.price) {
+      searchInfo.price = parseFloat(searchInfo.price);
     }
     let searchResults = await getPropertiesViaSearch(
-      req.body.searchProperty,
-      req.body.price,
-      req.body.accomodationType
+      searchInfo.searchProperty,
+      searchInfo.price,
+      searchInfo.accomodationType
     );
     searchResults.forEach((element) => {
       if (userFavHouses.includes(element._id.toString())) {
@@ -107,7 +115,7 @@ router.route('/check').post(async (req, res) => {
         isAuthenticated: isAuthenticated,
         userFavHouses: userFavHouses,
         isLoggedin: isLoggedin,
-        searchProperty: req.body.searchProperty,
+        searchProperty: searchInfo.searchProperty,
       });
     }
   } catch (error) {
@@ -117,12 +125,30 @@ router.route('/check').post(async (req, res) => {
 
 router.route('/addProperty').post(async (req, res) => {
   //code here for POST
-  let propertyInfo = req.body;
-  if (!propertyInfo || Object.keys(propertyInfo).length === 0) {
+  let propertyInfoOld = req.body;
+  if (!propertyInfoOld || Object.keys(propertyInfoOld).length === 0) {
     return res.status(400).json({ error: 'Request body is empty' });
   }
   let errors = [];
-
+  let propertyInfo = {
+    street: xss(req.body.street),
+    apartmentNum: xss(req.body.apartmentNum),
+    city: xss(req.body.city),
+    state: xss(req.body.state),
+    zip: xss(req.body.zip),
+    nearestLandmarks:  xss(req.body.nearestLandmarks),
+    price: xss(req.body.price),
+    latitude: xss(req.body.latitude),
+    longitude: xss(req.body.longitude),
+    description: xss(req.body.description),
+    propertyType: xss(req.body.propertyType),
+    apartmentType: xss(req.body.apartmentType),
+    accomodationType: xss(req.body.accomodationType),
+    area: xss(req.body.area),
+    bedroomCount: xss(req.body.bedroomCount),
+    bathroomCount: xss(req.body.bathroomCount),
+    images: xss(req.body.images).split(","),
+  }
   //validations -- start
 
   try {
@@ -309,7 +335,7 @@ router.route('/addProperty').post(async (req, res) => {
     return res.status(400).render('addProperty', {
       isAuthenticated: true,
       isError: true,
-      propData: req.body,
+      propData: propertyInfo,
       errors: errors,
       title: 'Add Property Page',
     });
@@ -413,12 +439,30 @@ router.route('/editProperty/:propertyId').get(async (req, res) => {
 });
 
 router.route('/updateProperty/:propertyId').put(async (req, res) => {
-  let propertyInfo = req.body;
-  if (!propertyInfo || Object.keys(propertyInfo).length === 0) {
+  let propertyInfoOld = req.body;
+  if (!propertyInfoOld || Object.keys(propertyInfoOld).length === 0) {
     return res.status(400).json({ error: 'Request body is empty' });
   }
   let errors = [];
-
+  let propertyInfo = {
+    street: xss(req.body.street),
+    apartmentNum: xss(req.body.apartmentNum),
+    city: xss(req.body.city),
+    state: xss(req.body.state),
+    zip: xss(req.body.zip),
+    nearestLandmarks:  xss(req.body.nearestLandmarks),
+    price: xss(req.body.price),
+    latitude: xss(req.body.latitude),
+    longitude: xss(req.body.longitude),
+    description: xss(req.body.description),
+    propertyType: xss(req.body.propertyType),
+    apartmentType: xss(req.body.apartmentType),
+    accomodationType: xss(req.body.accomodationType),
+    area: xss(req.body.area),
+    bedroomCount: xss(req.body.bedroomCount),
+    bathroomCount: xss(req.body.bathroomCount),
+    images: xss(req.body.images).split(",")
+  }
   try {
     propertyInfo.description = validateString(
       propertyInfo.description,
@@ -530,13 +574,15 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
   }
   let finalImages = [];
   let inputImages = []
-  if (!Array.isArray(propertyInfo.images)) {
-    if (propertyInfo.images.trim().length !==0) {
-      inputImages.push(propertyInfo.images)
-    }
-  } else {
-    for (let img3 of propertyInfo.images) {
-      inputImages.push(img3)
+  if (propertyInfo.images) {
+    if (!Array.isArray(propertyInfo.images)) {
+      if (propertyInfo.images.trim().length !==0) {
+        inputImages.push(propertyInfo.images)
+      }
+    } else {
+      for (let img3 of propertyInfo.images) {
+        inputImages.push(img3)
+      }
     }
   }
   if (propertyDetails.images) {
