@@ -1,15 +1,15 @@
-import { create, get, getAll, remove, update } from "./data/properties.js";
-import { dbConnection, closeConnection } from "./config/mongoConnection.js";
-import { ObjectId } from "mongodb";
-import { createUser } from "./data/user.js";
-import { updateUser } from "./data/user.js";
+import { create, get, getAll, remove, update } from './data/properties.js';
+import { dbConnection, closeConnection } from './config/mongoConnection.js';
+import { ObjectId } from 'mongodb';
+import { createUser } from './data/user.js';
+import { updateUser } from './data/user.js';
 import {
   createComment,
   getComment,
   getAllComments,
   updateComment,
   removeComment,
-} from "./data/comments.js";
+} from './data/comments.js';
 
 const db = await dbConnection();
 let count = 0;
@@ -26,40 +26,40 @@ let count = 0;
 
 try {
   let address = {
-    street: "302 N 2nd St",
-    apartmentNum: "2",
-    city: "Harrison",
-    state: "NJ",
-    zip: "07029",
+    street: '302 N 2nd St',
+    apartmentNum: '2',
+    city: 'Harrison',
+    state: 'NJ',
+    zip: '07029',
   };
   let price = 1500;
   let ownerId = new ObjectId();
-  ownerId = "6633fbc47da8725139cb4428";
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
-    latitude: "40.74856",
-    longitude: "-74.16018",
+    latitude: 40.74856,
+    longitude: -74.16018,
   };
   let images = [
-    "/static/house1.jpg",
-    "/static/bedroom1.jpg",
-    "/static/bathroom.jpg",
+    '/static/house1.jpg',
+    '/static/bedroom1.jpg',
+    '/static/bathroom.jpg',
   ];
   let details = {
-    description: "A spacious home",
-    propertyType: "Private",
-    apartmentType: "2BHK",
-    accommodationType: "permanent",
+    description: 'A spacious home',
+    propertyType: 'private',
+    apartmentType: '2bhk',
+    accomodationType: 'permanent',
     area: 666,
     bedroomCount: 2,
     bathroomCount: 2,
   };
   let nearestLandmark =
-    "15 min to path, 10 min to indian groceries, 5 min to bus stop";
+    '15 min to path, 10 min to indian groceries, 5 min to bus stop';
   const result = await create(
     address,
     price,
     ownerId,
-    "TEst",
+    'TEst',
     location,
     images,
     details,
@@ -74,29 +74,29 @@ try {
 
 try {
   let address = {
-    street: "150 North St",
-    apartmentNum: "6",
-    city: "Jersey city",
-    state: "NJ",
-    zip: "07307",
+    street: '150 North St',
+    apartmentNum: '6',
+    city: 'Jersey city',
+    state: 'NJ',
+    zip: '07307',
   };
   let price = 3100;
   let ownerId = new ObjectId();
-  ownerId = "6633fbc47da8725139cb4428";
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
-    latitude: "40.719074",
-    longitude: "-74.050552",
+    latitude: 40.719074,
+    longitude: -74.050552,
   };
   let images = [
-    "/static/house1.jpg",
-    "/static/bedroom1.jpg",
-    "/static/bathroom.jpg",
+    '/static/house1.jpg',
+    '/static/bedroom1.jpg',
+    '/static/bathroom.jpg',
   ];
   let details = {
-    description: "A spacious home",
-    propertyType: "Shared",
-    apartmentType: "4BHK",
-    accommodationType: "permanent",
+    description: 'A spacious home',
+    propertyType: 'shared',
+    apartmentType: '4bhk',
+    accomodationType: 'permanent',
     area: 789,
     bedroomCount: 4,
     bathroomCount: 1,
@@ -107,7 +107,7 @@ try {
     address,
     price,
     ownerId,
-    "TEst",
+    'TEst',
     location,
     images,
     details,
@@ -122,40 +122,40 @@ try {
 
 try {
   let address = {
-    street: "300 N 2nd St",
-    apartmentNum: "4",
-    city: "Harrison",
-    state: "NJ",
-    zip: "07029",
+    street: '300 N 2nd St',
+    apartmentNum: '4',
+    city: 'Harrison',
+    state: 'NJ',
+    zip: '07029',
   };
   let price = 1700;
   let ownerId = new ObjectId();
-  ownerId = "6633fbc47da8725139cb4428";
+  ownerId = '6633fbc47da8725139cb4428';
   let location = {
-    latitude: "40.74856",
-    longitude: "-74.16018",
+    latitude: 40.74856,
+    longitude: -74.16018,
   };
   let images = [
-    "/static/house1.jpg",
-    "/static/bedroom1.jpg",
-    "/static/bathroom.jpg",
+    '/static/house1.jpg',
+    '/static/bedroom1.jpg',
+    '/static/bathroom.jpg',
   ];
   let details = {
-    description: "A beautiful home",
-    propertyType: "Private",
-    apartmentType: "3BHK",
-    accommodationType: "permanent",
+    description: 'A beautiful home',
+    propertyType: 'private',
+    apartmentType: '3bhk',
+    accomodationType: 'permanent',
     area: 666,
     bedroomCount: 3,
     bathroomCount: 2,
   };
   let nearestLandmark =
-    "15 min to path, 10 min to indian groceries, 5 min to bus stop";
+    '15 min to path, 10 min to indian groceries, 5 min to bus stop';
   const result = await create(
     address,
     price,
     ownerId,
-    "TEst",
+    'TEst',
     location,
     images,
     details,
@@ -192,7 +192,7 @@ try {
 //     description: 'This house is very old',
 //     propertyType: 'Private',
 //     apartmentType: '3BHK',
-//     accommodationType: 'Permanent',
+//     accomodationType: 'Permanent',
 //     area: '1012 ft',
 //     bedroomCount: 3,
 //     bathroomCount: 2,
@@ -234,5 +234,5 @@ try {
 // } catch (e) {
 //   console.log(e);
 // }
-console.log("Done seeding database");
+console.log('Done seeding database');
 // ifclear
