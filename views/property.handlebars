@@ -29,7 +29,7 @@
     user(s)
     added this property as their Favorite</p>
   <br>
-  <a href="/search/removeFav/{{propertyDetails._id}}"><button>Remove Favorite</button></a>
+  <a href="/search/removeFav/{{propertyDetails._id}}"><p>Remove Favorite</p></a>
   {{else}}
   <p class="favorite-count" data-favorite-count="{{propertyDetails.favouriteCount}}">{{propertyDetails.favouriteCount}}
     user(s)
@@ -86,7 +86,7 @@
   <div class="images">
     <h2>Images</h2>
     {{#each propertyDetails.images}}
-    <img src="/uploads/images/{{this}}" alt="Property image" class="prop-images"/>
+    <img src="/uploads/images/{{this}}" alt="Property image" class="prop-images">
     {{/each}}
   </div>
   {{#if isAuthenticated}}
@@ -114,7 +114,7 @@
       <h3>Add a Comment</h3>
       <form action="/comment/{{propertyDetails._id}}" method="POST">
         <textarea name="commentText" placeholder="Enter your comment here..."></textarea>
-        <br />
+        <br>
         <button type="submit">Post Comment</button>
       </form>
     </div>
