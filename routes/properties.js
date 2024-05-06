@@ -273,8 +273,8 @@ router.route('/addProperty').post(async (req, res) => {
   try {
     if (
       propertyInfo.nearestLandmarks.trim() !== '' &&
-      nearestLandmarks !== undefined &&
-      nearestLandmarks !== null
+      propertyInfo.nearestLandmarks !== undefined &&
+      propertyInfo.nearestLandmarks !== null
     ) {
       propertyInfo.nearestLandmarks = validateString(
         propertyInfo.nearestLandmarks,
@@ -308,7 +308,7 @@ router.route('/addProperty').post(async (req, res) => {
     return res.status(400).render('addProperty', {
       isAuthenticated: true,
       isError: true,
-      postData: req.body,
+      propData: req.body,
       errors: errors,
       title: 'Add Property Page',
     });
