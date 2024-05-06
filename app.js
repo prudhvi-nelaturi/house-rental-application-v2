@@ -65,6 +65,7 @@ app.use('/addProperty', upload2.array('images', 5));
 app.use('/editProperty', editPropertyMiddleware);
 app.use('/search/addProperty', searchPropertyMiddleware);
 app.use('/search/editProperty/:propertyId', editPropertyMiddleware);
+app.use('/search/updateProperty/:propertyId', editPropertyMiddleware);
 app.use('/register', upload.single('profilePicture'));
 app.use('/edit', upload.single('profilePicture'));
 app.use('/search/remove/:propertyId', changeRemoveMethod);
