@@ -6,7 +6,8 @@ if(addPropertyForm) {
     addPropertyForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const files = document.getElementById('images').files;
-
+        let dataErrTag = document.getElementById('errors')
+        dataErrTag.hidden = true;
         let street = document.getElementById('street').value;
         let apartmentNum = document.getElementById('apartmentNum').value;
         let city = document.getElementById('city').value;

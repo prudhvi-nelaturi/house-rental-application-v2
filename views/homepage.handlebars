@@ -34,6 +34,7 @@
     event.preventDefault();
     if (document.getElementById('searchProperty').value.trim() == "") {
       document.getElementById('error').hidden = false;
+      document.getElementById('searchProperty').value = ""
     } else {
       document.getElementById('error').hidden = true;
       searchBox.submit();
