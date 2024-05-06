@@ -5,7 +5,11 @@ const router = express.Router();
 //route for homepage
 router.get('/', (req, res) => {
   if (req.session && req.session.user)
-    return res.render('homepage', { title: 'Homepage', isAuthenticated: true });
+    return res.render('homepage', {
+      title: 'Homepage',
+      isAuthenticated: true,
+      Name: req.session.user.firstName,
+    });
   return res.render('homepage', { title: 'Homepage', isAuthenticated: false });
 });
 
@@ -21,11 +25,17 @@ router.get('/register', (req, res) => {
 
 //add property route
 router.get('/addProperty', (req, res) => {
-  return res.render('addProperty', {isAuthenticated: true, title: 'Add Property Page' });
+  return res.render('addProperty', {
+    isAuthenticated: true,
+    title: 'Add Property Page',
+  });
 });
 
 router.get('/editProperty', (req, res) => {
-  return res.render('editProperty', {isAuthenticated: true, title: 'Edit Property Page' });
+  return res.render('editProperty', {
+    isAuthenticated: true,
+    title: 'Edit Property Page',
+  });
 });
 
 export default router;

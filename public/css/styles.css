@@ -1,107 +1,401 @@
-.favorite-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
+/* styles.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='number'],
+select {
+  width: 50%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type='file'] {
+  margin-top: 5px;
+}
+
+button[type='submit'] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type='submit']:hover {
+  background-color: #45a049;
+}
+
+#errorTag,
+.er,
+#errors li {
   color: red;
 }
 
+#errors {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+/* Global Styles */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #333;
+}
+
+header p {
+  margin: 10px 0;
+  color: #666;
+}
+
+main h1 {
+  padding: 20px;
+}
+
+form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#how-it-works {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#how-it-works h2 {
+  margin-bottom: 20px;
+}
+
+#how-it-works ol {
+  list-style: none;
+  padding: 0;
+}
+
+#how-it-works li {
+  margin-bottom: 10px;
+}
+
+#how-it-works li strong {
+  font-weight: bold;
+}
+
+#ads,
+#ads2 {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#ads .ads-image,
+#ads2 .ads-image {
+  width: 200px;
+  height: 300px;
+}
+
+/* Styles for Property Details */
+.property-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.property-details h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.property-details h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.property-details p {
+  margin-bottom: 10px;
+}
+
+.property-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.property-details li {
+  margin-bottom: 5px;
+}
+
+.property-details img {
+  width: 200px;
+  max-width: 400px;
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+.property-details .add-comment textarea {
+  width: 100%;
+  max-width: 400px;
+  height: 100px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.property-details .add-comment button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.property-details .add-comment button:hover {
+  background-color: #45a049;
+}
+
+#location-map {
+  height: 300px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Styles for Register Page */
+#register-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+#register-page h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#register-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#register-form input,
+#register-form select {
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+#register-form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#register-form button:hover {
+  background-color: #45a049;
+}
+
+#register-form a {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+  color: #666;
+}
+
+#login-form input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 30%;
+}
+
+/* .noAccount {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 40%;
+  } */
+
+#errors {
+  color: red;
+  margin-top: 10px;
+}
+
+#errors ul {
+  list-style: none;
+  padding: 0;
+}
+
+#errors li {
+  margin-bottom: 5px;
+}
+
+/* Styles for Filters */
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters form {
+  /* display: flex; */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filters h2 {
+  margin-right: 10px;
+}
+
+.filters label {
+  margin-right: 10px;
+}
+
+.filters input[type='number'],
+.filters select {
+  padding: 8px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.filters button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #45a049;
+}
+
+/* Styles for Property Cards */
 .card {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .card-content {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .image-container {
-  position: relative;
+  position: absolute;
+  overflow: hidden;
 }
 
 .image-container img {
-   width: 10%; 
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  width: 230px;
+  height: auto;
 }
 
 .favorite-icon {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #ff6b6b;
+  color: red;
+}
+
+.property-details p {
+  margin: 5px 0;
+}
+
+.add-to-favorite button {
+  background-color: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.favorite-icon.active {
-  color: #ff4757;
+.add-to-favorite button:hover {
+  background-color: #45a049;
 }
 
-.property-details {
-  padding: 10px;
+.leftNav {
+  order: 1;
+  padding: 20px;
 }
 
-.property-card, .favorite-card {
+.rightNav {
+  order: 2;
+  padding: 20px;
+  right: 10px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.property-card,
+.favorite-card {
   padding: 15px;
   border: 1px solid grey;
   margin-bottom: 20px;
 }
 
-.property-card p, .favorite-card p {
+.property-card p,
+.favorite-card p {
   margin: 5px 0;
   text-decoration: none;
   font-size: 16px;
 }
 
-.property-card strong, .favorite-card strong {
+.property-card strong,
+.favorite-card strong {
   font-weight: bold;
 }
 
-.property-card a, .favorite-card a {
+.property-card a,
+.favorite-card a {
   text-decoration: none;
   color: blue;
   margin-right: 10px;
 }
 
-.p-card, .f-card {
+.p-card,
+.f-card {
   text-decoration: none;
 }
 
-.property-card a:hover, .favorite-card a:hover {
+.property-card a:hover,
+.favorite-card a:hover {
   text-decoration: underline;
-}
-
-#location-map {
-  height: 300px;
-  width: 50%;
-}
-
-#ads {
-  width: 250px;
-  border: 1px solid grey;
-  margin: 18px;
-  padding: 12px;
-  position: fixed;
-  right: 20px; 
-  top: 1%
-}
-
-#ads2 {
-  width: 250px;
-  border: 1px solid grey;
-  margin: 18px;
-  padding: 12px;
-  position: fixed;
-  right: 20px;
-  top: 49% 
-}
-
-.ads-image {
-  width: 60px;
-  height: 50px;
 }

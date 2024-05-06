@@ -40,8 +40,8 @@ try {
     longitude: -74.16018,
   };
   let images = [
-    '/static/house1.jpg',
-    '/static/bedroom1.jpg',
+    '/public/images/house1.jpg',
+    '/public/images/living1.jpg',
     '/static/bathroom.jpg',
   ];
   let details = {
@@ -232,5 +232,5 @@ try {
 } catch (e) {
   console.log(e);
 }
-console.log("Done seeding database");
+console.log('Done seeding database');
 // ifclear

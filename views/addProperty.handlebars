@@ -1,4 +1,5 @@
 <main>
+    <h1>Add Property</h1>
     <p id="errorTag" hidden>{{errorMsg}}</p>
     {{#if errFlag}}
     <p id="errorTag">{{errorMsg}}</p>
@@ -77,7 +78,7 @@
         <input type="number" name="zip" id="zip" value="{{propData.zip}}" required>
         <p id="zip-error" hidden></p>
 
-        <label for="nearestLandmarks">Nearest Landmarks:</label>
+        <label for="nearestLandmarks">Nearest Landmarks (separated by commas):</label>
         <input type="text" name="nearestLandmarks" maxlength="1000" id="nearestLandmarks"
             value="{{propData.nearestLandmarks}}">
         <p id="nearestLandmarks-error" hidden></p>
