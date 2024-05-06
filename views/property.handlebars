@@ -1,5 +1,6 @@
 <div class="property-details">
   <h1>Property Details</h1>
+  <p>Posted by:<strong> {{propertyDetails.ownerFullName}}</strong></p>
 
   <div class="address">
     <h2>Address</h2>
@@ -29,14 +30,18 @@
     user(s)
     added this property as their Favorite</p>
   <br>
-  <a href="/search/removeFav/{{propertyDetails._id}}"><p>Remove Favorite</p></a>
+  <a href="/search/removeFav/{{propertyDetails._id}}">
+    <p>Remove Favorite</p>
+  </a>
   {{else}}
   <p class="favorite-count" data-favorite-count="{{propertyDetails.favouriteCount}}">{{propertyDetails.favouriteCount}}
     user(s)
     added this property as their Favorite</p>
   <br>
   <div class="add-to-favorite">
-    <a href="/search/addFav/{{propertyDetails._id}}"><p>Add to Favorite</p></a>
+    <a href="/search/addFav/{{propertyDetails._id}}">
+      <p>Add to Favorite</p>
+    </a>
 
   </div>
   {{/if}}
