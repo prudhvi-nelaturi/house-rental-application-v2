@@ -1,10 +1,104 @@
 body {
     font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
 }
 
+
+header {
+    background-color: #333;
+    color: #fff;
+    display: grid;
+    justify-content: space-between;
+    padding: 20px;
+}
+  
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
 h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding: 5px 0;
+}
+
+form {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input[type="text"] {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+}
+
+
+form button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 20% ;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: silver;
+}
+
+form button[type="submit"]:active {
+    background-color: #333;
+}
+
+#ads, #ads2 {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+#register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+#register-page h1 {
+    margin: 0 auto;
     font-size: 2.5em;
     font-weight: bold;
     color: #333;
@@ -12,132 +106,276 @@ h1 {
     padding: 20px 0;
 }
 
-form {
-    padding-top: 5px;
-    border-radius: 8px;
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-    padding-bottom: 30px;
+#register-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid silver;
+    max-width: 500px;
+    padding: 20px ;
 }
 
-label {
-    display: block;
-    font-size: 1.2em;
+#register-form label {
+    font-size: 18px;
     font-weight: bold;
     color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"],
+#register-form input[type="date"],
+#register-form select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+
+#register-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+#register-form select {
+    appearance: menulist;
+}
+
+#register-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#register-form button[type="submit"]:hover {
+    background-color: #444;
+}
+
+#register-form a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    margin-top: 30px;
+    display: block;
+    transition: all 0.3s ease-in-out;
+}
+
+#register-form a:hover {
+    color: #444;
+}
+
+#errors {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px thin #f00;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #f00;
+    display: flex;
+    flex-direction: column;
+}
+
+#errors li {
     margin-bottom: 5px;
 }
 
-input[type="text"] {
-    width: 100%;
-    border: 3px solid black;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 8px;
-    box-sizing: border-box;
+
+#register-form input[type="file"] {
+    margin-top: 10px;
+}
+
+#register-form input[type="date"] {
+    padding: 5px;
+}
+
+#register-form select {
+    padding: 5px;
+}
+
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"] {
+  padding: 10px;
+}
+
+#register-form label {
+    margin-top: 10px;
+}
+  
+#register-form button[type="submit"] {
+    margin-top: 20px;
+}
+  
+
+#login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+  
+#login-page h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+  
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 300px;
 }
-
-input[type="text"]::placeholder {
-    color: silver;
+  
+#login-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }
-
-button[type="submit"] {
+  
+#login-form input[type="email"],
+#login-form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+#login-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
     background-color: black;
     color: white;
-    text-align: center;
-    padding: 10px 20px;
-    font-size: 1.2em;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
-
-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
+  
+#login-form button[type="submit"]:hover {
+    background-color: silver;
 }
 
 #user-card {
-    width: 30%;
-    margin-right: 20px;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-sizing: border-box;
-}
-  
-#user-card h2 {
-    font-size: 24px;
+    margin-top: 20px;
+    margin-left: 10px;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 200px;
+    height: 500px;
 }
 
-#user-card img {
-    border-radius: 50%;
-    margin-bottom: 20px;
+#user-card h2 {
+    font-size: 1.0rem;
+    margin-bottom: 2px;
 }
   
+#user-card img {
+    height: 150px;
+    width: 150px;
+    margin-bottom: 2px;
+}
+
 #user-card p {
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
 
 #user-card button {
-    background-color: #4CAF50;
+    padding: 7px;
+    font-size: 1rem;
+    background-color: black;
     color: white;
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 #user-card button:hover {
-    background-color: #3e8e41;
+    background-color: silver;
 }
+
   
-#edit-form {
-    width: 65%;
-    border: 1px solid #ccc;
-    padding: 20px;
+#edit-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+    border: 2px solid #ccc;
+    padding: 10px;
     box-sizing: border-box;
-    display: none;
+    width: 300px;
 }
   
 #edit-form label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5x;
+    font-size: 0.9rem;
 }
 
 #edit-form input[type="text"],
 #edit-form input[type="email"],
-#edit-form input[type="password"],
+#edit-form input[type="date"],
 #edit-form select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-#edit-form input[type="date"] {
-    width: 50%;
+    display: block;
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+#edit-form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     box-sizing: border-box;
 }
 
 #edit-form select {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
+    height: 38px;
 }
 
 #edit-form input[type="file"] {
@@ -149,263 +387,292 @@ main {
     box-sizing: border-box;
 }
 
-#edit-form button {
-    background-color: #4CAF50;
+#edit-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: black;
     color: white;
-    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 20px auto;
 }
   
-#edit-form button:hover {
-    background-color: #3e8e41;
-}
-  
-#errors {
-    color: red;
-    margin-top: 10px;
-} 
-  
-button[type="submit"]:hover {
+#edit-form button[type="submit"]:hover {
     background-color: silver;
 }
 
-#login-page {
-    display: flex;
+#properties-card {
+    display: grid;
+    margin-left: 10px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-top: -120px;
-    min-height: 100vh;
-    padding: 0 16px;
-    box-sizing: border-box;
-}
-
-#er {
-    display: inline;
-}
-
-#login-page h1 {
-    font-size: 2rem;
-    font-weight: bold;
     margin-bottom: 30px;
-}
-  
-#login-form {
-    border: 3px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: 0 auto;
-    padding: 25px;
-    border-radius: 8 px;
-    align-items: center; 
-}
-  
-#login-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-#login-form input[type="email"],
-#login-form input[type="password"] {
-padding: 5px;
-margin-bottom: 10px;
-border: 3px solid #ccc;
-border-radius: 5px;
-border-color: black;
-width: 100%;
-padding: 10px;
-font-size: 1rem;
-}
-
-
-#login-form input[type="email"]::placeholder,
-#login-form input[type="password"]::placeholder {
-color: #999;
-}
-
-#login-form button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    color: white;
-    background-color: black;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  
-
-  #login-page a {
-    display: block;
-    margin-top: 20px;
-    font-size: 0.8rem;
-    text-decoration: none;
-  }
-  
-#login-page a:hover {
-    text-decoration: underline;
-}
-  
-
-
-#register-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: -20px;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 0 16px;
+    border: 2px solid #ccc;
+    padding: 20px;
     box-sizing: border-box;
+    width: 100%;
 }
 
-#register-page h1 {
-    font-size: 2rem;
+#properties-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+  
+#properties-card a {
+    text-decoration: none;
+    color: black;
     margin-bottom: 20px;
 }
 
-#register-form {
-    border: 3px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: 0 auto;
-    padding: 25px;
-    border-radius: 8 px;
-}
-
-#register-form label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
-}
-
-#register-form input,
-#register-form select {
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 3px solid #ccc;
-    border-radius: 5px;
-    border-color: black;
-}
-
-#register-form input:focus,
-#register-form select:focus {
-    outline: none;
-    box-shadow: 0 0 3px 1px #4CAF50;
-}
-
-#register-form p {
-    color: red;
-    font-size: 0.8rem;
-    margin-bottom: 5px;
+#favorites-card{
+    display: grid;
     margin-left: 10px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;    
 }
 
-#register-form button {
-    padding: 10px 20px;
-    background-color: black;
+#favorites-card h2 {
+    font-size: 1.0rem;
+    margin-bottom: 20px;
+}
+  
+#favorites-card a {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.filters form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters label {
+    margin-bottom: 5px;
+}
+
+.filters input[type="number"],
+.filters select {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+
+.filters button {
+    padding: 10px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+  
+.property-link {
+    text-decoration: none;
+    color: black;
+}
+  
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rggya(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+  
+.card-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.image-container {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+  
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+.favorite-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+  
+.card:hover .favorite-icon {
+    opacity: 1;
+}
+  
+.favorite-icon.active {
+    color: #ff0000;
+}
+  
+.property-details {
     margin-top: 10px;
 }
-
-#register-form button:hover {
-    background-color: black;
+  
+.property-details p {
+    margin-bottom: 5px;
+}
+  
+.favorite-count {
+    font-size: 12px;
+    color: #666;
+}
+  
+.add-to-favorite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.add-to-favorite button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.add-to-favorite button:last-child {
+    background-color: #ccc;
+    color: #666;
+    pointer-events: none;
 }
 
-#register-page a {
-    text-decoration: none;
+main { 
+    width: 800px;
+    margin: 50px auto;
+    flex-direction: column; 
+    padding: 20px; 
+}
+
+#add-property-form form{
     margin-top: 20px;
 }
 
-#register-page a:hover {
-    text-decoration: underline;
+#add-property-form label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;   
 }
 
-#errors {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 10px;
+#add-property-form input[type="text"],
+#add-property-form input[type="email"],
+#add-property-form input[type="number"],
+#add-property-form input[type="date"],
+#add-property-form input[type="password"],
+#add-property-form select {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-#errors ul {
-    padding-left: 20px;
+#add-property-form select {
+appearance: none;
+background-repeat: no-repeat;
+background-position: right 10px center;
 }
 
-
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 20px;
+#add-property-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;   
 }
 
-.card-content {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+#add-property-form button:hover {
+    background-color: silver;
 }
 
-.image-container {
-  position: relative;
+.property-details { display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px; 
 }
 
-.image-container img {
-  width: 100%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+.property-details h1 { 
+    font-size: 22px; 
+    margin-bottom: 20px; 
 }
 
+.property-details .address, 
+.property-details .price, 
+.property-details .details, 
+.property-details .nearestLandmarks, 
+.property-details .location, 
+.property-details .images, 
+.property-details .comments{ 
+    margin-top: 2px; 
+} 
 
-
-.property-details {
-  padding: 10px;
+.property-details .address h2, 
+.property-details .price h2, 
+.property-details .details h2, 
+.property-details .nearestLandmarks h2, 
+.property-details .location h2, 
+.property-details .images h2, 
+.property-details .comments h2 {
+    font-size: 20px; 
+    margin-bottom: 10px;
 }
 
-#property-card, #favorite-card {
-  padding: 15px;
-  border: 1px solid grey;
-  margin-bottom: 20px;
+.property-details p { 
+    font-size: 12px; 
+    margin-bottom: 10px; 
 }
 
-#property-card p, #favorite-card p {
-  margin: 5px 0;
-  text-decoration: none;
-  font-size: 16px;
+.property-details ul { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
 }
-
-#property-card strong, #favorite-card strong {
-  font-weight: bold;
-}
-
-#property-card a, #favorite-card a {
-  text-decoration: none;
-  color: blue;
-  margin-right: 10px;
-}
-
-#p-card, #f-card {
-  text-decoration: none;
-}
-
-#property-card a:hover, #favorite-card a:hover {
-  text-decoration: underline;
-}
-
-#location-map {
-  height: 300px;
-  width: 50%;
-}
+.property-details li { margin-bottom: 10px; }
+.property-details .add-to-favorite { margin-top: 20px; }
+.property-details .add-to-favorite button { padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .add-to-favorite button:hover { background-color: #45a049; }
+.property-details .images { margin-top: 30px; }
+.property-details .images img { width: 100%; max-width: 300px; margin-right: 10px; margin-bottom: 10px; }
+.property-details .lease { margin-top: 20px; }
+.property-details .lease button { padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .lease button:hover { background-color: #45a049; }
+.property-details .comments { margin-top: 30px; }
+.property-details .comments h3 { font-size: 24px; margin-bottom: 10px; }
+.property-details .comments form { display: flex; flex-direction: column; align-items: center; margin-top: 20px; } 
+.property-details .comments textarea { width: 100%; padding: 10px; margin-top: 10px; font-size: 18px; border: 1px solid #ccc; border-radius: 5px; }
+.property-details .comments button { margin-top: 20px; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .comments button:hover { background-color: #45a049; } 
+#location-map { width: 300px; height: 400px; margin-top: 30px; border: 1px solid #ccc; border-radius: 5px; } 
