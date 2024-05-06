@@ -117,11 +117,12 @@
     {{#if isAuthenticated}}
     <div class="add-comment">
       <h3>Add a Comment</h3>
-      <form action="/comment/{{propertyDetails._id}}" method="POST">
-        <textarea name="commentText" placeholder="Enter your comment here..."></textarea>
+      <form action="/comment/{{propertyDetails._id}}" method="POST" id="commentForm">
+        <textarea name="commentText" placeholder="Enter your comment here..." id="commentText"></textarea>
         <br>
         <button type="submit">Post Comment</button>
       </form>
+  <p id="error" hidden>Please enter a comment!</p>
     </div>
     {{else}}
     <p>Please sign in to add comment.</p>
@@ -130,6 +131,19 @@
   </div>
   <div id="location-map"></div>
 </div>
+<script>
+  let commentBox = document.getElementById('commentForm');
+  commentBox.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (document.getElementById('commentText').value.trim() == "") {
+      document.getElementById('error').hidden = false;
+      document.getElementById('commentText').value = ""
+    } else {
+      document.getElementById('error').hidden = true;
+      commentBox.submit();
+    }
+  });
+</script>
 <script src="/public/js/property.js"></script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRnTkBRD7xFLM0-r898l24ypcCyLiCkO8&loading=async&callback=showMap"></script>
