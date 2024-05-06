@@ -74,7 +74,9 @@
     <img src="{{this}}" alt="Property image" />
     {{/each}}
   </div>
-
+  {{#if isAuthenticated}}
+  <div class="lease"><p><strong>Lease PDF: </strong><button id="leasePdf">Download Lease</button></p></div>
+  {{/if}}
   <div class="comments">
     <h2>Comments</h2>
     {{#if propertyDetails.comments}}

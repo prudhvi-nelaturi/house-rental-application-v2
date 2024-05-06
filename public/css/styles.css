@@ -80,3 +80,23 @@
   height: 300px;
   width: 50%;
 }
+
+#ads {
+  width: 250px;
+  border: 1px solid grey;
+  margin: 18px;
+  padding: 12px;
+  position: fixed;
+  right: 20px; 
+  top: 5%
+}
+
+#ads2 {
+  width: 250px;
+  border: 1px solid grey;
+  margin: 18px;
+  padding: 12px;
+  position: fixed;
+  right: 20px;
+  top: 50% 
+}

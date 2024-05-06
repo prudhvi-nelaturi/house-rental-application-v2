@@ -15,4 +15,17 @@ function showMap() {
     
     let propMark = new google.maps.Marker({position: place, map: propMap});
 }
-  
+
+let flag = false;
+document.getElementById('leasePdf').addEventListener('click', (e)=>{
+    // window.location = '/property/leasePdf';
+    // document.getElementById('leasePdf').disabled = true;
+    // document.getElementById('leasePdf').textContent = "Downloaded";
+    let pdf = document.getElementById('leasePdf');
+    if(!flag){
+        pdf.disabled = true;
+        window.location = '/property/leasePdf';
+        flag= true;
+        pdf.textContent = "Downloaded";
+    }
+});
