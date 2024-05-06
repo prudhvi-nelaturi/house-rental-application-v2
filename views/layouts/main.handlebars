@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
+
 <body>
     <header>
-  <nav>
-  <a href="/">Home</a>
-      {{#if isAuthenticated}}
-  <a href="/addProperty">Add Property</a>
-  <a href="/userProfile">User Page</a>
-  <a href="/logout">Logout</a>
-      {{else}}
-  <a href="/login">Login</a>
-  <a href="/register">Register</a>
-      {{/if}}
-  </nav>
-</header>
+        <nav>
+            <a href="/" class="leftNav">Home</a>
+            {{#if isAuthenticated}}
+            <a href="/addProperty" class="leftNav">Add Property</a>
+            <a href="/userProfile" class="rightNav">User Page</a>
+            <a href="/logout" class="rightNav">Logout</a>
+            {{else}}
+            <a href="/login" class="rightNav">Login</a>
+            <a href="/register" class="rightNav">Register</a>
+            {{/if}}
+        </nav>
+    </header>
     {{{body}}}
     <script src="/public/js/validation.js"></script>
     <script src="/public/js/propertyValidations.js"></script>
 </body>
+
 </html>

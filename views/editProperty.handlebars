@@ -3,7 +3,7 @@
     {{#if errFlag}}
     <p id="errorTag">{{errorMsg}}</p>
     {{/if}}
-    <form id="edit-property-form" action="/search/updateProperty/{{propData._id}}" method="POST">
+    <form id="edit-property-form" action="/search/updateProperty/{{propData._id}}" method="POST" enctype="multipart/form-data">
         {{!-- <h4>Address</h4> --}}
         <label for="street">Street<span class="er">*</span>:</label>
         <input type="text" name="street" id="street" readonly maxlength="50" value="{{propData.address.street}}"
@@ -27,7 +27,7 @@
         <input type="number" name="zip" id="zip" value="{{propData.address.zip}}" readonly required>
         <p id="zip-error" hidden></p>
 
-        <label for="nearestLandmarks">Nearest Landmarks:</label>
+        <label for="nearestLandmarks">Nearest Landmarks (separated by commas):</label>
         <input type="text" name="nearestLandmarks" id="nearestLandmarks" maxlength="1000"
             value="{{propData.nearestLandmarks}}">
         <p id="nearestLandmarks-error" hidden></p>
