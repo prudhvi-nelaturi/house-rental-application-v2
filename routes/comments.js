@@ -71,7 +71,7 @@ router
         isAuthenticated: isAuthenticated,
       });
     } catch (e) {
-      return res.status(404).json({ error: e.message });
+      return res.status(400).json({ error: e.message });
     }
   });
 

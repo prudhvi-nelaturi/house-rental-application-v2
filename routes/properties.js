@@ -111,7 +111,7 @@ router.route('/check').post(async (req, res) => {
       });
     }
   } catch (error) {
-    return res.status(404).render('error', { title: 'Error', error: error });
+    return res.status(400).render('error', { title: 'Error', error: error });
   }
 });
 
@@ -403,7 +403,7 @@ router.route('/editProperty/:propertyId').get(async (req, res) => {
       title: 'Edit Property Page',
     });
   } catch (e) {
-    return res.status(400).render('editProperty', {
+    return res.status(404).render('editProperty', {
       isAuthenticated: true,
       errorMsg: e,
       errFlag: true,
@@ -649,7 +649,7 @@ router.route('/property/:propertyId').get(async (req, res) => {
       isFavAdded: isFavAdded,
     });
   } catch (e) {
-    return res.status(404).render('error', { title: 'error', error: e });
+    return res.status(400).render('error', { title: 'error', error: e });
   }
 });
 
@@ -672,11 +672,11 @@ router
         return res.status(200).redirect('/userProfile');
       } else {
         return res
-          .status(404)
+          .status(400)
           .json({ message: 'Unable to delete the property' });
       }
     } catch (e) {
-      return res.status(404).json({ error: e });
+      return res.status(400).json({ error: e });
     }
   })
   .put(async (req, res) => {
