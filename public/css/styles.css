@@ -1,107 +1,691 @@
-.favorite-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  color: red;
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
+
+header {
+    background-color: #333;
+    color: #fff;
+    display: grid;
+    justify-content: space-between;
+    padding: 5px;
+}
+  
+header h1{
+    color: white;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding: 5px 0;
+}
+
+form {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input[type="text"] {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+}
+
+
+form button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 20% ;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: silver;
+}
+
+form button[type="submit"]:active {
+    background-color: #333;
+}
+
+#ads, #ads2 {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
+#register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+#register-page h1 {
+    margin: 0 auto;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding: 20px 0;
+}
+
+#register-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid silver;
+    max-width: 500px;
+    padding: 20px ;
+}
+
+#register-form label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"],
+#register-form input[type="date"],
+#register-form select {
   width: 100%;
-  margin-bottom: 20px;
-}
-
-.card-content {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.image-container {
-  position: relative;
-}
-
-.image-container img {
-   width: 10%; 
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-.favorite-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #ff6b6b;
-  cursor: pointer;
-}
-
-.favorite-icon.active {
-  color: #ff4757;
-}
-
-.property-details {
-  padding: 10px;
-}
-
-.property-card, .favorite-card {
-  padding: 15px;
-  border: 1px solid grey;
-  margin-bottom: 20px;
-}
-
-.property-card p, .favorite-card p {
-  margin: 5px 0;
-  text-decoration: none;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
-.property-card strong, .favorite-card strong {
-  font-weight: bold;
+
+#register-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-.property-card a, .favorite-card a {
-  text-decoration: none;
-  color: blue;
-  margin-right: 10px;
+#register-form select {
+    appearance: menulist;
 }
 
-.p-card, .f-card {
-  text-decoration: none;
+#register-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
-.property-card a:hover, .favorite-card a:hover {
-  text-decoration: underline;
+#register-form button[type="submit"]:hover {
+    background-color: #444;
 }
 
-#location-map {
-  height: 300px;
-  width: 50%;
+#register-form a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    margin-top: 30px;
+    display: block;
+    transition: all 0.3s ease-in-out;
 }
 
-#ads {
-  width: 250px;
-  border: 1px solid grey;
-  margin: 18px;
-  padding: 12px;
-  position: fixed;
-  right: 20px; 
-  top: 1%
+#register-form a:hover {
+    color: #444;
 }
 
-#ads2 {
-  width: 250px;
-  border: 1px solid grey;
-  margin: 18px;
-  padding: 12px;
-  position: fixed;
-  right: 20px;
-  top: 49% 
+#errors {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px thin #f00;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #f00;
+    display: flex;
+    flex-direction: column;
 }
 
-.ads-image {
-  width: 60px;
-  height: 50px;
+#errors li {
+    margin-bottom: 5px;
+}
+
+
+#register-form input[type="file"] {
+    margin-top: 10px;
+}
+
+#register-form input[type="date"] {
+    padding: 5px;
+}
+
+#register-form select {
+    padding: 5px;
+}
+
+#register-form input[type="text"],
+#register-form input[type="email"],
+#register-form input[type="password"] {
+  padding: 10px;
+}
+
+#register-form label {
+    margin-top: 10px;
+}
+  
+#register-form button[type="submit"] {
+    margin-top: 20px;
+}
+  
+
+#login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+  
+#login-page h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+  
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 300px;
+}
+  
+#login-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+  
+#login-form input[type="email"],
+#login-form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+#login-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+#login-form button[type="submit"]:hover {
+    background-color: silver;
+}
+
+#user-card {
+    text-align: center;
+    margin-top: 20px;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 400px;
+    height: 500px;
+}
+
+#user-card h2 {
+    font-size: 1.0rem;
+    margin-bottom: 2px;
+}
+  
+#user-card img {
+    height: 150px;
+    width: 150px;
+    margin-bottom: 2px;
+    margin-left: 31%;
+}
+
+#user-card p {
+    margin-bottom: 1px;
+}
+
+#user-card button {
+    padding: 7px;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: none;
+    cursor: pointer;
+}
+
+#user-card button:hover {
+    background-color: silver;
+}
+
+  
+#edit-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 300px;
+}
+  
+#edit-form label {
+    display: block;
+    margin-bottom: 5x;
+    font-size: 0.9rem;
+}
+
+#edit-form input[type="text"],
+#edit-form input[type="email"],
+#edit-form input[type="date"],
+#edit-form select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#edit-form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#edit-form select {
+    height: 38px;
+}
+
+#edit-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+#edit-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+#edit-form button[type="submit"]:hover {
+    background-color: silver;
+}
+
+#properties-card {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#properties-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+  
+#properties-card a {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 20px;
+}
+
+#favorites-card{
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 2px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;    
+}
+
+#favorites-card h2 {
+    font-size: 1.0rem;
+    margin-bottom: 20px;
+}
+  
+#favorites-card a {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.filters form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters label {
+    margin-bottom: 5px;
+}
+
+.filters input[type="number"],
+.filters select {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+
+.filters button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.property-link {
+    text-decoration: none;
+    color: black;
+}
+  
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rggya(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+  
+.card-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.image-container {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+  
+.image-container img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+  
+.favorite-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #ccc;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+  
+.card:hover .favorite-icon {
+    opacity: 1;
+}
+  
+.favorite-icon.active {
+    color: #ff0000;
+}
+  
+.property-details {
+    margin-top: 10px;
+}
+  
+.property-details p {
+    margin-bottom: 5px;
+}
+  
+.favorite-count {
+    font-size: 12px;
+    color: #666;
+}
+  
+.add-to-favorite {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.add-to-favorite button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.add-to-favorite button:last-child {
+    background-color: #ccc;
+    color: #666;
+    pointer-events: none;
+}
+
+main { 
+    width: 800px;
+    margin: 50px auto;
+    flex-direction: column; 
+    padding: 20px; 
+}
+
+
+#add-property-form form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#add-property-form label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;   
+}
+
+#add-property-form input[type="text"],
+#add-property-form input[type="email"],
+#add-property-form input[type="number"],
+#add-property-form input[type="date"],
+#add-property-form input[type="password"],
+#add-property-form select {
+    display: flex;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#add-property-form select {
+appearance: menulist;
+}
+
+#add-property-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;   
+}
+
+#add-property-form button:hover {
+    background-color: silver;
+}
+
+.property-details { display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px; 
+}
+
+.property-details h1 { 
+    font-size: 22px; 
+    margin-bottom: 20px; 
+}
+
+.property-details .address, 
+.property-details .price, 
+.property-details .details, 
+.property-details .nearestLandmarks, 
+.property-details .location, 
+.property-details .images, 
+.property-details .comments{ 
+    margin-top: 2px; 
+} 
+
+.property-details .address h2, 
+.property-details .price h2, 
+.property-details .details h2, 
+.property-details .nearestLandmarks h2, 
+.property-details .location h2, 
+.property-details .images h2, 
+.property-details .comments h2 {
+    font-size: 20px; 
+    margin-bottom: 10px;
+}
+
+.property-details p { 
+    font-size: 12px; 
+    margin-bottom: 10px; 
+}
+
+.property-details ul { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+.property-details li { margin-bottom: 10px; }
+.property-details .add-to-favorite { margin-top: 20px; }
+.property-details .add-to-favorite button { padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .add-to-favorite button:hover { background-color: #45a049; }
+.property-details .images { margin-top: 30px; }
+.property-details .images img { width: 100%; max-width: 300px; margin-right: 10px; margin-bottom: 10px; }
+.property-details .lease { margin-top: 20px; }
+.property-details .lease button { padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .lease button:hover { background-color: #45a049; }
+.property-details .comments { margin-top: 30px; }
+.property-details .comments h3 { font-size: 24px; margin-bottom: 10px; }
+.property-details .comments form { display: flex; flex-direction: column; align-items: center; margin-top: 20px; } 
+.property-details .comments textarea { width: 100%; padding: 10px; margin-top: 10px; font-size: 18px; border: 1px solid #ccc; border-radius: 5px; }
+.property-details .comments button { margin-top: 20px; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; }
+.property-details .comments button:hover { background-color: #45a049; } 
+#location-map { width: 500px; height: 300px; margin-top: 30px; border: 1px solid #ccc; border-radius: 5px; } 
+
+.property-card .p-card{
+    color: #007bff; /* Link color inside property card */
+}
+
+a :hover{
+    text-decoration: underline;
 }

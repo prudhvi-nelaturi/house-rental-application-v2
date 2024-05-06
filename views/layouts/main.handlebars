@@ -9,17 +9,15 @@
 <body>
     <header>
   <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
+  <a href="/">Home</a>
       {{#if isAuthenticated}}
-      <li><a href="/addProperty">Add Property</a></li>
-      <li><a href="/userProfile">User Page</a></li>
-      <li><a href="/logout">Logout</a></li>
+  <a href="/addProperty">Add Property</a>
+  <a href="/userProfile">User Page</a>
+  <a href="/logout">Logout</a>
       {{else}}
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Register</a></li>
+  <a href="/login">Login</a>
+  <a href="/register">Register</a>
       {{/if}}
-    </ul>
   </nav>
 </header>
     {{{body}}}
