@@ -5,20 +5,8 @@ let editPropertyForm = document.querySelector('#edit-property-form');
 if(addPropertyForm) {
     addPropertyForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // document.getElementById('propertyImages').addEventListener('change', function(event) {
-        //     // let propertyImagesErr = document.getElementById('propertyImages-error');
-        //     let files = event.target.files;
-        //     // let errorMessage = document.getElementById('propertyImages-error');
-        //     if (files.length < 2) {
-        //         propertyImagesErr.innerHTML = 'Minimum 2 images are required';
-        //         propertyImagesErr.hidden = false;
-        //     } else if (files.length > 5) {
-        //         propertyImagesErr.innerHTML = 'Maximum 5 images are allowed';
-        //         propertyImagesErr.hidden = false;
-        //     } else {
-        //         propertyImagesErr.hidden = true;
-        //     }
-        // });
+        const files = document.getElementById('images').files;
+
         let street = document.getElementById('street').value;
         let apartmentNum = document.getElementById('apartmentNum').value;
         let city = document.getElementById('city').value;
@@ -36,7 +24,7 @@ if(addPropertyForm) {
         let bathroomCount = document.getElementById('bathroomCount').value;
         let nearestLandmarks = document.getElementById('nearestLandmarks').value;
 
-        let propertyImages = document.getElementById('propertyImages').value;
+        // let images = document.getElementById('images').value;
 
         let streetErr = document.getElementById('street-error');
         let apartmentNumErr = document.getElementById('apartmentNum-error');
@@ -54,9 +42,20 @@ if(addPropertyForm) {
         let bedroomCountErr = document.getElementById('bedroomCount-error');
         let bathroomCountErr = document.getElementById('bathroomCount-error');
         let nearestLandmarksErr = document.getElementById('nearestLandmarks-error');
-        let propertyImagesErr = document.getElementById('propertyImages-error');
+        let imagesErr = document.getElementById('images-error');
  
         let errorFlag = false;
+
+        if (files.length < 2) {
+            imagesErr.hidden = false;
+            imagesErr.innerHTML = "Upload minimum 2 images";
+            errorFlag = true;
+        }
+        if (files.length > 5) {
+            imagesErr.hidden = false;
+            imagesErr.innerHTML = "Upload maximum 5 images";
+            errorFlag = true;
+        }
 
         try {
             street = validateStringNew(street, 'Street');
@@ -226,7 +225,7 @@ if(addPropertyForm) {
             areaErr.hidden = false;
             bedroomCountErr.hidden = false;
             bathroomCountErr.hidden = false;
-            propertyImagesErr.hidden = false;
+            imagesErr.hidden = false;
             nearestLandmarksErr.hidden = false;
             addPropertyForm.submit();
         }
@@ -249,7 +248,7 @@ if(editPropertyForm) {
         let accomodationType = document.getElementById('accomodationType').value;
         let nearestLandmarks = document.getElementById('nearestLandmarks').value;
 
-        let propertyImages = document.getElementById('propertyImages').value;
+        let images = document.getElementById('images').value;
 
         let priceErr = document.getElementById('price-error');
         let descriptionErr = document.getElementById('description-error');
@@ -257,7 +256,7 @@ if(editPropertyForm) {
         let accomodationTypeErr = document.getElementById('accomodationType-error');
         let nearestLandmarksErr = document.getElementById('nearestLandmarks-error');
 
-        let propertyImagesErr = document.getElementById('propertyImages-error');
+        let imagesErr = document.getElementById('images-error');
  
         let errorFlag = false;
        
@@ -311,7 +310,7 @@ if(editPropertyForm) {
             descriptionErr.hidden = false;
             propertyTypeErr.hidden = false;
             accomodationTypeErr.hidden = false;
-            propertyImagesErr.hidden = false;
+            imagesErr.hidden = false;
             nearestLandmarksErr.hidden = false;
             editPropertyForm.submit();
         }
