@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use('/public', express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/uploads', express.static('uploads'));
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 

@@ -35,10 +35,10 @@ function showAd(resMsg, propAd) {
     let x = resMsg;
             let content = $(
                 `<p><strong>Sponsored Ads: </strong></p>
-                <img src="${x.images[0]}" alt="Property Image">
+                <img src="/uploads/images/${x.images[0]}" alt="Property Image" class="ads-image">
                 <p><strong>House: </strong>${x.address.street}, ${x.address.city}, ${x.address.state}</p>
                 <p><strong>Posted By: </strong>${x.ownerFullName}</p>
-                <p><strong>Rent: </strong>${x.price}</p>
+                <p><strong>Rent: </strong>${x.price}$</p>
                 <p><strong>Type: </strong>${x.details.apartmentType}, ${x.details.propertyType}</p>
                 <a href="/search/property/${x._id}">Go To Property</a>`
             );
