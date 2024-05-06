@@ -19,6 +19,7 @@
     <input type="email" name="email" id="email" value="{{postData.email}}" required>
     <p id="email-error" hidden></p>
 
+    <input type="text" value="{{postData.gender}}" hidden id="genderTag">
     <label for="gender">Gender<span class="er">*</span>: </label>
     <select name="gender" id="gender" required>
         <option value="" selected disabled>Select Gender</option>
@@ -42,6 +43,7 @@
     <input type="password" name="confirmPassword" id="confirmPassword" value="{{postData.confirmPassword}}" required>
     <p id="confirmPassword-error" hidden></p>
     
+    <input type="text" value="{{postData.state}}" hidden id="stateTag">
     <label for="state">State<span class="er">*</span>: </label>
     <select name="state" id="state" required>
         <option value="" selected disabled>Select State</option>
