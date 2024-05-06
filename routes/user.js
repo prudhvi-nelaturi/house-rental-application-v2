@@ -436,4 +436,42 @@ router.route('/removeFavorite/:propId').delete(async (req, res) => {
   }
 });
 
+router
+  .route('/adsRandom')
+  .get(async (req, res) =>{
+    try{
+      let prop = await users.propertyAdsRandom();
+      return res.json(prop);
+    } catch(e) {
+      return res.status(500).json({error: e});
+    }
+  });
+
+  router
+  .route('/adsLastProp')
+  .get(async (req, res) =>{
+    try{
+      let prop = await users.propertyAdsLast();
+      return res.json(prop);
+    } catch(e) {
+      return res.status(500).json({error: e});
+    }
+  });
+
+  router
+  .route('/property/leasePdf')
+  .get(async (req, res) =>{
+    try{
+      //let pdfPath = './LeasePdf/sample.pdf';
+      return res.download('./uploads/leasePdf/lease.pdf', (error)=>{
+        if(error) {
+          return res.status(500).json({error: e});
+        }
+      });
+      
+    } catch(e) {
+      return res.status(500).json({error: e});
+    }
+  });
+
 export default router;

@@ -237,3 +237,25 @@ export const getFavoritesByUser = async (userId) => {
   let favouriteIds = user.favouriteIds;
   return favouriteIds;
 };
+
+export const propertyAdsLast = async () => {
+  let propCollection = await properties();
+  let allProps = await propCollection.find({}).toArray();
+  if(!allProps) throw "Error: Could not fetch properties";
+  let n = allProps.length;
+  if(n>0) return allProps[n-1];
+  else return {propLen: 0};
+}
+
+export const propertyAdsRandom = async () => {
+  let propCollection = await properties();
+  let allProps = await propCollection.find({}).toArray();
+  if(!allProps) throw "Error: Could not fetch properties";
+  let n = allProps.length;
+  if(n>1) {
+    let index = Math.floor(Math.random()*n);
+    return allProps[index-1];
+  }
+  else if(n==1) return allProps[0];
+  else return {propLen: 0};
+}

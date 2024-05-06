@@ -216,23 +216,21 @@ try {
 //   console.log(error);
 // }
 
-// try {
-//   let result = await createUser(
-//     'Edwin',
-//     'A',
-//     'Stevens',
-//     'abcde@gmail.com',
-//     'M',
-//     25,
-//     'owner',
-//     'thisismypassword',
-//     'Hoboken',
-//     'NJ',
-//     '/static/picture1.jpg'
-//   );
-//   console.log(result);
-// } catch (e) {
-//   console.log(e);
-// }
+try {
+  let result = await createUser(
+    'testFirstName',
+    '',
+    'testLastName',
+    'Test@gmail.com',
+    'male',
+    '08/24/1992',
+    'Test@123',
+    'Hoboken',
+    'NJ',
+    'BasePic.jpg'
+  );
+} catch (e) {
+  console.log(e);
+}
 console.log("Done seeding database");
 // ifclear
