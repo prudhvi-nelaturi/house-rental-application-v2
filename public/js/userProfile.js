@@ -65,7 +65,7 @@ $(document).ready(()=> {
                 validateName(firstName, 'firstName');
             } catch(e) {
                 fNameError.show();
-                fNameError.html(2);
+                fNameError.html(e);
                 errorFlag = true;
                 fFlag = true;
             }

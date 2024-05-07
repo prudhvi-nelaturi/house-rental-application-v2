@@ -8,15 +8,15 @@
         {{!-- <h4>Address</h4> --}}
         <label for="street">Street<span class="er">*</span>:</label>
         <input type="text" name="street" maxlength="50" id="street" value="{{propData.street}}" required>
-        <p id="street-error" hidden></p>
+        <p id="street-error" class="allErrors" hidden></p>
 
         <label for="apartmentNum">Apartment No.:</label>
         <input type="text" name="apartmentNum" maxlength="25" id="apartmentNum" value="{{propData.apartmentNum}}">
-        <p id="apartmentNum-error" hidden></p>
+        <p id="apartmentNum-error" class="allErrors" hidden></p>
 
         <label for="city">City<span class="er">*</span>:</label>
         <input type="text" name="city" maxlength="25" id="city" value="{{propData.city}}" required>
-        <p id="city-error" hidden></p>
+        <p id="city-error" class="allErrors" hidden></p>
 
         <input type="text" value="{{propData.state}}" hidden id="stateTag">
         <label for="state">State<span class="er">*</span>:</label>
@@ -73,36 +73,36 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </select>
-        <p id="state-error" hidden></p>
+        <p id="state-error" class="allErrors" hidden></p>
 
         <label for="zip">Zip Code<span class="er">*</span>:</label>
         <input type="number" name="zip" id="zip" value="{{propData.zip}}" required>
-        <p id="zip-error" hidden></p>
+        <p id="zip-error" class="allErrors" hidden></p>
 
         <label for="nearestLandmarks">Nearest Landmarks (separated by commas):</label>
         <input type="text" name="nearestLandmarks" maxlength="1000" id="nearestLandmarks"
             value="{{propData.nearestLandmarks}}">
-        <p id="nearestLandmarks-error" hidden></p>
+        <p id="nearestLandmarks-error" class="allErrors" hidden></p>
 
         {{!-- <h4>Price</h4> --}}
         <label for="price">Price<span class="er">*</span>: $</label>
         <input type="number" step="0.01" name="price" id="price" value="{{propData.price}}" required>
-        <p id="price-error" hidden></p>
+        <p id="price-error" class="allErrors" hidden></p>
 
         <label for="latitude">Latitude<span class="er">*</span>:</label>
         <input type="number" step="0.000001" name="latitude" id="latitude" value="{{propData.latitude}}" required>
-        <p id="latitude-error" hidden></p>
+        <p id="latitude-error" class="allErrors" hidden></p>
 
         <label for="longitude">Longitude<span class="er">*</span>:</label>
         <input type="number" step="0.000001" name="longitude" id="longitude" value="{{propData.longitude}}" required>
-        <p id="longitude-error" hidden></p>
+        <p id="longitude-error" class="allErrors" hidden></p>
 
 
         {{!-- <h4>Details</h4> --}}
         <label for="description">Description<span class="er">*</span>:</label>
         <input type="text" name="description" maxlength="1000" id="description" value="{{propData.description}}"
             required>
-        <p id="description-error" hidden></p>
+        <p id="description-error" class="allErrors" hidden></p>
 
         {{!-- <label for="propertyType">Property Type<span class="er">*</span>:</label>
         <input type="text" name="propertyType" id="propertyType">
@@ -115,7 +115,7 @@
             <option value="private">Private</option>
             <option value="shared">Shared</option>
         </select>
-        <p id="propertyType-error" hidden></p>
+        <p id="propertyType-error" class="allErrors" hidden></p>
 
         {{!-- <label for="apartmentType">Apartment Type<span class="er">*</span>:</label>
         <input type="text" name="apartmentType" id="apartmentType">
@@ -132,7 +132,7 @@
             <option value="studio">Studio</option>
             <option value="flex">Flex</option>
         </select>
-        <p id="apartmentType-error" hidden></p>
+        <p id="apartmentType-error" class="allErrors" hidden></p>
 
         {{!-- <label for="accomodationType">Accommodation Type<span class="er">*</span>:</label>
         <input type="text" name="accomodationType" id="accomodationType">
@@ -145,23 +145,23 @@
             <option value="permanent">Permanent</option>
             <option value="temporary">Temporary</option>
         </select>
-        <p id="accomodationType-error" hidden></p>
+        <p id="accomodationType-error" class="allErrors" hidden></p>
 
         <label for="area">Area in square feet<span class="er">*</span>:</label>
         <input type="number" name="area" id="area" value="{{propData.area}}" required>
-        <p id="area-error" hidden></p>
+        <p id="area-error" class="allErrors" hidden></p>
 
         <label for="bedroomCount">No. of Bedrooms<span class="er">*</span>:</label>
         <input type="number" name="bedroomCount" id="bedroomCount" value="{{propData.bedroomCount}}" required>
-        <p id="bedroomCount-error" hidden></p>
+        <p id="bedroomCount-error" class="allErrors" hidden></p>
 
         <label for="bathroomCount">No. of Bathrooms<span class="er">*</span>:</label>
         <input type="number" name="bathroomCount" id="bathroomCount" value="{{propData.bathroomCount}}" required>
-        <p id="bathroomCount-error" hidden></p>
+        <p id="bathroomCount-error" class="allErrors" hidden></p>
 
         <label for="images">Upload Property Photos<span class="er">*</span>: </label>
         <input name="images" id="images" type="file" accept="image/*" multiple>
-        <p id="images-error" hidden></p>
+        <p id="images-error" class="allErrors" hidden></p>
 
         <button type="submit" name="submitButton" id="submitButton">Submit</button>
         {{!-- <button type="cancel" name="cancelButton" id="cancelButton">Cancel</button> --}}

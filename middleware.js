@@ -44,3 +44,11 @@ export const searchPropertyMiddleware = (req, res, next) => {
     next();
   }
 };
+
+export const commentMiddleware = (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/');
+  } else {
+    next();
+  }
+};

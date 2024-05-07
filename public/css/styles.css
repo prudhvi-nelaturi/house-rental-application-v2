@@ -407,3 +407,8 @@ nav {
   color: #333;
   font-size: large;
 }
+
+.allErrors{
+  color: red;
+  font-weight: bold;
+}

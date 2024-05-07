@@ -11,6 +11,7 @@ import {
   loginMiddleware,
   registerMiddleware,
   userMiddleware,
+  commentMiddleware
 } from './middleware.js';
 
 const app = express();
@@ -72,6 +73,8 @@ app.use('/search/remove/:propertyId', changeRemoveMethod);
 app.use('/removeFavorite/:propId', changeRemoveMethod);
 app.use('/search/updateProperty/:propertyId', changeEditMethod);
 app.use('/search/updateProperty/:propertyId', upload2.array('images', 5));
+app.use('/comment', commentMiddleware);
+app.use('/comment/:commentId', commentMiddleware);
 configRoutesFunction(app);
 
 app.listen(3000, (req, res) => {
