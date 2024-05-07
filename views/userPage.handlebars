@@ -19,7 +19,7 @@
         <form id="myForm" enctype="multipart/form-data">
         <label for="firstName">First Name<span class="er">*</span>:</label>
         <input type="text" name="firstName" id="firstName" minlength="2" maxlength="25" value="{{user.firstName}}" required>
-        <p id="firstName-error" hidden></p>
+        <p id="firstName-error" class="allErrors" hidden></p>
 
 
         <label for="middleName">Middle Name: </label>
@@ -27,11 +27,11 @@
 
         <label for="lastName">Last Name<span class="er">*</span>:</label>
         <input type="text" name="lastName" id="lastName" minlength="2" maxlength="25" value="{{user.lastName}}" required>
-        <p id="lastName-error" hidden></p>
+        <p id="lastName-error" class="allErrors" hidden></p>
 
         <label for="email">Email<span class="er">*</span>: </label>
         <input type="email" name="email" id="email" value="{{user.email}}" readonly> <span>* Can not edit Email Id</span>
-        <p id="email-error" hidden></p>
+        <p id="email-error" class="allErrors" hidden></p>
 
         <label for="gender">Gender<span class="er">*</span>: </label>
         <select name="gender" id="gender">
@@ -39,21 +39,21 @@
             <option value="female">Female</option>
             <option value="other">Other</option>
         </select>
-        <p id="gender-error" hidden></p>
+        <p id="gender-error" class="allErrors" hidden></p>
 
 
         <label for="age">Date Of Birth<span class="er">*</span>: </label>
         <input name="age" id="age" type="date" required>
-        <p id="age-error" hidden></p>
+        <p id="age-error" class="allErrors" hidden></p>
         <!--yyyy-mm-dd -->
 
         <label for="password">Password: </label>
         <input type="password" name="password" id="password" placeholder="New Password">
-        <p id="password-error" hidden></p>
+        <p id="password-error" class="allErrors" hidden></p>
 
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" name="confirmPassword" id="confirmPassword">
-        <p id="confirmPassword-error" hidden></p>
+        <p id="confirmPassword-error" class="allErrors" hidden></p>
         
         <label for="state">State<span class="er">*</span>: </label>
         <select name="state" id="state">
@@ -108,15 +108,15 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </select>
-        <p id="state-error" hidden></p>
+        <p id="state-error" class="allErrors" hidden></p>
 
         <label for="city">City<span class="er">*</span>: </label>
         <input type="text" name="city" id="city" value="{{user.city}}" required>
-        <p id="city-error" hidden></p>
+        <p id="city-error" class="allErrors" hidden></p>
 
         <label for="profilePicture">Profile Picture: </label>
         <input name="profilePicture" id="profilePicture" type="file" accept="image/*">
-        <p id="profilePicture-error" hidden></p>
+        <p id="profilePicture-error" class="allErrors" hidden></p>
 
 
         <button type="submit" name="submit-button" id="submit-button">Save Changes</button>
