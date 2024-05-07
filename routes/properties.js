@@ -531,26 +531,33 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
   } catch (e) {
     errors.push(e);
   }
-
-   let address = {
-    street: propertyInfo.street,
-    apartmentNum: propertyInfo.apartmentNum,
-    city: propertyInfo.city,
-    state: propertyInfo.state,
-    zip: propertyInfo.zip,
+  let propertyDetails = undefined;
+  try {
+    propertyDetails = await properties.get(req.params.propertyId);
+    // let errStr = compareData(propertyDetails, retObj);
+    // if (errStr.trim() !== '') errors.push(errStr);
+  } catch (e) {
+    errors.push(e);
+  }
+  let address = {
+    street: propertyDetails.address.street,
+    apartmentNum: propertyDetails.address.apartmentNum,
+    city: propertyDetails.address.city,
+    state: propertyDetails.address.state,
+    zip: propertyDetails.address.zip,
   };
   let details = {
     description: propertyInfo.description,
     propertyType: propertyInfo.propertyType,
-    apartmentType: propertyInfo.apartmentType,
+    apartmentType: propertyDetails.details.apartmentType,
     accomodationType: propertyInfo.accomodationType,
-    area: parseInt(propertyInfo.area),
-    bedroomCount: parseInt(propertyInfo.bedroomCount),
-    bathroomCount: parseInt(propertyInfo.bathroomCount),
+    area: propertyDetails.details.area,
+    bedroomCount: propertyDetails.details.bedroomCount,
+    bathroomCount: propertyDetails.details.bathroomCount,
   };
   let location = {
-    latitude: propertyInfo.latitude,
-    longitude: propertyInfo.longitude,
+    latitude: propertyDetails.location.latitude,
+    longitude: propertyDetails.location.longitude,
   };
   let ownerFullName =
     req.session.user.firstName + ' ' + req.session.user.lastName;
@@ -563,15 +570,7 @@ router.route('/updateProperty/:propertyId').put(async (req, res) => {
     price: propertyInfo.price,
     location: location,
   };
-  let propertyDetails = undefined;
-  try {
-    propertyDetails = await properties.get(req.params.propertyId);
-
-    let errStr = compareData(propertyDetails, retObj);
-    if (errStr.trim() !== '') errors.push(errStr);
-  } catch (e) {
-    errors.push(e);
-  }
+  
   let imgs = [];
   if(req.files && req.files.length>0){
     req.files.forEach((x)=> {
