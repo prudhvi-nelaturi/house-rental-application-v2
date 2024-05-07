@@ -7,7 +7,6 @@
         <input type="number" id="price" name="price">
         <label for="accomodation-type-filter">Accommodation Type:</label>
         <select name="accomodationType" id="accomodation-type-filter">
-            <option value="" selected disabled hidden></option>
             <option value="permanent">Permanent</option>
             <option value="temporary">Temporary</option>
         </select>
@@ -16,6 +15,7 @@
 </div>
 <br>
 
+{{#if searchResults}}
 
 {{#each searchResults}}
 <a href="/search/property/{{this._id}}" class="property-link">
@@ -42,20 +42,23 @@
             {{#if this.isFavor}}
             {{!-- <a href="javascript:void(0)" id="addToFav" hidden><button>Add to Favorite</button></a>
             <a href="javascript:void(0)" id="removeFav"><button>Remove from Favorite</button></a> --}}
-            <button id="addToFav" type="submit" hidden>Add to Favorite</button>
-            <button id="removeFav" type="submit">Remove from Favorite</button>
+            <button class="addToFav" type="submit" hidden>Add to Favorite</button>
+            <button class="removeFav" type="submit">Remove from Favorite</button>
             {{else}}
             <div class="add-to-favorite">
-                <button type="submit" id="addToFav">Add to Favorite</button>
-</a>
-<button type="submit" id="removeFav" hidden>Remove from Favorite</button></a>
-</div>
-{{/if}}
-{{/if}}
-</div>
-</div>
+                <button type="submit" class="addToFav">Add to Favorite</button>
+                <button type="submit" class="removeFav" hidden>Remove from Favorite</button>
+            </div>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
 </a>
 {{/each}}
+{{else}}
+<p id="error">There are no results on {{searchProperty}}!</p>
+
+{{/if}}
 
 <script>
     document.getElementById("apply-filters-btn").addEventListener("click", function () {
