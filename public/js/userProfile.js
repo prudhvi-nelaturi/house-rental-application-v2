@@ -83,7 +83,7 @@ $(document).ready(()=> {
             }
             if(!lFlag) lNameError.hide();
 
-            let mNameError = $('middleName-error');
+            let mNameError = $('#middleName-error');
             if(middleName){
                 let mFlag = false;
                 try {
@@ -166,7 +166,7 @@ $(document).ready(()=> {
             let cpFlag = false;
             if(password != confirmPassword) {
                 confirmError.show();
-                confirmError.html("Both passwwords did not match");
+                confirmError.html("Both passwords did not match");
                 errorFlag = true;
                 cpFlag = true;
             }
