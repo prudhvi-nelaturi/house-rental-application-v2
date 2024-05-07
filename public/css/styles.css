@@ -417,3 +417,8 @@ nav {
   font-size: large;
   /* text-align: center; */
 }
+
+.allErrors{
+  color: red;
+  font-weight: bold;
+}
