@@ -1,7 +1,7 @@
 {
   "name": "cs-546-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "A house rental application designed specifically for International Students living in the USA who are hunting for a house.",
   "main": "app.js",
   "type": "module",
   "scripts": {
