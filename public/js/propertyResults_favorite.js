@@ -60,32 +60,32 @@
 //   });
 // });
 $(document).ready(function () {
-  $(".card-content").on("click", "#addToFav", function (e) {
+  $('.card-content').on('click', '.addToFav', function (e) {
     e.preventDefault();
-    let propertyId = $(this).closest(".card-content").find("#propId").val();
+    let propertyId = $(this).closest('.card-content').find('#propId').val();
     let favoriteCountElement = $(this)
-      .closest(".card-content")
-      .find(".favorite-count");
+      .closest('.card-content')
+      .find('.favorite-count');
     addToFavorite(propertyId, $(this), favoriteCountElement);
   });
 
-  $(".card-content").on("click", "#removeFav", function (e) {
+  $('.card-content').on('click', '.removeFav', function (e) {
     e.preventDefault();
-    let propertyId = $(this).closest(".card-content").find("#propId").val();
+    let propertyId = $(this).closest('.card-content').find('#propId').val();
     let favoriteCountElement = $(this)
-      .closest(".card-content")
-      .find(".favorite-count");
+      .closest('.card-content')
+      .find('.favorite-count');
     removeFromFavorite(propertyId, $(this), favoriteCountElement);
   });
 
   function addToFavorite(propertyId, addButton, favoriteCountElement) {
     $.ajax({
-      method: "GET",
+      method: 'GET',
       url: `/search/addFavFromSearch/${propertyId}`,
       success: function (resMsg) {
         console.log(resMsg);
         addButton.hide();
-        addButton.closest(".card-content").find("#removeFav").show();
+        addButton.closest('.card-content').find('.removeFav').show();
         updateFavoriteCount(favoriteCountElement, true);
       },
     });
@@ -93,12 +93,12 @@ $(document).ready(function () {
 
   function removeFromFavorite(propertyId, removeButton, favoriteCountElement) {
     $.ajax({
-      method: "GET",
+      method: 'GET',
       url: `/search/removeFavFromSearch/${propertyId}`,
       success: function (resMsg) {
         console.log(resMsg);
         removeButton.hide();
-        removeButton.closest(".card-content").find("#addToFav").show();
+        removeButton.closest('.card-content').find('.addToFav').show();
         updateFavoriteCount(favoriteCountElement, false);
       },
     });
@@ -106,16 +106,16 @@ $(document).ready(function () {
 
   function updateFavoriteCount(favoriteCountElement, increment) {
     let currentCount =
-      parseInt(favoriteCountElement.attr("data-favorite-count")) || 0;
+      parseInt(favoriteCountElement.attr('data-favorite-count')) || 0;
     if (increment) {
       currentCount++;
     } else {
       currentCount--;
     }
     currentCount = Math.max(0, currentCount);
-    favoriteCountElement.attr("data-favorite-count", currentCount);
+    favoriteCountElement.attr('data-favorite-count', currentCount);
     favoriteCountElement.text(
-      currentCount + " user(s) added this property as their Favorite"
+      currentCount + ' user(s) added this property as their Favorite'
     );
   }
 });
